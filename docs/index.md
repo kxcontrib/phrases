@@ -8,9 +8,9 @@
 1  | [ascending ordinals (ranking, shareable)](sorts.md#ordinals-ranking-shareable) | `asc[x]?x`
 13 | [ascending ordinals (ranking, all different)](sorts.md#ordinals-ranking-all-different) | `iasc iasc x`
 17 | [descending ordinals (ranking, all different)](sorts.md#ordinals-ranking-all-different) | `idesc idesc x`
-   | [indices from flags x](sublists.md#partition-a-list) | `where x`
+-   | [indices from flags x](sublists.md#partition-a-list) | `where x`
 5b | [indices from lengths x](sublists.md#partition-a-list) | `0,sums -1_x`
-   | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
+-  | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 6, 14 | [aggregate function x on sublists of y](sublists.md#apply-aggregate-function-to-sublists) | `x each(…)_y` 
 2, 3, 5, 7, 15  | [uniform function x on sublists of y](sublists.md#apply-uniform-function-to-sublists) | `raze x each(…)_y` 
 4  | are x and y permutations of each other? | `(asc x)~asc y`
