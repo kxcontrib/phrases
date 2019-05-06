@@ -69,7 +69,9 @@ nav:
   - Q Reference: 'https://code.kx.com/v2/ref'
   - Introduction: introduction.md
   - Index: index.md
+  - Casting: cast.md
   - Merge: merge.md
-  - Operations on sublists: sublists.md
+  - Sublists: sublists.md
   - Sorts: sorts.md
+  - Miscellaneous: misc.md
   - Original wiki page: wikipage.md

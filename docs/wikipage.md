@@ -4,7 +4,7 @@
 
 ==Wiki page converted to Markdown; some k sections removed==
 
-After [[wikipedia:Eugene_McDonnell|Eugene McDonnell’s]] k idiom list for k2 - the original version can be found [http://kx.com/technical/contribs/eugene/kidioms.html here].
+After [Eugene McDonnell’s](https://en.wikipedia.org/wiki/Eugene_McDonnell) k idiom list for k2. See [article by Simon Garland](https://kx.com/blog/q-idioms/).
 
 
 ## 1. Ascending ordinals (ranking, shareable)

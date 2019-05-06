@@ -47,6 +47,21 @@ q)y~raze(0,sums -1_x)_y
 ```
 
 
+## Reverse each sublist
+
+```q
+q)x:"thequickbrownfox"                              / vector
+q)y:3 5 5 3                                         / partition lengths
+q)il:{-1_ sums 0,x}                                 / indices from lengths
+q)il y                                              / partition indices
+0 3 8 13
+q)x reverse idesc sums til[count x] in 0 3 8 13     / from indices
+"ehtkciuqnworbxof"
+q)x reverse idesc sums til[count x] in il y         / from partition lengths
+"ehtkciuqnworbxof"
+```
+
+
 ## Apply aggregate function to sublists
 
 <big>`ƒ each (…)_y`</big>
