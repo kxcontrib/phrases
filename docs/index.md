@@ -81,9 +81,9 @@ Q Idiom | description | phrase
 
 Q Idiom | description | phrase
 --:|-------------|-------
--   | [indices from flags x](sublists.md#partition-a-list) | `where x`
+n/a | [indices from flags x](sublists.md#partition-a-list) | `where x`
 5b | [indices from lengths x](sublists.md#partition-a-list) | `0,sums -1_x`
--  | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
+n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 6, 14 | [aggregate function x on sublists of y](sublists.md#apply-aggregate-function-to-sublists) | `x each(…)_y` 
 2, 3, 5, 7, 15  | [uniform function x on sublists of y](sublists.md#apply-uniform-function-to-sublists) | `raze x each(…)_y` 
 26 | insert y after "=" in x |`g:where x="="`<br>`(x,"*")[count[x]&iasc til[count x],(y*count g)#g]`
