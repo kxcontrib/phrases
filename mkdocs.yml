@@ -46,7 +46,7 @@ plugins:
   # - markdownextradata
 remote_branch: 'master'
 repo_name: 'GitHub'
-repo_url: 'https://github.com/kxsystems/phrases'
+repo_url: 'https://github.com/StephenTaylor-Kx/phrases'
 site_dir: 'site'
 site_author: 'Kx Systems'
 site_description: "Q expressions for common tasks"
