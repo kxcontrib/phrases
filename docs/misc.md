@@ -1,158 +1,6 @@
 # Miscellaneous
 
 
-## Formatted integers
-
-```q
-q)show x:5?100
-14 13 9 74 55
-q)10 vs x
-1 1 0 7 5
-4 3 9 4 5
-q)flip "0123456789" 10 vs x
-"14"
-"13"
-"09"
-"74"
-"55"
-q)string x
-"14"
-"13"
-,"9"
-"74"
-"55"
-```
-
-<i class="far fa-hand-point-right"></i>
-Reference: 
-[`string`](/v2/ref/string), 
-[`vs`](/v2/ref/vs)
-
-
-
-## 47. Polynomial with roots x
-
-```q
-q)x:1 -6 8
-q){(x,0)-y*0,x} over 1,x
-1 -3 -46 48
-
-q)x:2 4
-q){(x,0)-y*0,x} over 1,x
-1 -6 8
-
-q)x:1 2
-q){(x,0)-y*0,x} over 1,x
-1 -3 2
-
-q)x:1 2 3
-q){(x,0)-y*0,x} over 1,x
-1 -6 11 -6
-```
-
-
-## 48. Saddle-point indices
-
-```q
-q)x
-4 2 4 4 2 4
-5 3 5 5 3 5
-4 2 4 4 2 4
-1 2 4 4 2 4
-5 3 5 5 3 5
-4 2 4 4 2 4
-```
-
-
-### 48a. Flag row minimums
-
-```q
-q)rn:{x=min each x}
-q)rn x
-010010b 
-010010b
-010010b
-100000b
-010010b
-010010b
-```
-
-
-### 48b. Flag column maximums
-
-```q
-q)cx:{x=\:max x}
-q)cx x
-000000b
-111111b
-000000b
-000000b
-111111b
-000000b
-```
-
-
-### 48c. Flag minmax of rows and columns
-
-```q
-q)minmax:{(rn x)&cx x}
-q)minmax x
-000000b
-010010b
-000000b
-000000b
-010010b
-000000b
-```
-
-
-### 48d. Find flags in ravel of Boolean matrix
-
-```q
-q)ones:{where raze minmax x}
-q)ones x
-7 10 25 28
-```
-
-
-### 48e. Row-column indices 
-
-Where `y` are indices into the ravel of matrix `x`, returns the `x` row-column indices of `y`.
-
-```q
-q)rc:{(div;mod).\:(y;count first x)}
-```
-
-Find saddle-point indices.
-
-```q
-q)sp:{rc[x;ones x]} 
-q)sp x
-1 1 4 4
-1 4 1 4
-```
-
-
-## 50. Connectivity list from connectivity matrix
-
-```q
-q)show m:(1 0 1;1 0 1)
-1 0 1
-1 0 1
-q)raze m
-1 0 1 1 0 1
-q)where raze m
-0 2 3 5
-q)rc[m;] where raze m
-0 0 1 1
-0 2 0 2
-q)lm:{rc[x;]where raze x}
-q)lm m
-0 0 1 1
-0 2 0 2
-```
-
-
 ## All pairs of `til[x]` and `til[y]`
 
 ```q
@@ -206,24 +54,6 @@ q)shape[x] vs where raze[y]in raze x
 ```
 
 
-
-
-## Truth table of order x
-
-```q
-q)tt:{2 vs til "j"$2 xexp x}
-q)tt 1
-0 1
-q)tt 2
-0 0 1 1
-0 1 0 1
-q)tt 3
-0 0 0 0 1 1 1 1
-0 0 1 1 0 0 1 1
-0 1 0 1 0 1 0 1
-```
-
-
 ## Cyclic counter 
 
 Length `x`, repeating 1 through `y`
@@ -238,15 +68,203 @@ q)1+(1+til x)mod y
 ```
 
 
-## Integer and fractional parts of positive x
+## Selection by encoded list
 
 ```q
-q)x:12.3 23.4 5.33 8.999
-q){f,'x-f:floor x}x
-12 0.3
-23 0.4
-5  0.33
-8  0.999
+q)"abcdefgh"[2 sv 1 0 1]
+"f"
+q)"abcdefgh"[2 sv 0 0 0]
+"a"
+q)"abcdefgh"[2 sv 1 1 1]
+"h"
+q)"abcdefgh" 2 sv flip 3 3 #1 0 1 0 0 0 1 1 1
+"fah"
 ```
+
+
+## Remove duplicate rows
+
+```q
+q)x:("to";"be";"or";"not";"to";"be")
+q)distinct x
+"to"
+"be"
+"or"
+"not"
+```
+
+
+## Remove trailing blanks
+
+```q
+q)x:"trailing blanks    "
+q)(neg sum mins reverse " "=x)_ x
+"trailing blanks"
+```
+
+`sum` and `mins` must evaluate the whole vector. But Find terminates with the first hit. 
+
+```q
+q)(neg reverse[x=" "]?0b)_ x
+"trailing blanks"
+```
+
+Reversing a string is faster than reversing a boolean vector.
+
+```q
+q)neg[(reverse[x]=" ")?0b]_ x
+"trailing blanks"
+```
+
+
+
+## Is year a leap year?
+
+Leap year from 463.
+
+```q
+q)ly:{sum[0=x mod/:4 100 400]mod 2}
+```
+
+
+## Number of days in month x of Gregorian year y 
+
+```q
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 7 1996
+31
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 4 1996
+30
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 2 1996
+29
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 2 1997
+28
+```
+
+
+## Justify right
+
+```q
+q)x:"trailing blanks   "
+q)neg[(reverse[x]=" ")?0b]rotate x
+"   trailing blanks"
+q)rj:{neg[(reverse[x]=" ")?0b]rotate x}
+q)rj each ("a     ";"bc    ";"d e   ";"fg h  ";"ij kl ";"mnopqr")
+"     a"
+"    bc"
+"   d e"
+"  fg h"
+" ij kl"
+"mnopqr"
+```
+
+
+## Find last non-blank
+
+```q
+q)x:"blanks at end   "
+q)x=" "
+0000001001000111b
+q)(" "=reverse x)?0b
+4
+```
+
+Reversing the string is faster than reversing the boolean.
+
+
+!!! detail "Historical note"
+
+   Ancestral languages APL and k support the boolean vector as left argument (encoding system) of what in q is `sv`. Reversing the boolean vector could thus be omitted. `sv` does not support that.
+
+
+## Scattered indexing
+
+```q
+q)show x:2 3 4#.Q.a
+"abcd" "efgh" "ijkl"
+"mnop" "qrst" "uvwx"
+q)x ./:(0 0 0;1 1 3;1 2 2)
+"atw"
+```
+
+
+## Raveled index from general index
+
+```q
+q)x:2 3 4#.Q.a
+q)x[1;1;3]
+"t"
+q)shape x
+2 3 4
+q)2 3 4 sv 1 1 3
+19
+q)raze/[x]
+"abcdefghijklmnopqrstuvwx"
+q)raze/[x] 19
+"t"
+```
+
+
+## Name variable according to x
+
+```q
+q)test          / not defined
+'test
+  [0]  test
+       ^
+q)`test set 42
+`test
+q)test
+42
+q)(`$"foo")set 43
+`foo
+q)foo
+43
+```
+
+
+## Execute rows of character matrix
+
+```q
+q)x1:4
+q)x2:9
+q)show x:2 5#"y1:x1y2:x2"
+"y1:x1"
+"y2:x2"
+q)parse each x
+: `y1 `x1
+: `y2 `x2
+q)('[eval;parse])each x
+4 9
+q)(y1;y2)
+4 9
+```
+
+
+## Indexing arbitrary rank array
+
+```q
+q)x:2 3 4 5#til 120
+q)x[1]
+60 61 62 63 64      65 66 67 68 69      70 71 72 73 74      75 76 77 78 79
+80 81 82 83 84      85 86 87 88 89      90 91 92 93 94      95 96 97 98 99
+100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119
+q)x . enlist 1
+60 61 62 63 64      65 66 67 68 69      70 71 72 73 74      75 76 77 78 79
+80 81 82 83 84      85 86 87 88 89      90 91 92 93 94      95 96 97 98 99
+100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119
+q)x . 0 0
+0  1  2  3  4
+5  6  7  8  9
+10 11 12 13 14
+15 16 17 18 19
+q)x . 0 0 0
+0 1 2 3 4
+q)x . 0 0 0 0
+0
+q)x[0;0;0;0]
+0
+```
+
+Not an idiom. Just how indexing and Index work.
 
 
