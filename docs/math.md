@@ -437,3 +437,42 @@ q)4 pt\ 1
 ```
 
 
+## Taylor series 
+
+With coefficients y at point x.
+
+```q
+q)x:3
+q)y:1 1 1
+q)a:til count y
+q)sum y*(x xexp a)%fac each a
+8.5
+q)sum y*(x xexp a)%prds 1|a     / refactor factorials
+q)y:30#1
+q)x:1
+q)a:til count y
+q)sum y*(x xexp a)%prds 1|a
+2.718282
+```
+
+
+## Beta function
+
+See gamma in appendix.
+
+`Beta:{((gamma x)*gamma y)%gamma[x+y]}`
+
+==DROP – WTF?==
+
+
+## Number of combinations of n objects taken k at a time
+
+```q
+q)binn:{[n;k]fac[n]%fac[n-k]*fac[k]}
+q)binn[12;7]
+792f
+q)binn[10;4]
+210f
+```
+
+

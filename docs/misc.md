@@ -345,3 +345,18 @@ q)-6?8
 ==DROP Not an idiom; just how Deal works.==
 
 
+## 143. Find distinct items
+
+```q
+q)x:"ajhajhja"
+q)group x
+a| 0 3 7
+j| 1 4 6
+h| 2 5
+q)value group x
+0 3 7
+1 4 6
+2 5
+```
+
+

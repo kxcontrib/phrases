@@ -71,7 +71,9 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 134| [radians from degrees](math.md#radians-from-degrees) | `0.017453292519943295*x`
 135 | [number of permutations of n objects taken k at a time](math.md#number-of-permutations-of-n-objects-taken-k-at-a-time) | `prd(n-k-1)+til k`
 136, 1007 | [Pascal’s triangle](math.md#pascals-triangle) | `x {0+':x,0}\ 1`
-
+137 | [Taylor series](math.md#taylor-series) | `sum y*(x xexp a)%prds 1|a:tc y`
+139 | [Beta function](math.md#beta-function) | ==FIXME==
+142 | [number of combinations of n objects taken k at a time](math.md#number-of-combinations-of-n-objects-taken-k-at-a-time) | `fac[n]%fac[n-k]*fac[k]`
 
 
 
@@ -113,7 +115,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 121 | [y-shaped array of numbers from x[0] to x[1]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
 122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
 123 | [y objects selected without replacement from til x](misc.md#y objects-selected-without-replacement-from-til-x) | `neg[y]?x`
-
+143 | [find distinct items](misc.md#find-distinct-items) | `('[value;group])`
 
 
 
@@ -168,5 +170,6 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 ```q
 DEC:"0123456789"
 HEX:"0123456789abcdef"
+fac:{prd 1+til x}           / factorial
 tc:('[til;count])
 ```
