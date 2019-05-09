@@ -1,4 +1,4 @@
-# Casting
+# Casting and representation
 
 
 
@@ -368,4 +368,40 @@ q)('[eval;parse])each x
 q)raze('[eval;parse])each x
 3 5 4 7
 ```
+
+
+## Leading zeros for positive integers x in field width y
+
+```q
+q)y:3
+q)show x:10?40
+12 10 1 26 9 26 26 37 20 29
+q)1_'string x+10 xexp y
+"012"
+"010"
+"001"
+"026"
+"009"
+"026"
+"026"
+"037"
+"020"
+"029"
+```
+
+
+## Count of format of x
+
+```q
+q)cf:{count string x}
+q)cf 12.345
+6
+q)cf -1
+2
+q)cf 1e-12
+5
+q)string 1e-12
+"1e-12"
+```
+
 

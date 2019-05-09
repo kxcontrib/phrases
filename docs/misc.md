@@ -268,3 +268,80 @@ q)x[0;0;0;0]
 Not an idiom. Just how indexing and Index work.
 
 
+## Sum numbers in character matrix
+
+```q
+q)show x:string til 5
+,"0"
+,"1"
+,"2"
+,"3"
+,"4"
+q)sum parse " " sv x
+10
+```
+
+
+## Case structure
+
+```q
+$[c0;t0;f]
+$[c0;t0;c1;t1;f]
+$[c0;t0;c1;t1;c2;t2;f]
+$[c0;t0;c1;t1;c2;t2;c3;t3;f]
+```
+
+Et cetera.
+In the first case, if `c0` is nonzero, the result is `t0`; otherwise `f`.
+In all cases, the result is the `t` corresponding to the first non-zero `c`.
+If all the `c` are zero the result is `f`.
+
+==DROP Again, not an idiom, just how Cond works.==
+
+==FIXME Example of dictionary as case structure. Also Case operator.==
+
+
+## Y-shaped array of numbers from x[0] to x[1]-1
+
+```q
+q)x:4 9
+q)y:3 4
+q)y#first[x]+prd[y]?(-)over reverse x
+4 6 8 8
+5 8 7 7
+4 6 5 8
+```
+
+
+## Y items selected with replacement from til x
+
+Roll.
+
+```q
+q)y:3 5
+q)x:7
+q)y?x
+6 2 1 2 2
+4 4 6 3 0
+6 3 4 5 1
+q)3 5#7?7
+5 1 2 1 2
+0 3 5 1 2
+1 2 0 3 5
+```
+
+==DROP Not an idiom; just how Roll works.==
+
+
+## Y objects selected without replacement from til x
+
+Deal.
+
+```q
+q)-6?8
+5 7 3 2 0 4
+```
+
+==DROP Not an idiom; just how Deal works.==
+
+

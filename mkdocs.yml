@@ -67,7 +67,7 @@ theme:
     title: "On this page"
 nav:
   - Q Reference: 'https://code.kx.com/v2/ref'
-  - Introduction: introduction.md
+  - Introduction: intro.md
   - Index: index.md
   - Casting: cast.md
   - Math: math.md
@@ -75,4 +75,5 @@ nav:
   - Miscellaneous: misc.md
   - Sublists: sublists.md
   - Sorts: sorts.md
+  - Temporal: temp.md
   - Original wiki page: wikipage.md

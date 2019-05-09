@@ -8,7 +8,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 
 
 
-## Cast
+## Casting and representation
 
 # | description | phrase
 --:|-------------|-------
@@ -30,6 +30,8 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 94 | [number from alphanumeric x, default y](cast.md#number-from-alphanumeric-x-default-y) | `parse $[x~"";y;x]`
 95 | [numeric from proper alphanumeric non-negative integer](cast.md#numeric-from-proper-alphanumeric-non-negative-integer) | `parse x`
 99 | [numeric vector from evaluating rows of character matrix](cast.md#numeric-vector-from-evaluating-rows-of-character-matrix) | `raze('[eval;parse])each x`
+106 | [leading zeros for positive integers x in field width y](cast.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
+111 | [count of format of x](cast.md#count-of-format-of-x) | `('[count;string])`
 
 
 ## Mathematics
@@ -56,6 +58,20 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 85 | [is matrix x antisymmetric?](math.md#is-matrix-x-antisymmetric) | `x~neg flip x`
 86 | [is matrix x symmetric?](math.md#is-matrix-x-symmetric) | `x~flip x`
 87| [number of decimals](math.md#number-of-decimals) | `count[string x-floor x]-2`
+123.1 | [normal deviates from interval (0,1)](math.md##normal-deviates-from-interval-01) | `x?1.`
+124 | [predicted values of exponential fit](math.md#predicted-values-of-exponential-fit) | `a:x xexp/:0 1`<br/>`exp flip[a]mmu first(enlist log y)lsq a`
+125 | [predicted values of best linear fit (least squares)](math.md#predicted-values-of-best-linear-fit-least-squares) | `a:x xexp/:0 1`<br/>`(flip a)mmu first(enlist y)lsq a`
+126 | [G-degree polynomial fit of points (x,y)](math.md#g-degree-polynomial-fit-of-points-xy) | `a:x xexp/:til g+1`<br/>`reverse first (enlist y)lsq a`
+127 | [coefficients of exponential fit of points (x,y)](math.md#coefficients-of-exponential-fit-of-points-xy) | ==FIXME==
+128 | [coefficients of best linear fit of points (x,y) (least squares)](math.md#coefficients-of-best-linear-fit-of-points-xy-least-squares) | `(enlist y)lsq x xexp/:0 1`
+129 | arctangent y÷x | `atan y%x`
+131 | [complementary angle (arccos sin x)](math.md#complementary-angle-arccos-sin-x) | `acos sin x`
+132 | [rotation matrix for angle x (in radians) counter-clockwise](math.md#rotation-matrix-for-angle-x-in-radians-counter-clockwise) | `((cos x;neg sin x);(sin x;cos x))`
+133 | [degrees from radians](math.md#degrees-from-radians) | `57.295779513082323*x`
+134| [radians from degrees](math.md#radians-from-degrees) | `0.017453292519943295*x`
+135 | [number of permutations of n objects taken k at a time](math.md#number-of-permutations-of-n-objects-taken-k-at-a-time) | `prd(n-k-1)+til k`
+136, 1007 | [Pascal’s triangle](math.md#pascals-triangle) | `x {0+':x,0}\ 1`
+
 
 
 
@@ -84,8 +100,6 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 66 | [selection by encoded list](misc.md#selection-by-encoded-list) | `2 vs x`
 70 | [remove duplicate rows](misc.md#remove-duplicate-rows) | `distinct x`
 73 | [remove trailing blanks](misc.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
-– | [is year x a leap year?](misc.md#is-year-a-leap-year) | `sum[0=x mod\:4 100 400]mod 2`
-74 | [number of days in month x of Gregorian year y](misc.md#number-of-days-in-month-x-of-Gregorian-year-y) | `{$[2=x;28+ly y;(0,12#7#31 30)x]}`
 76 | [justify right](misc.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
 79 | [find last non-blank](misc.md#find-last-non-blank) | `(" "=reverse x)?0b`
 80 | [scattered indexing](misc.md#scattered-indexing) | `x ./: y`
@@ -94,6 +108,13 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 96 | conditional execution | `$[1b;x;y]`<br/>`if[1b;x:42]`
 98 | [execute rows of character matrix](misc.md#execute-rows-of-character-matrix) | `('[eval;parse])each x`
 100 | [indexing arbitrary rank array](misc.md#indexing-arbitrary rank-array)| `x . y`
+101 | [sum numbers in character matrix](misc.md#sum-numbers-in-character-matrix) | `sum parse " " sv x`
+115, 116, 117 | [case structure](misc.md#case-structure) | `$[c0;t0;c1;t1;c2;t2;c3;t3;f]`
+121 | [y-shaped array of numbers from x[0] to x[1]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
+122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
+123 | [y objects selected without replacement from til x](misc.md#y objects-selected-without-replacement-from-til-x) | `neg[y]?x`
+
+
 
 
 ## Sort
@@ -111,7 +132,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 34 | [choose grading direction](sorts.md#Choose-grading-direction) | `x iasc x*1 -1[y]`
 36 | [sort y on x](sorts.md#sort-y-on-x) | `y iasc x`
 37 | [invert permutation](sorts.md#invert-permutation) | `iasc x`
-42, 43 | [move flagged items to one end](sorts.mdmove-flagged-items-to-one-end) | `x idesc y`
+42, 43 | [move flagged items to one end](sorts.md#move-flagged-items-to-one-end) | `x idesc y`
 
 
 ## Sublists
@@ -129,6 +150,17 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 28 | insert g items h after indices y of x | `a:g*count y`<br>`(x,a#h)iasc(tc x),a#count y`
 29 | insert g items h before indices y of x | `a:g*count y`<br>`((a#h),x)iasc(a#y),tc x`
 39, 40 | [reverse each sublist](sublists.md#reverse-each-sublist) | `x reverse idesc sums tc[x] in y`
+
+
+## Temporal
+
+# | description | phrase
+--:|-------------|-------
+– | [is year x a leap year?](misc.md#is-year-a-leap-year) | `sum[0=x mod\:4 100 400]mod 2`
+74 | [number of days in month x of Gregorian year y](misc.md#number-of-days-in-month-x-of-Gregorian-year-y) | `{$[2=x;28+ly y;(0,12#7#31 30)x]}`
+104| [date in ascending format](temp.md#date-in-ascending-format) | `"/"sv reverse 0 4 6_ x`
+105 | [current time of 12-hour clock](temp.md#current-time-of-12-hour-clock) |`p:x>11:59:59`<br/>`string[x-43200*p]," ","AP"[p],"M"`
+107 | [current date, American format](temp.md#current-date-American-format) | `"/"sv string 1 rotate parse ssr[;".";" "] string x`
 
 
 ## Utilities
