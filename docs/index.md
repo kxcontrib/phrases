@@ -32,6 +32,8 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 99 | [numeric vector from evaluating rows of character matrix](cast.md#numeric-vector-from-evaluating-rows-of-character-matrix) | `raze('[eval;parse])each x`
 106 | [leading zeros for positive integers x in field width y](cast.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
 111 | [count of format of x](cast.md#count-of-format-of-x) | `('[count;string])`
+144 | [histogram](cast.md#histogram) | `" *"(1+ til max x)<=\:/:x`
+149 | [number of decimals in x, maximum y](cast.md#number-of-decimals-in-x-maximum-y) | `sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1`
 
 
 ## Mathematics
@@ -49,6 +51,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 48e | row-column indices of ravel-indices y in matrix x | `rc:{(div;mod).\:(y;count first x)}`
 50 | [connectivity list from connectivity matrix](misc.md#connectivity-list-from-connectivity-matrix) | `rc[x;]where raze x`
 71 | [connectivity matrix from connectivity list](math.md#connectivity-matrix-from-connectivity-list)| ==FIXME==
+148 | [node matrix from connection matrix](math.md#node-matrix-from-connection-matrix)| `b:flip each x=/:1 -1`<br/>`(mmu\:) . "f"$(b;tc x)`
 52, 59, 60 | [truth table of order x](math.md#truth-table-of-order-x) | `2 vs til "j"$2 xexp x`
 62 | [integer and fractional parts of positive x](math.md#integer-and-fractional-parts-of-positive-x) | `{f,'x-f:floor x}x`
 67 | [extrapolated value of abscissa x and ordinate y at g](math.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) | `g sv raze(enlist y) lsq x xexp/: reverse tc x`
@@ -74,6 +77,8 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 137 | [Taylor series](math.md#taylor-series) | `sum y*(x xexp a)%prds 1|a:tc y`
 139 | [Beta function](math.md#beta-function) | ==FIXME==
 142 | [number of combinations of n objects taken k at a time](math.md#number-of-combinations-of-n-objects-taken-k-at-a-time) | `fac[n]%fac[n-k]*fac[k]`
+146 | [compound interest for principals y at percentages g for periods x](math.md#compound-interest-for-principals-y-at-percentages-g-for-periods-x) | `y*\:(1+g%100)xexp\:x`
+150 | [sum items of x given by y](math.md#sum-items-of-x-given-by-y) | `sum each x value group y`
 
 
 
@@ -115,8 +120,9 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 121 | [y-shaped array of numbers from x[0] to x[1]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
 122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
 123 | [y objects selected without replacement from til x](misc.md#y objects-selected-without-replacement-from-til-x) | `neg[y]?x`
-143 | [find distinct items](misc.md#find-distinct-items) | `('[value;group])`
-
+143 | [find distinct items](misc.md#find-distinct-items) | `value group x`
+145 | [count of x between endpoints (l,h)](misc.md#count-of-x-between-endpoints-lh) | `sum raze (x<h)&x>l`
+147| [locations of string x in string y](misc.md#locations-of-string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
 
 
 ## Sort

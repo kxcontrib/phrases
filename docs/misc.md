@@ -345,11 +345,13 @@ q)-6?8
 ==DROP Not an idiom; just how Deal works.==
 
 
-## 143. Find distinct items
+## Find distinct items
 
 ```q
 q)x:"ajhajhja"
-q)group x
+q)x?distinct x      / first occurrences
+0 1 2
+q)group x           / all occurrences
 a| 0 3 7
 j| 1 4 6
 h| 2 5
@@ -357,6 +359,36 @@ q)value group x
 0 3 7
 1 4 6
 2 5
+```
+
+
+## Count of x between endpoints (l,h)
+
+```q
+q)show x:(66 8 6 4 86;82 91 52 53 89;43 0 62 3 17;0 26 80 2 12;37 41 41 72 10)
+66 8  6  4  86
+82 91 52 53 89
+43 0  62 3  17
+0  26 80 2  12
+37 41 41 72 10
+q)sum raze (x>l)&x<h        / exclusive range
+12i
+q)sum raze (x>=l)&x<=h      / inclusive range
+14i
+```
+
+
+## Locations of string x in string y
+
+Including overlaps.
+
+```q
+q)x:"XX"
+q)y:"XabcugjXXjyXXXkmhixXX12"
+q)y ss x                                            / without overlaps
+7 11 19
+q)z where x~/:y (z:where y=first x)+\:til count x   / with overlaps
+7 11 12 19
 ```
 
 

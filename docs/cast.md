@@ -405,3 +405,53 @@ q)string 1e-12
 ```
 
 
+## Histogram
+
+```q
+q)v:8 3 11 9 9 4 6 6 3 3 9 7 9  / values
+q)show x:1+til max v            / x-axis scale
+1 2 3 4 5 6 7 8 9 10 11
+q)show y:@[count[x]#0;v-1;+;1]  / y-axis values
+0 0 3 1 0 2 1 1 4 0 1
+q)" *"(1+til max y)<=\:/:y      / histogram
+"    "
+"    "
+"*** "
+"*   "
+"    "
+"**  "
+"*   "
+"*   "
+"****"
+"    "
+"*   "
+q)reverse flip " *"(1+til max y)<=\:/:y
+"        *  "
+"  *     *  "
+"  *  *  *  "
+"  ** **** *"
+q)x!" *"(1+ til max y)<=\:/:y
+1 | "    "
+2 | "    "
+3 | "*** "
+4 | "*   "
+5 | "    "
+6 | "**  "
+7 | "*   "
+8 | "*   "
+9 | "****"
+10| "    "
+11| "*   "
+```
+
+
+## Number of decimals in x, maximum y
+
+```q
+q)x:1.4321 1.21 10
+q)y:3
+q)sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1
+3 2 0i
+```
+
+

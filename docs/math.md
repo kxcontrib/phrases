@@ -138,6 +138,41 @@ q)(til 9)in x sv/:y
 ```
 
 
+## Node matrix from connection matrix
+
+(Inverse to 157.)
+
+```q
+q)x
+1  1  0  0  0
+0  -1 0  1  1
+-1 0  1  -1 0
+0  0  -1 0  -1
+```
+
+Each column in `x` represents a path between 2 nodes:
+
+-   From node 0 to node 2
+-   From node 0 to node 1
+-   From node 2 to node 3
+-   From node 1 to node 2
+-   From node 1 to node 3
+
+```q
+q)show a:1 -1=\:x
+11000b 00011b 00100b 00000b
+00000b 01000b 10010b 00101b
+q)mul:{(mmu\:) . "f"$(flip each x;y)}
+q)show b:mul[a;til count x]
+0 0 2 1 1
+2 1 3 2 3
+q)nc:{mul[1 -1=\:x;til count x]}
+q)nc x
+0 0 2 1 1
+2 1 3 2 3
+```
+
+
 ## Truth table of order x
 
 ```q
@@ -473,6 +508,40 @@ q)binn[12;7]
 792f
 q)binn[10;4]
 210f
+```
+
+
+## Compound interest for principals y at percentages g for periods x
+
+```q
+q)x:1 2 3
+q)y:100 200 300 400
+q)g:0.5 1 1.5 2
+q)y*\:(1+g%100)xexp\:x
+100.5 101    101.51 101   102.01 103.03 101.5 103.02 104.57 102   104.04 106.12
+201 202    203.02   202 204.02 206.06   203 206.04 209.14   204 208.08 212.24
+301.5 303.01 304.52 303   306.03 309.09 304.5 309.07 313.7  306   312.12 318.36
+402 404.01 406.03   404 408.04 412.12   406 412.09 418.27   408 416.16 424.48
+```
+
+
+## Sum items of x given by y
+
+```q
+q)show x:log 1+til 5
+0 0.6931472 1.098612 1.386294 1.609438
+q)y:1 4 1 4 1
+q)show a:value group y
+0 2 4
+1 3
+q)sum each x[a]
+2.70805 2.079442
+q)sum x[0 2 4]
+2.70805
+q)sum x[1 3]
+2.079442
+q)sum each x value group y
+2.70805 2.079442
 ```
 
 
