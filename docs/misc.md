@@ -37,23 +37,6 @@ q)ix 2 3 2#til 12
 ```
 
 
-## Find items of y in array x
-
-```q
-q)show x:2 3#6?10
-5 1 2
-2 0 3
-q)show y:4 5#20?10
-2 2 1 7 3
-1 4 0 6 4
-6 7 6 3 8
-4 8 0 1 0
-q)shape[x] vs where raze[y]in raze x
-0 0 0 1 1 0 0 1 0 0
-0 1 2 1 2 1 1 2 0 1
-```
-
-
 ## Cyclic counter 
 
 Length `x`, repeating 1 through `y`
@@ -92,88 +75,6 @@ q)distinct x
 "or"
 "not"
 ```
-
-
-## Remove trailing blanks
-
-```q
-q)x:"trailing blanks    "
-q)(neg sum mins reverse " "=x)_ x
-"trailing blanks"
-```
-
-`sum` and `mins` must evaluate the whole vector. But Find terminates with the first hit. 
-
-```q
-q)(neg reverse[x=" "]?0b)_ x
-"trailing blanks"
-```
-
-Reversing a string is faster than reversing a boolean vector.
-
-```q
-q)neg[(reverse[x]=" ")?0b]_ x
-"trailing blanks"
-```
-
-
-
-## Is year a leap year?
-
-Leap year from 463.
-
-```q
-q)ly:{sum[0=x mod/:4 100 400]mod 2}
-```
-
-
-## Number of days in month x of Gregorian year y 
-
-```q
-q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 7 1996
-31
-q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 4 1996
-30
-q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 2 1996
-29
-q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 2 1997
-28
-```
-
-
-## Justify right
-
-```q
-q)x:"trailing blanks   "
-q)neg[(reverse[x]=" ")?0b]rotate x
-"   trailing blanks"
-q)rj:{neg[(reverse[x]=" ")?0b]rotate x}
-q)rj each ("a     ";"bc    ";"d e   ";"fg h  ";"ij kl ";"mnopqr")
-"     a"
-"    bc"
-"   d e"
-"  fg h"
-" ij kl"
-"mnopqr"
-```
-
-
-## Find last non-blank
-
-```q
-q)x:"blanks at end   "
-q)x=" "
-0000001001000111b
-q)(" "=reverse x)?0b
-4
-```
-
-Reversing the string is faster than reversing the boolean.
-
-
-!!! detail "Historical note"
-
-   Ancestral languages APL and k support the boolean vector as left argument (encoding system) of what in q is `sv`. Reversing the boolean vector could thus be omitted. `sv` does not support that.
 
 
 ## Scattered indexing
@@ -345,23 +246,6 @@ q)-6?8
 ==DROP Not an idiom; just how Deal works.==
 
 
-## Find distinct items
-
-```q
-q)x:"ajhajhja"
-q)x?distinct x      / first occurrences
-0 1 2
-q)group x           / all occurrences
-a| 0 3 7
-j| 1 4 6
-h| 2 5
-q)value group x
-0 3 7
-1 4 6
-2 5
-```
-
-
 ## Count of x between endpoints (l,h)
 
 ```q
@@ -375,20 +259,6 @@ q)sum raze (x>l)&x<h        / exclusive range
 12i
 q)sum raze (x>=l)&x<=h      / inclusive range
 14i
-```
-
-
-## Locations of string x in string y
-
-Including overlaps.
-
-```q
-q)x:"XX"
-q)y:"XabcugjXXjyXXXkmhixXX12"
-q)y ss x                                            / without overlaps
-7 11 19
-q)z where x~/:y (z:where y=first x)+\:til count x   / with overlaps
-7 11 12 19
 ```
 
 

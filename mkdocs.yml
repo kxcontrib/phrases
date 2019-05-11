@@ -73,7 +73,9 @@ nav:
   - Math: math.md
   - Merge: merge.md
   - Miscellaneous: misc.md
-  - Sublists: sublists.md
+  - Search: search.md
   - Sorts: sorts.md
+  - Strings: strings.md
+  - Sublists: sublists.md
   - Temporal: temp.md
   - Original wiki page: wikipage.md

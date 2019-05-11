@@ -3,6 +3,29 @@
 
 
 
+## Is year a leap year?
+
+Leap year from 463.
+
+```q
+q)ly:{sum[0=x mod/:4 100 400]mod 2}
+```
+
+
+## Number of days in month x of Gregorian year y 
+
+```q
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 7 1996
+31
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 4 1996
+30
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 2 1996
+29
+q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 2 1997
+28
+```
+
+
 ## Date in ascending format
 
 ```q

@@ -6,9 +6,11 @@
 Groupings under headings are provisional.
 Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 
+!!! tip "Follow the links to worked examples and alternative solutions."
 
 
-## Casting and representation
+
+## Casting and formatting
 
 # | description | phrase
 --:|-------------|-------
@@ -94,21 +96,14 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 
 # | description | phrase
 --:|-------------|-------
-22 | find first occurrence of minimum of x | `x?min x`
-23 | find first occurrence of maximum of x | `x?max x`
 25 | doubling quotes | `ssr[x;"\"";"\"\""]`
-41 | find flags in boolean vector | `where x`
 58 | [all pairs of `til[x]` and `til[y]`](misc.md#all-pairs-of-tilx-and-tily) | `ap:{x vs til prd x}x,y`
 51 | [indices of an array](misc.md#indices-of-an-array) | `ap shape x`
 10, 51a | depth of an array | `depth:{$[type[x]<0; 0; "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}`
 51b | shape of an array | `shape:{$[0=d:depth x; 0#0j; d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}`
-55 | [find items of y in array x](misc.md#find-items-of-y-in-array-x) | `shape[x] vs where raze[x] in raze y`
 61 | [cyclic counter](misc.md#cyclic-counter) | `1+(1+til x)mod y`
 66 | [selection by encoded list](misc.md#selection-by-encoded-list) | `2 vs x`
 70 | [remove duplicate rows](misc.md#remove-duplicate-rows) | `distinct x`
-73 | [remove trailing blanks](misc.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
-76 | [justify right](misc.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
-79 | [find last non-blank](misc.md#find-last-non-blank) | `(" "=reverse x)?0b`
 80 | [scattered indexing](misc.md#scattered-indexing) | `x ./: y`
 81 | [raveled index from general index](misc.md#raveled-index-from-general-index) | `shape[x] sv y`
 88 | [name variable according to x](misc.md#name-variable-according-to-x) | ``(`$x)set y``
@@ -120,9 +115,29 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 121 | [y-shaped array of numbers from x\[0\] to x\[1\]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
 122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
 123 | [y objects selected without replacement from til x](misc.md#y objects-selected-without-replacement-from-til-x) | `neg[y]?x`
-143 | [find distinct items](misc.md#find-distinct-items) | `value group x`
 145 | [count of x between endpoints (l,h)](misc.md#count-of-x-between-endpoints-lh) | `sum raze (x<h)&x>l`
-147| [locations of string x in string y](misc.md#locations-of-string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
+
+
+## Strings
+
+# | description | phrase
+--:|-------------|-------
+73 | [remove trailing blanks](misc.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
+76 | [justify right](misc.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
+
+
+
+## Search
+
+# | description | phrase
+--:|-------------|-------
+22 | find first occurrence of minimum of x | `x?min x`
+23 | find first occurrence of maximum of x | `x?max x`
+41 | find flags in boolean vector | `where x`
+55 | [find items of y in array x](misc.md#find-items-of-y-in-array-x) | `shape[x] vs where raze[x] in raze y`
+79 | [find last non-blank](misc.md#find-last-non-blank) | `(" "=reverse x)?0b`
+143 | [find distinct items](misc.md#find-distinct-items) | `value group x`
+147 | [find string x in string y](misc.md#find-string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
 
 
 ## Sort
@@ -164,8 +179,8 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 
 # | description | phrase
 --:|-------------|-------
-– | [is year x a leap year?](misc.md#is-year-a-leap-year) | `sum[0=x mod\:4 100 400]mod 2`
-74 | [number of days in month x of Gregorian year y](misc.md#number-of-days-in-month-x-of-Gregorian-year-y) | `{$[2=x;28+ly y;(0,12#7#31 30)x]}`
+– | [is year x a leap year?](temp.md#is-year-a-leap-year) | `sum[0=x mod\:4 100 400]mod 2`
+74 | [number of days in month x of Gregorian year y](temp.md#number-of-days-in-month-x-of-Gregorian-year-y) | `{$[2=x;28+ly y;(0,12#7#31 30)x]}`
 104| [date in ascending format](temp.md#date-in-ascending-format) | `"/"sv reverse 0 4 6_ x`
 105 | [current time of 12-hour clock](temp.md#current-time-of-12-hour-clock) |`p:x>11:59:59`<br/>`string[x-43200*p]," ","AP"[p],"M"`
 107 | [current date, American format](temp.md#current-date-American-format) | `"/"sv string 1 rotate parse ssr[;".";" "] string x`
