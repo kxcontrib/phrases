@@ -108,3 +108,22 @@ q)raze iasc each where[x]_y     / grade up sublists
 0 2 0 3 1 0 1 2 0 0
 ```
 
+
+## Insert y "*" after "=" in x
+
+```q
+q)x:"abc=,d=,fgh="
+q)y:5
+q)show g:where x="="
+3 6 11
+q)(x,"*")[(count x)&iasc (til count x),(y*count g)#g]
+"abc=*****,d=*****,fgh=*****"
+
+q)raze ((0,1+-1_ g)_ x),\:y#"*"
+"abc=*****,d=*****,fgh=*****"
+
+q)a:where 0b,x="="
+q)(x,(y*count a)#"*")rank raze (deltas[a]#'0),\:y#1
+"abc=*****,d=*****,fgh=*****"
+```
+

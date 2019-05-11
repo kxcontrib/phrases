@@ -117,7 +117,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 100 | [indexing arbitrary rank array](misc.md#indexing-arbitrary rank-array)| `x . y`
 101 | [sum numbers in character matrix](misc.md#sum-numbers-in-character-matrix) | `sum parse " " sv x`
 115, 116, 117 | [case structure](misc.md#case-structure) | `$[c0;t0;c1;t1;c2;t2;c3;t3;f]`
-121 | [y-shaped array of numbers from x[0] to x[1]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
+121 | [y-shaped array of numbers from x\[0\] to x\[1\]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
 122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
 123 | [y objects selected without replacement from til x](misc.md#y objects-selected-without-replacement-from-til-x) | `neg[y]?x`
 143 | [find distinct items](misc.md#find-distinct-items) | `value group x`
@@ -153,7 +153,7 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 6, 14 | [aggregate function x on sublists of y](sublists.md#apply-aggregate-function-to-sublists) | `x each(…)_y` 
 2, 3, 5, 7, 15  | [uniform function x on sublists of y](sublists.md#apply-uniform-function-to-sublists) | `raze x each(…)_y` 
 21| rotate to the left 1 place each sublist of y determined by flags x | `y[iasc x+sums x]`
-26 | insert y after "=" in x |`g:where x="="`<br>`(x,"*")[count[x]&iasc tc[x],(y*count g)#g]`
+26 | [insert y "*" after "=" in x](sublists.md#insert-y-after-in-x) |`g:where x="="`<br>`raze((0,1+-1_ g)_x),\:y#"*"`
 27 | insert 0 after indices of y of x | `count[x]>iasc(tc x),y`
 28 | insert g items h after indices y of x | `a:g*count y`<br>`(x,a#h)iasc(tc x),a#count y`
 29 | insert g items h before indices y of x | `a:g*count y`<br>`((a#h),x)iasc(a#y),tc x`
