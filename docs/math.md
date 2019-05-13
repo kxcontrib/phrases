@@ -173,6 +173,34 @@ q)nc x
 ```
 
 
+## Connection matrix from node matrix
+
+(Inverse to 148)
+
+Node matrix top and bottom rows give from and to nodes.
+
+```q
+q)show x:(0 0 2 1 1;2 1 3 2 3)
+0 0 2 1 1
+2 1 3 2 3
+q)/ Enumerate count of range
+q)key count distinct raze x
+0 1 2 3
+q)/ Where is x equal to each of it
+q)x=/:til count distinct raze x
+11000b 00000b
+00011b 01000b
+00100b 10010b
+00000b 00101b
+q)/ Subtract "to" matrix from "from" matrix
+q)(-/)each x=/:til count distinct raze x
+1  1  0  0  0
+0  -1 0  1  1
+-1 0  1  -1 0
+0  0  -1 0  -1
+```
+
+
 ## Truth table of order x
 
 ```q
@@ -542,6 +570,392 @@ q)sum x[1 3]
 2.079442
 q)sum each x value group y
 2.70805 2.079442
+```
+
+
+## Greatest common divisor
+
+```q
+q)x:6 9 12
+q)1+til min x
+1 2 3 4 5 6
+q)x mod/:1+til min x
+0 0 0
+0 1 0
+0 0 0
+2 1 0
+1 4 2
+0 3 0
+q)0=x mod/:1+til min x
+111b
+101b
+111b
+001b
+000b
+101b
+q)min each 0=x mod/:1+til min x
+101000b
+q)where min each 0=x mod/:1+til min x
+0 2
+q)1+last where min each 0=x mod/:1+til min x
+3
+```
+
+
+## Is x upper triangular?
+
+```q
+q)zm:{(2#count x)#0}  / zero matrix (square matrix)
+q)show x:(1 0 0 1;0 2 1 0;0 0 1 2;0 0 0 0)
+1 0 0 1
+0 2 1 0
+0 0 1 2
+0 0 0 0
+q)tc:('[til;count])
+q){x>\:x}tc x
+0000b
+1000b
+1100b
+1110b
+q)x*{x>\:x}tc x
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+q)zm x
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+q)zm[x]~x*{x>\:x}tc x
+1b
+q){zm[x]~x*{x>\:x}tc x}flip x
+0b
+```
+
+
+## Is x lower triangular?
+
+```q
+)show x:(1 0 0 0;0 2 0 0;0 1 1 0;1 0 2 0)
+1 0 0 0
+0 2 0 0
+0 1 1 0
+1 0 2 0
+q){x<\:x}tc x
+0111b
+0011b
+0001b
+0000b
+q)zm[x]~x*{x<\:x}tc x
+1b
+q){zm[x]~x*{x<\:x}tc x}flip x
+0b
+```
+
+
+## Polynomial product
+
+```q
+q)x:1 2 1
+q)y:1 3 3 1
+q)y*/:x
+1 3 3 1
+2 6 6 2
+1 3 3 1
+q)1 _ 'zm x
+0 0
+0 0
+0 0
+q)(1 _' zm x),'y*/:x
+0 0 1 3 3 1
+0 0 2 6 6 2
+0 0 1 3 3 1
+q)(tc x)rotate' (1 _' zm x),'y*/:x
+0 0 1 3 3 1
+0 2 6 6 2 0
+1 3 3 1 0 0
+q)sum(tc x)rotate'(1_'zm x),'y*/:x
+1 5 10 10 5 1
+```
+
+
+## 164. Divisors
+
+```q
+q)dv:{where 0=x mod/:key 1+x}
+q)x:363
+q)dv x
+1 3 11 33 121 363
+q)x:365
+q)dv x
+1 5 73 365
+q)dv 367
+1 367
+q)dv each 1 2 3 4 5 6 7 8 9 10
+,1
+1 2
+1 3
+1 2 4
+1 5
+1 2 3 6
+1 7
+1 2 4 8
+1 3 9
+1 2 5 10
+```
+
+
+## 175. Primes to n
+
+```q
+q)n:10
+q)show x:1+til n
+1 2 3 4 5 6 7 8 9 10
+q)x mod/:x:1+til n
+0 0 0 0 0 0 0 0 0 0
+1 0 1 0 1 0 1 0 1 0
+1 2 0 1 2 0 1 2 0 1
+1 2 3 0 1 2 3 0 1 2
+1 2 3 4 0 1 2 3 4 0
+1 2 3 4 5 0 1 2 3 4
+1 2 3 4 5 6 0 1 2 3
+1 2 3 4 5 6 7 0 1 2
+1 2 3 4 5 6 7 8 0 1
+1 2 3 4 5 6 7 8 9 0
+q)sum 0=x mod/:x:1+til n
+1 2 2 3 2 4 2 4 3 4
+q)2=sum 0=x mod/:x:1+til n
+0110101000b
+q)0b,2=sum 0=x mod/:x:1+til n
+00110101000b
+q)where 0b,2=sum 0=x mod/:x:1+til n
+2 3 5 7
+q)pn:{[n]where 0b,2=sum 0=x mod/:x:1+til n}
+q)pn 30
+2 3 5 7 11 13 17 19 23 29
+q)/Classic:
+q)p:{x[where not (x in distinct raze x*/:\:x:2_ key x)]}
+q)p 10
+2 3 5 7
+q)p 30
+2 3 5 7 11 13 17 19 23 29
+```
+
+
+## Maximum table
+
+```q
+q)x:til 10
+q)x&\:x
+0 0 0 0 0 0 0 0 0 0
+0 1 1 1 1 1 1 1 1 1
+0 1 2 2 2 2 2 2 2 2
+0 1 2 3 3 3 3 3 3 3
+0 1 2 3 4 4 4 4 4 4
+0 1 2 3 4 5 5 5 5 5
+0 1 2 3 4 5 6 6 6 6
+0 1 2 3 4 5 6 7 7 7
+0 1 2 3 4 5 6 7 8 8
+0 1 2 3 4 5 6 7 8 9
+```
+
+
+## 185. Left-justify fields x of length y to length g
+
+```q
+q)x:"abcdefghij"
+q)y:2 3 4 1
+q)g:5
+q)a:sums 0,-1_y
+q)a
+0 2 5 9
+q)a _ x
+"ab"
+"cde"
+"fghi"
+,"j"
+q)((sums 0,-1_y)_x),\:g#" "
+"ab     "
+"cde     "
+"fghi     "
+"j     "
+q)g#/:((sums 0,-1_y)_x),\:g#" "
+"ab   "
+"cde  "
+"fghi "
+"j    "
+q)ljust:{[x;y;g]raze g#/:((sums 0,-1_y)_x),\:g#" "}
+q)ljust[x;y;g]
+"ab   cde  fghi j    "
+```
+
+
+## Annuity coefficient for x periods at interest rate y%
+
+```q
+q)x:10 15 20 25
+q)y:8 9 10 15
+q)flip 1-xexp\:[(1+y%100);neg x]
+0.5368065 0.5775892 0.6144567 0.7528153
+0.6847583 0.725462  0.760608  0.8771055
+0.7854518 0.8215691 0.8513564 0.9388997
+0.8539821 0.8840322 0.907704  0.9696224
+q)\P 3
+q)flip 1-xexp\:[(1+y%100);neg x]
+0.537 0.578 0.614 0.753
+0.685 0.725 0.761 0.877
+0.785 0.822 0.851 0.939
+0.854 0.884 0.908 0.97
+q)ac:{(y%100)%/:flip 1-xexp\:[(1+y%100);neg x]}
+q)ac[x;y]
+0.149  0.156 0.163 0.199
+0.117  0.124 0.131 0.171
+0.102  0.11  0.117 0.16
+0.0937 0.102 0.11  0.155
+```
+
+
+## Direct matrix product
+
+```q
+q)x:1+3 2#til 6
+q)y:1+2 4#til 8
+q)flip each x*\:\:y
+1 2 3 4     2 4 6 8     5  6  7  8  10 12 14 16
+3 6 9  12   4 8 12 16   15 18 21 24 20 24 28 32
+5 10 15 20  6 12 18 24  25 30 35 40 30 36 42 48
+q)dp:{flip each x*\:\:y}
+```
+
+
+## Shur product
+
+```q
+q)show x:3 2#til 6
+1 2
+3 4
+5 6
+q)show y:2 4#1+til 8
+1 2 3 4
+5 6 7 8
+q)((last shape x)#x) * (first shape y)#'y
+1  4
+15 24
+```
+
+
+## Shur sum
+
+```q
+q)show x:3 2#til 6
+1 2
+3 4
+5 6
+q)show y:2 4#1+til 8
+1 2 3 4
+5 6 7 8
+q)((last shape x)#x) + (first shape y)#'y
+2 4
+8 10
+```
+
+
+## Add x to each row of y
+
+```q
+q)x:1+til 4
+q)show y:3 4#2+til 12
+2  3  4  5
+6  7  8  9
+10 11 12 13
+q)x+/:y
+3  5  7  9
+7  9  11 13
+11 13 15 17
+```
+
+
+## Add x to each column of y
+
+```q
+q)x:1+til 2
+q)show y:2 5#3+til 10
+3 4 5  6  7
+8 9 10 11 12
+q)x+'y
+4  5  6  7  8
+10 11 12 13 14
+```
+
+
+## Upper triangular matrix of order x
+
+```q
+q)x:5
+q){x<=\:x}til x
+11111b
+01111b
+00111b
+00011b
+00001b
+```
+
+
+## 196. Lower triangular matrix of order x
+
+```q
+q){x>=\:x}til 5
+10000b
+11000b
+11100b
+11110b
+11111b
+```
+
+
+## Identity matrix of order x
+
+```q
+q)id:{(2#x)#1,x#0}
+q)id 5
+1 0 0 0 0
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 1 0
+0 0 0 0 1
+q){x=/:x}til 5
+10000b
+01000b
+00100b
+00010b
+00001b
+```
+
+
+## Hilbert matrix of order x
+
+```q
+q)hm:{reciprocal 1+(til x)+/:til x}
+q)hm 5
+1         0.5       0.3333333 0.25      0.2
+0.5       0.3333333 0.25      0.2       0.1666667
+0.3333333 0.25      0.2       0.1666667 0.1428571
+0.25      0.2       0.1666667 0.1428571 0.125
+0.2       0.1666667 0.1428571 0.125     0.1111111
+```
+
+
+## Multiplication table of order x
+
+```q
+q)mt:{{x*\:x}1+til x}
+q)mt 5
+1 2  3  4  5
+2 4  6  8  10
+3 6  9  12 15
+4 8  12 16 20
+5 10 15 20 25
 ```
 
 

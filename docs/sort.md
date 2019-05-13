@@ -154,6 +154,36 @@ q)x iasc x      / check
 ```
 
 
+## 156. Sort y b y value into x classes 
+
+Between min and max y.
+
+```q
+q)show y:20?100
+39 64 49 82 40 88 77 30 17 23 12 66 36 37 44 28 20 30 34 77
+q)4 xrank y
+2 2 2 3 2 3 3 1 0 0 0 3 1 1 2 0 0 1 1 3
+q)group 4 xrank y
+2| 0 1  2  4  14
+3| 3 5  6  11 19
+1| 7 12 13 17 18
+0| 8 9  10 15 16
+q)y group 4 xrank y
+2| 39 64 49 40 44
+3| 82 88 77 66 77
+1| 30 36 37 30 34
+0| 17 23 12 28 20
+q)value asc y group 4 xrank y
+17 23 12 28 20
+30 36 37 30 34
+39 64 49 40 44
+82 88 77 66 77
+```
+
+
+
+
+
 ## Sorting and grading sublists
 
 <i class="far fa-hand-point-right"></i>

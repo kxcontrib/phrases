@@ -2250,7 +2250,6 @@ q)1=count distinct y
 ## 160. Move blanks in x to end of list
 
 ```q
-```q
 q)x:"sign if i cant"
 q)x[iasc x=" "]
 "significant   "

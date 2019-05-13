@@ -262,3 +262,276 @@ q)sum raze (x>=l)&x<=h      / inclusive range
 ```
 
 
+## Efficient execution of f x where x has repeated values
+
+```q
+q)x:1 2 3 2 3 2 1
+q)show u:distinct x
+1 2 3
+q)u?x
+0 1 2 1 2 1 0
+q)f:{10*x}
+q)f u
+10 20 30
+q)(f u)[0 1 2 1 2 1 0]
+10 20 30 20 30 20 10
+q)(f u)[(u:distinct x)?x]
+10 20 30 20 30 20 10
+q).Q.fu[f;x]
+10 20 30 20 30 20 10
+```
+
+
+## Sum items of y by ordered codes g in x
+
+```q
+q)(x;y)
+e  c  b  b b  a c  e  e  a  e  c  c  b  e  c  b a  e  a
+12 40 10 1 26 9 26 43 26 37 20 29 38 33 24 37 4 45 41 2
+q)group x
+e| 0 7 8 10 14 18
+c| 1 6 11 12 15
+b| 2 3 4 13 16
+a| 5 9 17 19
+q)g:"abcde"
+q)group g,x
+a| 0 10 14 22 24
+b| 1 7 8 9 18 21
+c| 2 6 11 16 17 20
+d| ,3
+e| 4 5 12 13 15 19 23
+q)sum each ((count[g]#0),y)group g,x
+a| 93
+b| 74
+c| 170
+d| 0
+e| 166
+q)sum each ((count[g]#0),y)value group g,x
+93 74 170 0 166
+```
+
+
+## Range; nub; remove duplicates
+
+```q
+q)x:"wirlsisl"
+q)distinct x
+"wirls"
+q)distinct (1 2 3;4 5;1 2 3;4 5;1 2 3)
+1 2 3
+4 5
+```
+
+==DROP: not an idiom==
+
+
+## Is range of x 1?
+
+Are all items of x the same?
+
+```q
+q)x:1 1 1 1 1
+q)1=count distinct x
+1b
+q)y:1 1 0 1 1
+q)1=count distinct y
+0b
+```
+
+
+## List of x zeros preceded by (y-x) ones
+
+```q
+q)x:5
+q)y:9
+q)((y-x)#1),x#0
+1 1 1 1 0 0 0 0 0
+q)1 0 where(y-x),x
+1 1 1 1 0 0 0 0 0
+```
+
+
+## List of x ones preceded by (y-x) zeros
+
+```q
+q)x:3
+q)y:9
+q)xr:{((y-x)#0),x#1}
+q)xr[x;y]
+0 0 0 0 0 0 1 1 1
+q)x:2 5 7 4 9 3 6
+q)x xr\:y           / bar chart
+0 0 0 0 0 0 0 1 1
+0 0 0 0 1 1 1 1 1
+0 0 1 1 1 1 1 1 1
+0 0 0 0 0 1 1 1 1
+1 1 1 1 1 1 1 1 1
+0 0 0 0 0 0 1 1 1
+0 0 0 1 1 1 1 1 1
+q)1 0 where(y-x),x
+1 1 1 1 1 1 0 0 0
+q)@[y#1;til y-x;:;0]
+```
+
+
+## List of x zeros followed by (y-x) ones
+
+```q
+q)x:3
+q)y:9
+q)(x#0),(y-x)#1
+0 0 0 1 1 1 1 1 1
+q)zl:{(x#0),(y-x)#1}
+q)zl[x;y]
+0 0 0 1 1 1 1 1 1
+q)0 1 where x,y-x
+0 0 0 1 1 1 1 1 1
+q)@[y#1;til x;:;0]
+0 0 0 1 1 1 1 1 1
+q)x:2 5 7 4 9 3 6
+q)x zl\:y           / bar chart
+0 0 1 1 1 1 1 1 1
+0 0 0 0 0 1 1 1 1
+0 0 0 0 0 0 0 1 1
+0 0 0 0 1 1 1 1 1
+0 0 0 0 0 0 0 0 0
+0 0 0 1 1 1 1 1 1
+0 0 0 0 0 0 1 1 1
+```
+
+
+## List of x ones followed by (y-x) zeros
+
+```q
+q)x:5
+q)y:9
+q)(x#1),(y-x)#0
+1 1 1 1 1 0 0 0 0
+q)xl:{(x#1),(y-x)#0}
+q)xl[x;y]
+1 1 1 1 1 0 0 0 0
+q)1 0 where x,y-x
+1 1 1 1 1 0 0 0 0
+q)@[y#0;til x;:;1]
+1 1 1 1 1 0 0 0 0
+q)x:2 5 7 4 9 3 6
+q)x xl\:y
+1 1 0 0 0 0 0 0 0
+1 1 1 1 1 0 0 0 0
+1 1 1 1 1 1 1 0 0
+1 1 1 1 0 0 0 0 0
+1 1 1 1 1 1 1 1 1
+1 1 1 0 0 0 0 0 0
+1 1 1 1 1 1 0 0 0
+```
+
+
+## Assign x to one of y classes of width h, starting with g
+
+```q
+q)f:{[x;y;g;h] value -1+ -1 _ count each group(1+til y),neg floor neg(x-g)%h}
+q)x:32 56 36 48 36 24 28 44 52 32
+q)y:4
+q)h:10
+q)g:10
+q)f[x;y;g;h]
+0 2 4 2
+```
+
+==FIXME==
+
+
+
+## Move x into first quadrant
+
+```q
+q)sm:{x-min x}
+q)show x:(1 6 4;3 4 7;7 8 6)
+1 6 4
+3 4 7
+7 8 6
+q)sm each x
+0 5 3
+0 1 4
+1 2 0
+```
+
+==FIXME Confirm category==
+
+
+## Contour levels y at points with altitude x
+
+```q
+q)cl:{y[-1+sum not y>x]}
+q)y:-100 0 10 100 1000 10000
+q)cl[-5;y]
+-100
+q)cl[0;y]
+0
+q)cl[99;y]
+10
+q)cl[9;y]
+0
+q)cl[10;y]
+10
+```
+
+
+## 180. Is x in range [y)
+
+```q
+q)x:19 20 21 39 40 41
+q)y:20 40
+q)x<\:y
+11b
+01b
+01b
+01b
+00b
+00b
+q)01b~/:x<\:y
+011100b
+q)((<)over)each x<\:y
+011100b
+q)(</')x<\:y            / elide keywords when composing iterators
+011100b
+```
+
+
+## 181. Which class of y x belongs to
+
+```q
+q)cl:{-1+sum x>/:y}
+q)x:87 9 931 7 27 92 654 1416 7 911
+q)y:0 50 100 1000
+q)sum x>/:y
+2 1 3 1 1 2 3 4 1 3
+q)x>/:y
+1111111111b
+1010011101b
+0010001101b
+0000000100b
+q)-1 sum x>/:y
+'type
+q)-1+ sum x>/:y
+1 0 2 0 0 1 2 3 0 2
+q)cl[x;y]
+1 0 2 0 0 1 2 3 0 2
+```
+
+
+## Replicating a dimension of rank-3 array x y-fold
+
+Three copies along second axis.
+
+```q
+q)show x:2 3 3#1+til 18
+1 2 3    4 5 6    7 8 9
+10 11 12 13 14 15 16 17 18
+q)y:3
+q)x[;raze(y#1)*\:til(shape x)1;]
+1 2 3    4 5 6    7 8 9    1 2 3    4 5 6    7 8 9    1 2 3    4 5 6    7 8 9
+10 11 12 13 14 15 16 17 18 10 11 12 13 14 15 16 17 18 10 11 12 13 14 15 16 17 18
+```
+
+

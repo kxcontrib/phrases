@@ -71,3 +71,32 @@ q)z where x~/:y (z:where y=first x)+\:til count x   / with overlaps
 ```
 
 
+## Find rows of y in in corresponding rows of x
+
+Column-by-column find.
+
+```q
+q)show x:1+3 4#til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)q)show y:(1 0 3 0;0 6 0 8;9 0 0 12)
+1 0 3 0
+0 6 0 8
+9 0 0 12
+q)x?'y
+0 4 2 4
+4 1 4 3
+0 4 4 3
+```
+
+
+## Find consecutive repeated elements
+
+```q
+q)x:"aaabccccdeee"
+q)where differ x
+0 3 4 8 9
+```
+
+

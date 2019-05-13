@@ -34,7 +34,10 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 99 | [numeric vector from evaluating rows of character matrix](cast.md#numeric-vector-from-evaluating-rows-of-character-matrix) | `raze('[eval;parse])each x`
 106 | [leading zeros for positive integers x in field width y](cast.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
 111 | [count of format of x](cast.md#count-of-format-of-x) | `('[count;string])`
-144 | [histogram](cast.md#histogram) | `" *"(1+ til max x)<=\:/:x`
+144 | [histogram](cast.md#histogram) | `" *"(1+ til max x)<=/:x`
+166 | [barchart of integer list x](cast.md#barchart-of-integer-list-x)| `" X" reverse til[max x]<\:x`
+170 | [horizontal barchart of x, normalized to length y](cast.md#horizontal-barchart-of-x-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
+171 | [horizontal barchart of integers](cast.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
 149 | [number of decimals in x, maximum y](cast.md#number-of-decimals-in-x-maximum-y) | `sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1`
 
 
@@ -54,7 +57,8 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 50 | [connectivity list from connectivity matrix](misc.md#connectivity-list-from-connectivity-matrix) | `rc[x;]where raze x`
 71 | [connectivity matrix from connectivity list](math.md#connectivity-matrix-from-connectivity-list)| ==FIXME==
 148 | [node matrix from connection matrix](math.md#node-matrix-from-connection-matrix)| `b:flip each x=/:1 -1`<br/>`(mmu\:) . "f"$(b;tc x)`
-52, 59, 60 | [truth table of order x](math.md#truth-table-of-order-x) | `2 vs til "j"$2 xexp x`
+157 | [connection matrix from node matrix](math.md#connection matrix from node matrix) | `(-/)flip x=/:tc distinct raze x`
+158. 52, 59, 60 | [truth table of order x](math.md#truth-table-of-order-x) | `2 vs til "j"$2 xexp x`
 62 | [integer and fractional parts of positive x](math.md#integer-and-fractional-parts-of-positive-x) | `{f,'x-f:floor x}x`
 67 | [extrapolated value of abscissa x and ordinate y at g](math.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) | `g sv raze(enlist y) lsq x xexp/: reverse tc x`
 69 | [value of ascending polynomial coefficients y at points x](math.md#value-of-ascending-polynomial-coefficients-y-at-points-x) |`x sv\:y`
@@ -81,6 +85,24 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 142 | [number of combinations of n objects taken k at a time](math.md#number-of-combinations-of-n-objects-taken-k-at-a-time) | `fac[n]%fac[n-k]*fac[k]`
 146 | [compound interest for principals y at percentages g for periods x](math.md#compound-interest-for-principals-y-at-percentages-g-for-periods-x) | `y*\:(1+g%100)xexp\:x`
 150 | [sum items of x given by y](math.md#sum-items-of-x-given-by-y) | `sum each x value group y`
+155 | [greatest common divisor](math.md#greatest-common-divisor) | `1+last where min each 0=x mod/:1+til min x`
+161 | [is x upper triangular?](math.md#is-x-upper-triangular) | `zm[x]~x*{x>\:x}tc x`
+162 | [is x lower triangular?](math.md#is-x-lower-triangular) | `zm[x]~x*{x<\:x}tc x`
+163 | [polynomial product](math.md#polynomial-product) | `sum(tc x)rotate'(1_'zm x),'y*/:x`
+164 | [divisors](math.md#divisors) | `where 0=x mod/:til 1+x`
+175 | [primes to n](math.md#primes-to-n) | `1+where 2=sum 0=x mod/:x:1+til n`
+183 | [maximum table](math.md#maximum-table) | `{x&\:x}til x`
+186 | [annuity coefficient for x periods at interest rate y%](math.md#annuity-coefficient-for-x-periods-at-interest-rate-y) | `y%/:100*flip 1-(1+y%100)xexp\:neg x`
+187 | [direct matrix product](math.md#direct-matrix-product) | `flip each x*\:\:y`
+188 | [Shur product](math.md#shur-product) | `((last shape x)#x) * (first shape y)#'y`
+191 | [Shur sum](math.md#shur-sum) | `((last shape x)#x) + (first shape y)#'y`
+189 | [add x to each row of y](math.md#add-x-to-each-row-of-y) | `x+/:y`
+192 | [add x to each column of y](math.md#add-x-to-each-column-of-y) | `x+'y`
+195 | [upper triangular matrix of order x](math.md#upper-triangular-matrix-of-order-x) | `{x<=\:x}til x`
+196 | [lower triangular matrix of order x](math.md#lower-triangular-matrix-of-order-x) | `{x>=\:x}til x`
+197 | [identity matrix of order x](math.md#identity-matrix-of-order-x) | `{x=/:x}til x`
+198 | [Hilbert matrix of order x](math.md#hilbert-matrix-of-order-x) | `reciprocal 1+{x+/:x}til x`
+199 | [multiplication table of order x](math.md#multiplication-table-of-order-x) | `{x*\:x}1+til x`
 
 
 
@@ -116,15 +138,20 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
 123 | [y objects selected without replacement from til x](misc.md#y objects-selected-without-replacement-from-til-x) | `neg[y]?x`
 145 | [count of x between endpoints (l,h)](misc.md#count-of-x-between-endpoints-lh) | `sum raze (x<h)&x>l`
-
-
-## Strings
-
-# | description | phrase
---:|-------------|-------
-73 | [remove trailing blanks](misc.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
-76 | [justify right](misc.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
-
+151 | [efficient execution of f x where x has repeated values](misc.md#efficient-execution-of-f-x-where-x-has-repeated-values) | `u:distinct x`<br/>`(f u)u?x`
+152 | [sum items of y by ordered codes g in x](misc.md#sum-items-of-y-by-ordered-codes-g-in-x) | `sum each((count[g]#0),y)value group g,x`
+154 | [range; nub; remove duplicates](misc.md#range-nub-remove-duplicates) ` distinct x`
+159 | [is range of x 1?](misc.md#is-range-of-x-1) | `1=count distinct x`
+165 | [list of x zeros preceded by (y-x) ones](misc.md#list-of-x-zeros-preceded-by-y-x-ones) | `1 0 where(y-x),x`
+167 | [list of x ones preceded by (y-x) zeros](misc.md#list-of-x-ones-preceded-by-y-x-zeros) | `1 0 where(y-x),x`
+168 | [list of x zeros followed by (y-x) ones](misc.md#list-of-x-zeros-followed-by-y-x-ones) | `0 1 where x,y-x`
+172 | [list of x ones followed by (y-x) zeros](misc.md#list-of-x-ones-followed-by-y-x-zeros) | `1 0 where x,y-x`
+173 | [assign x to one of y classes of width h, starting with g](misc.md#assign-x-to-one-of-y-classes-of-width-h-starting-with-g) | ==FIXME==
+174 | [move x into first quadrant](misc.md#move-x-into-first-quadrant) | `{x-min x}each x`
+179 | [contour levels y at points with altitude x](misc.md#contour-levels-y-at-points-with-altitude-x) | `y -1+sum not y>x`
+180 | [is x in range [y)](misc.md#is-x-in-range-y) | `(</')x<\:y`
+181 | [which class of y x belongs to](misc.md#which-class-of-y-x-belongs-to) | `-1+sum x>/:y`
+200 | [replicating a dimension of rank-3 array x y-fold](misc.md#replicating-a-dimension-of-rank-3-array-x-y-fold) | `x[;raze(y#1)*\:til(shape x)1;]`
 
 
 ## Search
@@ -138,24 +165,43 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 79 | [find last non-blank](misc.md#find-last-non-blank) | `(" "=reverse x)?0b`
 143 | [find distinct items](misc.md#find-distinct-items) | `value group x`
 147 | [find string x in string y](misc.md#find-string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
+153 | [find rows of y in in corresponding rows of x](search.md#find-rows-of-y-in-in-corresponding-rows-of-x) | `x?'y`
+182 | [find consecutive repeated elements](misc.md#find-consecutive-repeated-elements) | `where differ x`
+
 
 
 ## Sort
 
 # | description | phrase
 --:|-------------|-------
-1  | [ascending ordinals (ranking, shareable)](sorts.md#ordinals-ranking-shareable) | `asc[x]?x`
-8, 9, 35, 38, 44 | [sort (rows) ](sorts.md#sort-rows) | `asc x`, `desc x`
-13 | [ascending ordinals (ranking, all different)](sorts.md#ordinals-ranking-all-different) | `iasc iasc x`
-17 | [descending ordinals (ranking, all different)](sorts.md#ordinals-ranking-all-different) | `idesc idesc x`
-18, 19 | [sort char matrix x ascending by internal alphabet](sorts.md) | `x[iasc x]`, ``x[iasc`$x]``
+1  | [ascending ordinals (ranking, shareable)](sort.md#ordinals-ranking-shareable) | `asc[x]?x`
+8, 9, 35, 38, 44 | [sort (rows) ](sort.md#sort-rows) | `asc x`, `desc x`
+13 | [ascending ordinals (ranking, all different)](sort.md#ordinals-ranking-all-different) | `iasc iasc x`
+17 | [descending ordinals (ranking, all different)](sort.md#ordinals-ranking-all-different) | `idesc idesc x`
+18, 19 | [sort char matrix x ascending by internal alphabet](sort.md) | `x[iasc x]`, ``x[iasc`$x]``
 30 | grade up x according to key y | `x iasc y?x`
-32 | [sort ascending indices x according to data y](sorts.md#sort-ascending-indices-x-according-to-data-y) | `x iasc y x`
-33 | [sort rows on column](sorts.md#sort-rows-on-column) | `x iasc x[;y]`
-34 | [choose grading direction](sorts.md#Choose-grading-direction) | `x iasc x*1 -1[y]`
-36 | [sort y on x](sorts.md#sort-y-on-x) | `y iasc x`
-37 | [invert permutation](sorts.md#invert-permutation) | `iasc x`
-42, 43 | [move flagged items to one end](sorts.md#move-flagged-items-to-one-end) | `x idesc y`
+32 | [sort ascending indices x according to data y](sort.md#sort-ascending-indices-x-according-to-data-y) | `x iasc y x`
+33 | [sort rows on column](sort.md#sort-rows-on-column) | `x iasc x[;y]`
+34 | [choose grading direction](sort.md#Choose-grading-direction) | `x iasc x*1 -1[y]`
+36 | [sort y on x](sort.md#sort-y-on-x) | `y iasc x`
+37 | [invert permutation](sort.md#invert-permutation) | `iasc x`
+42, 43 | [move flagged items to one end](sort.md#move-flagged-items-to-one-end) | `x idesc y`
+156 | [sort y by value into x classes](sort.md#sort-y-by-value-into-x-classes) | `value asc y group x xrank y`
+
+
+## Strings
+
+# | description | phrase
+--:|-------------|-------
+73 | [remove trailing blanks](strings.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
+76 | [justify right](strings.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
+160 | [move blanks to end of string](strings.md#move blanks-to-end-of-string) | `x iasc x=" "`
+177 | [ordinal of word in x pointed at by y](strings.md#ordinal-of-word-in-x-pointed-at-by-y) | `sum not y<1+where x=" "`
+177 | [find start of string x in string y](strings.md#find-start-of-string-x-in-string-y) | `y ss x`
+178 | [find first occurrence of string x in string y](strings.md#find-first-occurrence-of-string-x-in-string-y) | `first y ss x`
+184 | [right-justify fields x of length y to length g](strings.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
+185 | [left-justify fields x of length y to length g](strings.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
+
 
 
 ## Sublists
@@ -191,6 +237,13 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 ```q
 DEC:"0123456789"
 HEX:"0123456789abcdef"
+depth:{$[type[x]<0; 
+  0; 
+  "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}
 fac:{prd 1+til x}           / factorial
+shape:{$[0=d:depth x; 
+  0#0j; 
+  d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}
 tc:('[til;count])
+zm:{(2#count x)#0}          / zero matrix (square matrix)
 ```
