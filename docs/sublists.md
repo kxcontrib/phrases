@@ -127,3 +127,23 @@ q)(x,(y*count a)#"*")rank raze (deltas[a]#'0),\:y#1
 "abc=*****,d=*****,fgh=*****"
 ```
 
+
+## Maxima of sublists of x specified by boolean list y
+
+```q
+q)x:-17 7 30 12 5 2 -5 6 -3 -19
+q)show y:10#1 1 0
+1 1 0 1 1 0 1 1 0 1
+q)where[y]_x
+,-17
+7 30
+,12
+5 2
+,-5
+6 -3
+,-19
+q)max each where[y]_x
+-17 30 12 5 -5 6 -19
+```
+
+

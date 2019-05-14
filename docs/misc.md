@@ -535,3 +535,269 @@ q)x[;raze(y#1)*\:til(shape x)1;]
 ```
 
 
+## Moving index y-wide for x
+
+```q
+q)x:"abcdef"
+q)y:3
+q)y+til count[x]-y-1
+3 4 5 6
+```
+
+
+## Indexes of infixes of length y
+
+```q
+q)x:4+til 5
+q)y:3
+q)x+\:til y
+4 5 6
+5 6 7
+6 7 8
+7 8 9
+8 9 10
+```
+
+
+## 203. One-column matrix from numeric vector
+
+```q
+q)x:34 31 51 29 35 17 89
+q)flip enlist x
+34
+31
+51
+29
+35
+17
+89
+q)1#'x
+34
+31
+51
+29
+35
+17
+89
+```
+
+
+## 204. Numeric array and its negative
+
+```q
+q)show x:3+3 4#til 12
+3  4  5  6
+7  8  9  10
+11 12 13 14
+q)x,''neg x
+3 -3   4 -4   5 -5   6 -6
+7  -7  8  -8  9  -9  10 -10
+11 -11 12 -12 13 -13 14 -14
+q)((1 -1*)'')x
+3 -3   4 -4   5 -5   6 -6
+7  -7  8  -8  9  -9  10 -10
+11 -11 12 -12 13 -13 14 -14
+```
+
+
+## Remove trailing blank rows
+
+```q
+q)show x:flip 5 9#"abc de   "
+"aaaaa"
+"bbbbb"
+"ccccc"
+"     "
+"ddddd"
+"eeeee"
+"     "
+"     "
+"     "
+q)(and/) each x=" "
+000100111b
+q)reverse(and/) each x=" "
+111001000b
+q)mins reverse(and/)each x=" "
+111000000b
+q)neg sum mins reverse(and/)each x=" "
+-3i
+q)(neg sum mins reverse(and/)each x=" ")_ x
+"aaaaa"
+"bbbbb"
+"ccccc"
+"     "
+"ddddd"
+"eeeee"
+```
+
+
+## Remove trailing blank columns
+
+We can convert this to to the trailing blank rows of #205 and use `rtr`.
+
+```q
+q)rtr:{x where reverse maxs reverse not  x~\:(count flip x)#" "}
+q)show x:3 9#"abc de   "
+"abc de   "
+"abc de   "
+"abc de   "
+q)rtr x
+"abc de   "
+"abc de   "
+"abc de   "
+q)rtr flip x
+"aaa"
+"bbb"
+"ccc"
+"   "
+"ddd"
+"eee"
+q)flip rtr flip x
+"abc de"
+"abc de"
+"abc de"
+```
+
+Or.
+
+```q
+q)x=" "
+000100111b
+000100111b
+000100111b
+q)min x=" "
+000100111b
+q)reverse min x=" "
+111001000b
+q)mins reverse min x=" "
+111000000b
+q)sum mins reverse min x=" "
+3i
+q)neg[sum mins reverse min x=" "]_'x
+"abc de"
+"abc de"
+"abc de"
+```
+
+
+## Remove leading blank columns
+
+Again we can convert this to the trailing blanks of #205 and use `rtr`.
+
+```q
+q)rtr:{x where reverse maxs reverse not  x~\:(count flip x)#" "}
+q)show x:3 9#"   ed cha"
+"   ed cha"
+"   ed cha"
+"   ed cha"
+q)flip reverse rtr reverse flip x
+"ed cha"
+"ed cha"
+"ed cha"
+```
+
+Or.
+
+```q
+q)x=" "
+111001000b
+111001000b
+111001000b
+q)min x=" "
+111001000b
+q)mins min x=" "
+111000000b
+q)(mins min x=" ")?0b
+3
+q)((mins min x=" ")?0b)_'x
+"ed cha"
+"ed cha"
+"ed cha"
+q)sum[mins min x=" "]_'x
+"ed cha"
+"ed cha"
+"ed cha"
+```
+
+
+## Remove leading blank rows
+
+Again we can convert this to the trailing blanks of #205 and use `rtr`.
+
+```q
+q)rtr:{x where reverse maxs reverse not  x~\:(count flip x)#" "}
+q)show x:reverse flip 3 9#"abc de   "
+"   "
+"   "
+"   "
+"eee"
+"ddd"
+"   "
+"ccc"
+"bbb"
+"aaa"
+q)reverse rtr reverse x
+"eee"
+"ddd"
+"   "
+"ccc"
+"bbb"
+"aaa"
+```
+
+Or.
+
+```q
+q)x=" "
+111b
+111b
+111b
+000b
+000b
+111b
+000b
+000b
+000b
+q)min each x=" "
+111001000b
+q)(min each x=" ")?0b
+3
+q)((min each x=" ")?0b)_ x
+"eee"
+"ddd"
+"   "
+"ccc"
+"bbb"
+"aaa"
+q)(sum mins min " "=flip x)_x
+"eee"
+"ddd"
+"   "
+"ccc"
+"bbb"
+"aaa"
+```
+
+
+## Remove duplicate rows
+
+```q
+q)show x:("abc";"def";"abc";"ghi";"jkl";"abc";"ghi";"abc")
+"abc"
+"def"
+"abc"
+"ghi"
+"jkl"
+"abc"
+"ghi"
+"abc"
+q)distinct x
+"abc"
+"def"
+"ghi"
+"jkl"
+```
+
+==DROP: not an idiom==
+
+

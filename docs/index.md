@@ -152,6 +152,10 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 180 | [is x in range [y)](misc.md#is-x-in-range-y) | `(</')x<\:y`
 181 | [which class of y x belongs to](misc.md#which-class-of-y-x-belongs-to) | `-1+sum x>/:y`
 200 | [replicating a dimension of rank-3 array x y-fold](misc.md#replicating-a-dimension-of-rank-3-array-x-y-fold) | `x[;raze(y#1)*\:til(shape x)1;]`
+201 | [moving index y-wide for x](misc.md#moving-index-y-wide-for-x) | `y+til count[x]-y-1`
+202 | [indexes of infixes of length y](misc.md#indexes-of-infixes-of-length-y) | `x+\:til y`
+203 | [one-column matrix from numeric vector](misc.md#one-column-matrix-from-numeric-vector) | `1#'x`
+204 | [numeric array and its negative](misc.md#numeric-array-and-its-negative) |  `x,''neg x`
 
 
 ## Search
@@ -167,6 +171,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 147 | [find string x in string y](misc.md#find-string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
 153 | [find rows of y in in corresponding rows of x](search.md#find-rows-of-y-in-in-corresponding-rows-of-x) | `x?'y`
 182 | [find consecutive repeated elements](misc.md#find-consecutive-repeated-elements) | `where differ x`
+207 | [find rows of matrix y in matrix x](search.md#find-rows-of-matrix-y-in-matrix-x) | `x?y`
 
 
 
@@ -189,21 +194,6 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 156 | [sort y by value into x classes](sort.md#sort-y-by-value-into-x-classes) | `value asc y group x xrank y`
 
 
-## Strings
-
-# | description | phrase
---:|-------------|-------
-73 | [remove trailing blanks](strings.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
-76 | [justify right](strings.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
-160 | [move blanks to end of string](strings.md#move blanks-to-end-of-string) | `x iasc x=" "`
-177 | [ordinal of word in x pointed at by y](strings.md#ordinal-of-word-in-x-pointed-at-by-y) | `sum not y<1+where x=" "`
-177 | [find start of string x in string y](strings.md#find-start-of-string-x-in-string-y) | `y ss x`
-178 | [find first occurrence of string x in string y](strings.md#find-first-occurrence-of-string-x-in-string-y) | `first y ss x`
-184 | [right-justify fields x of length y to length g](strings.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
-185 | [left-justify fields x of length y to length g](strings.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
-
-
-
 ## Sublists
 
 # | description | phrase
@@ -219,6 +209,7 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 28 | insert g items h after indices y of x | `a:g*count y`<br>`(x,a#h)iasc(tc x),a#count y`
 29 | insert g items h before indices y of x | `a:g*count y`<br>`((a#h),x)iasc(a#y),tc x`
 39, 40 | [reverse each sublist](sublists.md#reverse-each-sublist) | `x reverse idesc sums tc[x] in y`
+213 | [maxima of sublists of x specified by boolean list y](sublists.mdmaxima-of-sublists-of-x-specified-by-boolean-list-y) | `max each where[y]_x`
 
 
 ## Temporal
@@ -230,6 +221,26 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 104| [date in ascending format](temp.md#date-in-ascending-format) | `"/"sv reverse 0 4 6_ x`
 105 | [current time of 12-hour clock](temp.md#current-time-of-12-hour-clock) |`p:x>11:59:59`<br/>`string[x-43200*p]," ","AP"[p],"M"`
 107 | [current date, American format](temp.md#current-date-American-format) | `"/"sv string 1 rotate parse ssr[;".";" "] string x`
+
+
+## Text
+
+# | description | phrase
+--:|-------------|-------
+73 | [remove trailing blanks](text.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
+76 | [justify right](text.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
+160 | [move blanks to end of string](text.md#move blanks-to-end-of-string) | `x iasc x=" "`
+177 | [ordinal of word in x pointed at by y](text.md#ordinal-of-word-in-x-pointed-at-by-y) | `sum not y<1+where x=" "`
+177 | [find start of string x in string y](text.md#find-start-of-string-x-in-string-y) | `y ss x`
+178 | [find first occurrence of string x in string y](text.md#find-first-occurrence-of-string-x-in-string-y) | `first y ss x`
+184 | [right-justify fields x of length y to length g](text.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
+185 | [left-justify fields x of length y to length g](text.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
+205 | [remove trailing blank rows](text.md#remove-trailing-blank-rows) | `(neg sum mins reverse(and/)each x=" ")_ x`
+209 | [remove trailing blank columns](text.md#remove-trailing-blank-columns) | `neg[sum mins reverse min x=" "]_'x`
+210 | [remove leading blank columns](text.md#remove-leading-blank-columns) | `sum[mins min x=" "]_'x`
+211 | [remove leading blank rows](text.md#remove-leading-blank-rows) | `((min each x=" ")?0b)_ x`
+206 | [remove duplicate rows](strings.md#remove-duplicate-rows) | `distinct x`
+
 
 
 ## Utilities

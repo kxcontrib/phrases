@@ -100,3 +100,27 @@ q)where differ x
 ```
 
 
+## Find rows of matrix y in matrix x
+
+```q
+q)show x:flip 3 8#"abcdefgh"
+"aaa"
+"bbb"
+"ccc"
+"ddd"
+"eee"
+"fff"
+"ggg"
+"hhh"
+q)show y:flip 3 4#"afmc"
+"aaa"
+"fff"
+"mmm"
+"ccc"
+q)x?y
+0 5 8 2
+```
+
+==DROP: not an idiom==
+
+
