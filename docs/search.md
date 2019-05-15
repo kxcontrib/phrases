@@ -124,3 +124,13 @@ q)x?y
 ==DROP: not an idiom==
 
 
+## Find last non-blank in string
+
+```q
+q)show x:("love's not ";"time's fool ";"though rosy ")
+q)ln:{last where not " "=x}
+q)ln each x
+9 10 10
+```
+
+

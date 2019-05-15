@@ -801,3 +801,196 @@ q)distinct x
 ==DROP: not an idiom==
 
 
+## Is x an integer in interval [g,h)?
+
+```q
+q)g:6;h:12
+q)x:3 5 6 7.5 11 12 13
+q)x<\:g,h
+11b
+11b
+01b
+01b
+01b
+00b
+00b
+q)(</)each x<\:g,h
+0011100b
+q)x where(</)each x<\:g,h
+6 7.5 11
+q)(x=floor x)&(</)each x<\:g,h
+1110111b
+```
+
+
+## Is x within range [ y )?
+
+```q
+q)x:9
+q)show y:(1 9;9 16;5 7;10 20;6 10)
+1  9
+9  16
+5  7
+10 20
+6  10
+q)x<y
+00b
+01b
+00b
+11b
+01b
+q)(</)each x<y
+01001b
+```
+
+
+## Is x within range ( y ]?
+
+```q
+q)show y:(1 9;9 16;5 7;10 20;6 10)
+1  9
+9  16
+5  7
+10 20
+6  10
+q)x<=y
+01b
+11b
+00b
+11b
+01b
+q)(</)each x<=y
+10001b
+```
+
+
+## Is y a row of x?
+
+```q
+q)show x:("aaa";"bbb";"ooo";"ppp";"kkk")
+q)y:"ooo"
+q)y in x
+1b
+```
+
+==DROP: keyword not idiom==
+
+
+## Number of occurrences of x in y
+
+```q
+q)show y:3+7?6
+6 4 7 7 6 6 4
+q)x:7
+q)sum x=y
+2
+```
+
+
+## Randomize the random seed
+
+```q
+q)\S
+-314159
+q)\S -1154371779
+q)\S
+-1154371779
+```
+
+==DROP: not an idiom==
+
+
+## Interlace x[i]#1 and y[i]#0
+
+```q
+q)x:1 3
+q)y:2 4
+q)raze x,'y
+1 2 3 4
+q){count[x]#1 0}raze x,'y
+1 0 1 0
+q){x#'count[x]#1 0}raze x,'y
+,1
+0 0
+1 1 1
+0 0 0 0
+q)raze{x#'count[x]#1 0}raze x,'y
+1 0 0 1 1 1 0 0 0 0
+```
+
+Or.
+
+```q
+q)(raze/)flip(x;y)#''1 0
+1 0 0 1 1 1 0 0 0 0
+```
+
+
+## Offset enumeration
+
+```q
+q)x:10
+q)y:3
+q)x+til y
+10 11 12
+
+q)x:10 20 30
+q)y:3 4 2
+q)raze x+til each y
+10 11 12 20 21 22 23 30 31
+```
+
+
+## Replicate y x times
+
+```q
+q)x:3 4 2
+q)y:10 20 30
+q)x#'y
+10 10 10
+20 20 20 20
+30 30
+q)raze x#'y
+10 10 10 20 20 20 20 30 30
+```
+
+
+## X alternate takes of 1s and 0s
+
+```q
+q)x:1 2 3 4 5
+q)(count x)#1 0
+1 0 1 0 1
+q)x#'(count x)#1 0
+,1
+0 0
+1 1 1
+0 0 0 0
+1 1 1 1 1
+q)raze x#'(count x)#1 0
+1 0 0 1 1 1 0 0 0 0 1 1 1 1 1
+```
+
+Or.
+
+```q
+q)(count[x]#1 0)where x
+1 0 0 1 1 1 0 0 0 0 1 1 1 1 1
+```
+
+
+## First group of 1s
+
+```q
+q){x and (and)scan x=(or)scan x}0 0 0 1 1 0 1
+0 0 0 1 1 0 0
+q){x and (and)scan x=(or)scan x}0 0 0 1 1 0 1
+0 0 0 1 1 0 0
+q){x and (and)scan x=(or)scan x}1 1 1 0 1 0 1
+1 1 1 0 0 0 0
+q){x and (and)scan x=(or)scan x}0 1 0 1 0 1 0
+0 1 0 0 0 0 0
+q){x&(&\)x=(|\)x}0 1 0 1 0 1 0
+0 1 0 0 0 0 0
+```
+

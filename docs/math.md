@@ -104,6 +104,43 @@ q)sp x
 ```
 
 
+## 262. Value of saddle point
+
+```q
+q)show x:(5 4 6 4 12 5;16 2 4 5 16 18;8 18 7 12 16 11;20 17 16 14 16 20;16 8 12 9 17 13)
+5  4  6  4  12 5
+16 2  4  5  16 18
+8  18 7  12 16 11
+20 17 16 14 16 20
+16 8  12 9  17 13
+q)rn:{x=min each x}
+q)cx:{x=\:max x}
+q)minmax:{(rn x)&cx x}
+q)minmax x
+000000b
+000000b
+000000b
+000100b
+000000b
+q)where raze minmax x
+,21
+q)raze[x]where raze minmax x
+
+
+q)x:(5 4 6 4 12 5;16 2 4 5 16 18;8 18 7 12 16 11;20 17 16 14 16 20;16 8 12 9 17 13)
+q)rn:{x=' min each x}
+q)cx:{x=\:max x}
+q)minmax:{(rn x)&(cx x)}
+q)minmax x
+(000000b;000000b;000000b;000100b;000000b)
+q)ones:{where raze minmax x}
+q)ones x
+,21
+q)(raze x)[ones[x]]
+,14
+```
+
+
 ## Connectivity list from connectivity matrix
 
 ```q
@@ -316,7 +353,7 @@ q)x~flip x
 ```
 
 
-## 87. Number of decimals
+## Number of decimals
 
 Maximum 7.
 
@@ -680,7 +717,7 @@ q)sum(tc x)rotate'(1_'zm x),'y*/:x
 ```
 
 
-## 164. Divisors
+## Divisors
 
 ```q
 q)dv:{where 0=x mod/:key 1+x}
@@ -706,7 +743,7 @@ q)dv each 1 2 3 4 5 6 7 8 9 10
 ```
 
 
-## 175. Primes to n
+## Primes to n
 
 ```q
 q)n:10
@@ -902,7 +939,7 @@ q){x<=\:x}til x
 ```
 
 
-## 196. Lower triangular matrix of order x
+## Lower triangular matrix of order x
 
 ```q
 q){x>=\:x}til 5
@@ -958,4 +995,191 @@ q)mt 5
 5 10 15 20 25
 ```
 
+
+## Maximum of x with weights y
+
+```q
+q)x:1 2 3 4 5
+q)y:5 4 3 2 1
+q)max x*y
+9
+```
+
+
+## Minimum of x with weights y
+
+```q
+q)x:1 2 3 4 5
+q)y:5 4 3 2 1
+q)min x*y
+5
+```
+
+
+## Extend distance table to next leg
+
+```q
+q)show x:(0 50 80 20 999; 50 0 20 40 30; 80 20 0 999 30; 20 40 999 0 10; 999 30 30 10 0)
+0   50 80  20  999
+50  0  20  40  30
+80  20 0   999 30
+20  40 999 0   10
+999 30 30  10  0
+```
+
+Notice `x[0;2]` is `80` while `x[0;1]+x[1;2]` is `70`.
+
+```q
+q)x('[min;+])\:x
+0  50 70 20 30
+50 0  20 40 30
+70 20 0  40 30
+20 40 40 0  10
+30 30 30 10 0
+```
+
+
+## Extend a transitive binary relation
+
+==FIXME: Solve==
+
+```q
+q)show x:(0 1 0 0;0 0 1 1;1 0 0 0;0 0 1 0)
+0 1 0 0
+0 0 1 1
+1 0 0 0
+0 0 1 0
+q)x(|/[&])\:x  / but how to parse that?
+0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+q)x &\:x  / did I miss something?
+0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
+```
+
+
+## Average (mean) of x weighted by y
+
+```q
+q)y:78 80 90 88 72
+q)x:20 15 20 22 19
+q)x*y
+1560 1200 1800 1936 1368
+q)sum x*y
+7864
+q)(sum x*y)%count x
+1572.8
+```
+
+
+## Sum reciprocal series
+
+```q
+q)x:10 9 10 7 8
+q)y:80 63 70 63 64
+q)sum y%x
+39f
+```
+
+
+## Matrix product
+
+```q
+q)show x:`float$(1 2 3;4 5 6)
+1 2 3
+4 5 6
+q)show y:`float$(1 2;3 4;5 6)
+1 2
+3 4
+5 6
+q)x mmu y
+22 28
+49 64
+```
+
+==DROP: keyword not idiom==
+
+
+## Sum over subsets of x specified by y
+
+```q
+q)show x:`float$1+3 4#til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)show y:`float$4 3#1 0
+1 0 1
+0 1 0
+1 0 1
+0 1 0
+q)x mmu y
+4  6  4
+12 14 12
+20 22 20
+```
+
+==FIXME: how does y specify subsets of x?==
+
+
+## Sum squares of x
+
+```q
+q)x:1 2 3 4 5
+q)sum x*x
+55
+```
+
+==DROP: trivial==
+
+
+## Dot product of vectors
+
+```q
+q)x:1 2 3 4 5
+q)y:10 20 30 40 50
+q)sum x*y
+550
+```
+
+== DROP Trivial ==
+
+
+## 244. Product over subsets of x specified by y
+
+```q
+q)show x:1+3 4#til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)show y:4 3#1 0
+1 0 1
+0 1 0
+1 0 1
+0 1 0
+q)x('[prd;xexp])\:y
+3  8   3
+35 48  35
+99 120 99
+```
+
+
+## 260. First 10 figurate numbers of order x
+
+```q
+q)fg:{x+\/10#1}
+q)fg 0
+1 1 1 1 1 1 1 1 1 1
+q)fg 1
+1 2 3 4 5 6 7 8 9 10
+q)fg 2
+1 3 6 10 15 21 28 36 45 55
+q)fg 3
+1 4 10 20 35 56 84 120 165 220
+q)fg 4
+1 5 15 35 70 126 210 330 495 715
+```
 

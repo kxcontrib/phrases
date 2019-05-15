@@ -147,3 +147,100 @@ q)max each where[y]_x
 ```
 
 
+## Running parity of sublists of y indicated by x
+
+```q
+q)x:1 0 0 0 0 1 0 0 0 0 1 0 0 0
+q)y:1 0 0 1 1 1 0 0 1 0 1 1 0 0
+q)where x
+0 5 10
+q)where[x] _ y
+1 0 0 1 1
+1 0 0 1 0
+1 1 0 0
+q)sums each where[x] _ y
+1 1 1 2 3
+1 1 1 2 2
+1 2 2 2
+q)(sums each where[x] _ y)mod 2
+1 1 1 0 1
+1 1 1 0 0
+1 0 0 0
+q)raze(sums each where[x] _ y)mod 2
+1 1 1 0 1 1 1 1 0 0 1 0 0 0
+```
+
+
+## Running sum of sublists of y indicated by x
+
+```q
+q)x:1 0 0 0 1 0 0 0 1
+q)y:1 2 3 4 5 6 7 8 9
+q)where x
+0 4 8
+q)where[x] _ y
+1 2 3 4
+5 6 7 8
+,9
+q)sums each where[x] _ y
+1 3 6 10
+5 11 18 26
+,9
+q)raze sums each where[x] _ y
+1 3 6 10 5 11 18 26 9
+```
+
+
+## Groups of 1s in y pointed at by x
+
+```q
+q)y:0 0 0 1 1 1 0 1 1 1 0 1 1 1 1 1
+q)x:0 0 0 1 0 1 0 0 0 0 0 1 0 0 0 1
+q)x:0 0 0 1 0 0 0 0 1 0 0 1 0 0 0 1
+q)a:sums >':[y]
+q)a
+1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
+q)a:sums >':[0,y]
+q)a
+1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
+q)a:+\>':[0,y]
+'\
+q)a:sums >':[0,y]
+q)a:sums >':[y]
+q)a
+1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
+q)a-1
+0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2
+q)a:a-1
+q)y&a=maxs x*a
+0 0 0 1 1 1 1 1 1 0 0 1 1 1 1 1
+```
+
+==FIXME What is this about? How are the groups in `y` ‘pointed at’ by `x`?==
+
+
+## Sums of sublists of x determined by lengths y
+
+```q
+q)x:1+til 10
+q)y:2 3 2 3
+q)a:sums 0,-1 _ y
+q)a
+0 2 5 7
+q)a _ x
+1 2
+3 4 5
+6 7
+8 9 10
+q)sum each a _ x
+3 12 13 27
+q)sum each sums[0,-1_ y] _ x
+3 12 13 27
+```
+
+Or.
+
+```q
+q)deltas sums[x] sums[y]-1
+3 12 13 27
+```
