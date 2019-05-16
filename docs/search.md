@@ -22,6 +22,21 @@ q)shape[x] vs where raze[y]in raze x
 ```
 
 
+## Find first blank
+
+```q
+q)x:"ab c d"
+q)x?" "
+2
+q)show x:("ab c d";" a bc";"abcd ")
+"ab c d"
+" a bc"
+"abcd "
+q)x?\:" "
+2 0 4
+```
+
+
 ## Find last non-blank
 
 ```q
@@ -133,4 +148,46 @@ q)ln each x
 9 10 10
 ```
 
+
+## Find first occurrence of maximum item of x
+
+```q
+q)x:5 3 7 0 5 7 2
+q)x?max x
+2
+```
+
+
+## Find first occurrence of minimum
+
+```q
+q)x?min x
+3
+```
+
+
+## Find first occurrence in x of an item of y
+
+```q
+q)x:"banana dream"
+q)x?"band"
+0 1 2 7
+q)x?"bandana"
+0 1 2 7 1 2 1
+```
+
+
+## Find blank rows
+
+```q
+q)show x:flip 5 6#"a bc d"
+"aaaaa"
+"     "
+"bbbbb"
+"ccccc"
+"     "
+"ddddd"
+q)all flip x=" "
+010010b
+```
 

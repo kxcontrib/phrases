@@ -556,6 +556,26 @@ q)sum y*(x xexp a)%prds 1|a
 ```
 
 
+## Value of Taylor series with coefficients y at x
+
+```q
+q)x:12
+q)y:7 5 6 6
+q)1+til -1+count y
+1 2 3
+q)1+til -1+count y
+1 2 3
+q)1.0,x%1+til -1 +count y
+1 12 6 4f
+q)prds 1.0,x%1+til -1 +count y
+1 12 72 288f
+q)y*prds 1.0,x%1+til -1 +count y
+7 60 432 1728f
+q)sum y*prds 1.0,x%1+til(count y)-1
+2227f
+```
+
+
 ## Beta function
 
 See gamma in appendix.
@@ -637,6 +657,16 @@ q)where min each 0=x mod/:1+til min x
 q)1+last where min each 0=x mod/:1+til min x
 3
 ```
+
+
+## X first triangular numbers
+
+```q
+q)x:6
+q)sums til x
+0 1 3 6 10 15
+```
+
 
 
 ## Is x upper triangular?
@@ -1148,7 +1178,7 @@ q)sum x*y
 == DROP Trivial ==
 
 
-## 244. Product over subsets of x specified by y
+## Product over subsets of x specified by y
 
 ```q
 q)show x:1+3 4#til 12
@@ -1167,7 +1197,7 @@ q)x('[prd;xexp])\:y
 ```
 
 
-## 260. First 10 figurate numbers of order x
+## First 10 figurate numbers of order x
 
 ```q
 q)fg:{x+\/10#1}
@@ -1181,5 +1211,189 @@ q)fg 3
 1 4 10 20 35 56 84 120 165 220
 q)fg 4
 1 5 15 35 70 126 210 330 495 715
+```
+
+
+## Moving sum
+
+```q
+q)y:3
+q)x:1 2 3 5 7 11
+q)y msum 1 2 3 5 7 11
+1 3 6 10 15 23
+```
+
+
+## Fifo stock y decremented with x units
+
+```q
+q)x:5
+q)y:1 2 3 4 5
+q)sums y
+1 3 6 10 15
+q)(sums y)-x
+-4 -2 1 5 10
+q)g:0|(sums y)-x
+q)g
+0 0 1 5 10
+q)deltas 0,g
+0 0 0 1 4 5
+q)1_ deltas 0,g
+0 0 1 4 5
+q)ff:{1_deltas 0,0|(sums y)-x}
+q)ff[x;y]
+0 0 1 4 5
+```
+
+
+## Alternating sum series
+
+```q
+q)x:1+til 10
+q)x
+1 2 3 4 5 6 7 8 9 10
+q)a:((count x)#1 -1)
+q)a
+1 -1 1 -1 1 -1 1 -1 1 -1
+q)b:x*a
+q)b
+1 -2 3 -4 5 -6 7 -8 9 -10
+q)sums b
+1 -1 2 -2 3 -3 4 -4 5 -5
+q)as:{sums x*(count x)#1 -1}
+q)as[x]
+1 -1 2 -2 3 -3 4 -4 5 -5
+```
+
+
+## Running sum
+
+```q
+q)sums x
+1 21 321 4321
+```
+
+
+## Maximum separation of items of x
+
+```q
+q)x:17 14 14 17 14 17 18
+q)(max x)-min x
+4
+```
+
+
+## Value of two-by-two determinant
+
+```q
+q)x:(13 21;34 55)
+q)(-)over(x 0)*reverse x 1
+1
+```
+
+
+## Area of triangle with sides x
+
+Heron’s rule.
+
+```q
+```q
+q)hr:{sqrt (prd (sum x%2)-0,x)}
+q)hr x
+6f
+```
+
+
+## 319. Standard deviation
+
+```q
+q)x:44 77 48 24 28 36 17 49 90 91
+q)sqrt sum{x*x}[x-(sum x)%c]%c:count x
+25.48411
+```
+
+
+## Variance (dispersion)
+
+```q
+q)x:44 77 48 24 28 36 17 49 90 91.0
+q)sum {x*x}[x-(sum x)%c]%c:count x
+649.44
+```
+
+
+## Y-th moment of x
+
+```q
+q)x:44 77 48 24 28 36 17 49
+q)ym:{(sum(x-(sum x)%c)xexp y)%c:count x}
+q)x ym/:2 0 1 3
+309.2344 1 4.440892e-16 3889.934
+```
+
+
+## Average (mean)
+
+```q
+q)av:{(sum x)%count x}
+q)av[1 10 100]
+37f
+```
+
+
+## Maximum
+
+```q
+q)x:5 3 7 2
+q)max x
+7
+```
+
+
+## Non-negative maximum
+
+```q
+q)x:1 2 3 4 5
+   |/x,0
+5
+q)x:-1 -2 -3 -4 -5
+   |/x,0
+0
+q)x:!0
+q)x
+   !0
+   |/x,0
+0
+```
+
+```q
+q)x:-1 -2 -3 -4 -5
+q)max 0,x
+0
+```
+
+
+## Solve quadratic
+
+```q
+q)qu:{(q%x),(z%q:qq[x;y;z])}
+q)qq:{-0.5*y+sg[y]*ds[x;y;z]}
+q)ds:{sqrt[(y*y)-(4*x*z)]}
+q)sg:{(x>0)-(x<0)}   /or use the builtin signum
+q)a:1
+q)b:-1e30
+q)c:1
+q)sg[b]
+-1
+q)ds[a;b;c]
+1e+30
+q)qq[a;b;c]
+1e+30
+q)qu[a;b;c]
+1e+30 1e-30
+q)qu[1;-8;15]
+5 3f
+q){(q%x),z%q:0.5*y+signum[y]*sqrt(y*y)-4*x*z}[1;-8;15]
+-5 -3f
 ```
 

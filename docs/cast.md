@@ -559,3 +559,23 @@ q)sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1
 ```
 
 
+## Arabic from Roman number
+
+```q
+q)x:"MCMIX"
+q)"MDCLXVI"?x
+0 2 0 6 4
+q)a:0,1000 500 100 50 10 5 1["MDCLXVI"?/:x]
+q)a
+0 1000 100 1000 1 10
+q)a<1 rotate a
+101010b
+q)floor a*-1 xexp a<1 rotate a
+0 1000 -100 1000 -1 10
+q)sum floor a*-1 xexp a<1 rotate a
+1909
+q)ar:{sum floor a*-1 xexp a<1 rotate a:0,1000 500 100 50 10 5 1["MDCLXVI"?x]}
+q)ar[x]
+1909
+```
+

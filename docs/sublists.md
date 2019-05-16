@@ -244,3 +244,223 @@ Or.
 q)deltas sums[x] sums[y]-1
 3 12 13 27
 ```
+
+
+## Insert x[i] zeroes after i-th infix of y
+
+```q
+q)y:0 0 1 0 1 0 1 1
+q)x:1 2 2 1
+q)(0,where y)_y
+0 0
+1 0
+1 0
+,1
+,1
+q)raze((0,where y)_y),'(0,x)#'0
+0 0 1 0 0 1 0 0 0 1 0 0 1 0
+```
+
+See also 264.
+
+
+## End flags from lengths
+
+```q
+q)x:1 2 3 4 5
+q)sums x
+1 3 6 10 15
+q)-1+sums x
+0 2 5 9 14
+q)sum x
+15
+q)@[(sum x)#0;-1+sums x;:;1]
+1 0 1 0 0 1 0 0 0 1 0 0 0 0 1
+```
+
+Or.
+
+```q
+q)(1+til sum x)in sums x
+101001000100001b
+```
+
+
+## Start flags from lengths
+
+```q
+q)x:1 2 3 4 5
+q)(til sum x)in sums 0,x
+110100100010000b
+```
+
+Or.
+
+```q
+q)raze(signum x),'(x-1)#'0i
+1 1 0 1 0 0 1 0 0 0 1 0 0 0 0i
+```
+
+
+## 283. Find field y of fields beginning with first of x
+
+```q
+q)x:"abcabbbaccccaddd"
+q)y:2
+q)y=sums x=first x
+0001111000000000b
+q)x[where y=sums x=first x]
+"abbb"
+q)y:4
+q)x[where y=sums x=first x]
+"addd"
+```
+
+
+## Sum items of x marked by y
+
+```q
+q)x:1 2 3 4 5 6 7
+q)y:1 1 1 2 2 3 3
+q)x group y
+1| 1 2 3
+2| 4 5
+3| 6 7
+q)sum each x group y
+1| 6
+2| 9
+3| 13
+q)value sum each x group y
+6 9 13
+```
+
+
+## Or-scan of sublists of y flagged by x
+
+```q
+q)y:1 0 0 1 0 1 0 0
+q)x:1 0 1 0 0 0 1 0
+q)a:where x
+q)a
+0 2 6
+q)b:a _ y
+q)b
+1 0
+0 1 0 1
+0 0
+q)c:max each b
+q)c
+1 1 0
+q)c:maxs each b
+q)c
+1 1
+0 1 1 1
+0 0
+q)raze c
+1 1 0 1 1 1 0 0
+q)raze maxs each where[x]_ y
+1 1 0 1 1 1 0 0
+```
+
+
+## And-scan of sublists of y flagged by x
+
+```q
+q)y:1 0 0 1 0 1 0 0
+q)x:1 0 1 0 0 0 1 0
+q)a:where x
+q)b:a _ y
+q)b
+1 0
+0 1 0 1
+0 0
+q)c:mins each b
+q)c
+1 0
+0 0 0 0
+0 0
+q)raze c
+1 0 0 0 0 0 0 0
+q)raze mins each where[x]_ y
+1 0 0 0 0 0 0 0
+```
+
+
+## Sums of sublists of y flagged by x
+
+```q
+q)y:1 2 3 4 5
+q)x:1 0 1 0 1
+q)a:where x
+q)b:a _ y
+q)b
+1 2
+3 4
+,5
+q)c:sum each b
+q)c
+3 7 5
+q)sum each(where x)_y
+3 7 5
+```
+
+
+## Groups of 1s in y flagged by x
+
+```q
+q)y:1 1 1 0 0 1 1
+q)x:0 1 0 1 0 0 0
+q)-1 _ 0,y
+0 1 1 1 0 0 1
+q)y > -1 _ 0,y
+1 0 0 0 1 0 0
+q)(>)prior y
+1 0 0 0 1 0 0
+q)sums(>)prior y
+1 1 1 1 1 2 2
+q)x&y
+0 1 0 0 0 0 0
+q)a:sums(>)prior y
+q)a where x&y
+,1i
+q)a in enlist 1
+1111100b
+q)y & a in enlist 1
+1 1 1 0 0 0 0
+q)y and a in(a:sums(>)prior y) where x&y
+1 1 1 0 0 0 0
+```
+
+
+## 296. Starting positions of sublists from lengths x
+
+```q
+q)x:2 3 1 5
+q)sums -1 _0,x
+0 2 5 6
+q)sl:{sums -1 _ 0,x}
+q)sl x
+0 2 5 6
+```
+
+
+## Gth sublist of y flagged by x
+
+```q
+q)x:1 0 0 1 0 1 0 0 0 1 0
+q)y:"abcdefghijk"
+q)a:where x
+q)a
+0 3 5 9
+q)b:a _ y   /original says x but must be y
+q)b
+"abc"
+"de"
+"fghi"
+"jk"
+q)b 2
+"fghi"
+q)((where x)_ y)[g]
+"fghi"
+```
+

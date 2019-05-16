@@ -181,6 +181,24 @@ q)value asc y group 4 xrank y
 ```
 
 
+## 268. Is x in ascending order?
+
+```q
+q)all(>=)prior 0 1 1 1 7 8 9
+1b
+q)all(>=)prior 2 5 7 9 6 8 3
+0b
+```
+
+Or. 
+
+```q
+q)x~asc x:2 5 7 9 6 8 3
+0b
+q)x~asc x:0 1 1 1 7 8 9
+1b
+```
+
 
 
 

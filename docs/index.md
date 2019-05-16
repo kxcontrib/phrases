@@ -39,6 +39,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 170 | [horizontal barchart of x, normalized to length y](cast.md#horizontal-barchart-of-x-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
 171 | [horizontal barchart of integers](cast.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
 149 | [number of decimals in x, maximum y](cast.md#number-of-decimals-in-x-maximum-y) | `sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1`
+342 | [Arabic from Roman number](cast.md#arabic-from-roman-number) | `a:0,1000 500 100 50 10 5 1 "MDCLXVI"?x`<br/>`sum floor a*-1 xexp a<1 rotate a`
 
 
 ## Mathematics
@@ -46,7 +47,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 # | description | phrase
 --:|-------------|-------
 4  | are x and y permutations of each other? | `(asc x)~asc y`
-20 | is x a permutation? | `x~iasc iasc x`
+20, 346 | is x a permutation? | `x~iasc iasc x`
 24 | median of x | `t:.5*1-count x`<br>`.5*sum over x[(iasc x) (neg floor t;floor neg t)]`
 47 | [polynomial with roots y](math.md#polynomial-with-roots-y) | `{(x,0)-y*0,x} over 1,x`
 48 | [saddle-point indices](math.md##saddle-point-indices) | `rc[x;]where raze minmax x`
@@ -82,11 +83,13 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 135 | [number of permutations of n objects taken k at a time](math.md#number-of-permutations-of-n-objects-taken-k-at-a-time) | `prd(n-k-1)+til k`
 136, 1007 | [Pascal’s triangle](math.md#pascals-triangle) | `x {0+':x,0}\ 1`
 137 | [Taylor series](math.md#taylor-series) | `sum y*(x xexp a)%prds 1|a:tc y`
+281 | [value of Taylor series with coefficients y at x](math.md#value-of-Taylor-series-with-coefficients-y-at-x) | `sum y*prds 1.0,x%1+til(count y)-1`
 139 | [Beta function](math.md#beta-function) | ==FIXME==
 142 | [number of combinations of n objects taken k at a time](math.md#number-of-combinations-of-n-objects-taken-k-at-a-time) | `fac[n]%fac[n-k]*fac[k]`
 146 | [compound interest for principals y at percentages g for periods x](math.md#compound-interest-for-principals-y-at-percentages-g-for-periods-x) | `y*\:(1+g%100)xexp\:x`
 150 | [sum items of x given by y](math.md#sum-items-of-x-given-by-y) | `sum each x value group y`
 155 | [greatest common divisor](math.md#greatest-common-divisor) | `1+last where min each 0=x mod/:1+til min x`
+302 | [x first triangular numbers](math.md#x-first-triangular-numbers) | `sums til x`
 161 | [is x upper triangular?](math.md#is-x-upper-triangular) | `zm[x]~x*{x>\:x}tc x`
 162 | [is x lower triangular?](math.md#is-x-lower-triangular) | `zm[x]~x*{x<\:x}tc x`
 163 | [polynomial product](math.md#polynomial-product) | `sum(tc x)rotate'(1_'zm x),'y*/:x`
@@ -116,6 +119,20 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 243 | [dot product of vectors](math.md#dot-product-of-vectors) | `sum x*y`
 244 | [product over subsets of x specified by y](math.md#product-over-subsets-of-x-specified-by-y) | `x('[prd;xexp])\:y`
 260 | [first 10 figurate numbers of order x](math.md#first-10-figurate-numbers-of-order-x) | `x+\/10#1`
+285 | [moving sum](math.md#moving-sum) | `y msum x`
+286 | [fifo stock y decremented with x units](math.md#fifo-stock-y-decremented-with-x-units) | `1_deltas 0,0|(sums y)-x`
+301 | [alternating sum series](math.md#alternating sum series) | `sums x*(count x)#1 -1`
+310 | [running sum](math.md#running-sum) | `sums x`
+312 | [maximum separation of items of x](math.md#maximum-separation-of-items-of-x) | `(max x)-min x`
+313, 314 | [value of two-by-two determinant](math.md#value-of-two-by-two-determinant) | `(-)over(x 0)*reverse x 1`
+318 | [area of triangle with sides x (Heron’s rule)](math.md#area-of-triangle-with-sides-x) | `sqrt prd(sum x%2)-0,x`
+319 | [standard deviation](math.md#standard-deviation) | `sqrt sum{x*x}[x-(sum x)%c]%c:count x`
+320 | [variance (dispersion)](math.md#variance-dispersion) | `sum {x*x}[x-(sum x)%c]%c:count x`
+321 | [y-th moment of x](math.md#y-th-moment-of-x) | `(sum(x-(sum x)%c)xexp y)%c:count x`
+325, 326, 332, 364, 365 | [average (mean)](math.md#average-mean) | `(sum x)%count x`
+335 | [maximum](math.md#maximum) | `max x`
+334 | [non-negative maximum](math.md#non-negative-maximum) `max 0,x`
+363 | [solve quadratic](math.md#solve-quadratic) | `q:0.5*y+signum[y]*sqrt(y*y)-4*x*z`<br/>`(q%x),z%q`
 
 
 
@@ -138,7 +155,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 51b | shape of an array | `shape:{$[0=d:depth x; 0#0j; d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}`
 61 | [cyclic counter](misc.md#cyclic-counter) | `1+(1+til x)mod y`
 66 | [selection by encoded list](misc.md#selection-by-encoded-list) | `2 vs x`
-70 | [remove duplicate rows](misc.md#remove-duplicate-rows) | `distinct x`
+70, 327 | [remove duplicate rows](misc.md#remove-duplicate-rows) | `distinct x`
 80 | [scattered indexing](misc.md#scattered-indexing) | `x ./: y`
 81 | [raveled index from general index](misc.md#raveled-index-from-general-index) | `shape[x] sv y`
 88 | [name variable according to x](misc.md#name-variable-according-to-x) | ``(`$x)set y``
@@ -154,7 +171,7 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 151 | [efficient execution of f x where x has repeated values](misc.md#efficient-execution-of-f-x-where-x-has-repeated-values) | `u:distinct x`<br/>`(f u)u?x`
 152 | [sum items of y by ordered codes g in x](misc.md#sum-items-of-y-by-ordered-codes-g-in-x) | `sum each((count[g]#0),y)value group g,x`
 154 | [range; nub; remove duplicates](misc.md#range-nub-remove-duplicates) ` distinct x`
-159, 214, 215 | [is range of x 1?](misc.md#is-range-of-x-1) | `1=count distinct x`
+159, 214, 215, 311, 315, 316, 317, 324, 340, 341, 343, 347, 349, 352, 354, 358 | [is range of x 1?](misc.md#is-range-of-x-1) | `1=count distinct x`
 165 | [list of x zeros preceded by (y-x) ones](misc.md#list-of-x-zeros-preceded-by-y-x-ones) | `1 0 where(y-x),x`
 167 | [list of x ones preceded by (y-x) zeros](misc.md#list-of-x-ones-preceded-by-y-x-zeros) | `1 0 where(y-x),x`
 168 | [list of x zeros followed by (y-x) ones](misc.md#list-of-x-zeros-followed-by-y-x-ones) | `0 1 where x,y-x`
@@ -176,10 +193,37 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 236 | [number of occurrences of x in y](misc.md#number-of-occurrences-of-x-in-y) | `sum y=x`
 245 | [randomize the random seed](misc.md#randomize-the-random-seed) | `\S x`
 247 | [interlace x\[i\]#1 and y\[i\]#0](misc.md#interlace-xi1-and-yi0) | `(raze/)flip(x;y)#''1 0`
-249 | [offset enumeration](misc.md#offset-enumeration) | `x+til y`
+249, 268 | [offset enumeration](misc.md#offset-enumeration) | `x+til y`
 250, 251, 253 | [replicate y x times](misc.md#replicate-y-x-times) | `x#y`
 252 | [x alternate takes of 1s and 0s](misc.md#x-alternate-takes-of-1s-and-0s) | `(count[x]#1 0)where x`
 261 | [first group of 1s](misc.md#first-group-of-1s) | `x and(and)scan x=(or)scan x`
+273, 274 | [join scalar to each list item](misc.md#join-scalar-to-each-list-item) | `x,'y`
+303 | [smearing 1s between pairs of 1s](misc.md#smearing-1s-between-pairs-of-1s) | `x or(sums x)mod 2`
+304 | [invert 0s following first 1](misc.md#invert-0s-following-first-1) | `maxs x`
+305 | [invert fields marked by pairs of 1s](misc.md#invert-fields-marked-by-pairs-of-1s) | `(not x)&(sums x)mod 2`
+306 | [invert all 1s after first 0](misc.md#invert-all-1s-after-first-0) | `mins x`
+307 | [invert all 1s after first 1](misc.md#invert-all-1s-after-first-1) | `(tc x)=x?1`
+308 | [invert all 0s after first 0](misc.md#invert-all-0s-after-first-0) | `@[x;(1+x?0)_tc x;:;1]`
+309 | [running parity](misc.md#running-parity) | `(sums x)mod 2`
+328 | [number of items](misc.md#number of items) ` count x`
+329 | [mask from positive integers in x](misc.md#mask-from-positive-integers-in-x) | `x in til 1+max x`
+331 | [identity for floating-point maximum, negative infinity](misc.md#identity-for-floating-point-maximum-negative-infinity) | `max 0#0.0`
+333 | [quick membership for non-negative integers](misc.md#quick-membership-for-non-negative-integers) | `@[(1+max x,y)#0;y;:;1]x`
+337 | [identity for floating point minimum, positive infinity](misc.md#identity-for-floating-point-minimum-positive-infinity) | `min 0#0.0`
+339 | minimum | `min x`
+344 | [pairwise match]
+344 | [pairwise match](misc.md#pairwise-match) | `1 rotate(~)prior x`
+345 | [do ranges of x and y match?](misc.md#doranges-of-x-and-y-match) | `(~)over('[asc;distinct])each(x;y)`
+348 | [do x and y have items in common?](misc.md#do-x-and-y-have-items-in-common) | `any x in y`
+350 | [is x 1s and 0s only (boolean)?](misc.md#is-x-1s-and 0s only) | `{t:abs type x; $[t~1;1b;t in 5 6 7 9h;all x in t$0 1;0b]}`
+351 | [is x a subset of y?](misc.md#is-x-a-subset-of-y) | `all x in y`
+353 | [are items unique?](misc.md#are-items-unique) | `x~distinct x`
+355 | [none](misc.md#none) `not any x`
+356 | any | `any x`
+357 | [does x match y?](misc.md#does-x-match-y) | `x~y`
+360 | [all](misc.md#all) | `all x`
+361 | [parity](misc.md#parity) | `(sum x) mod 2`
+362 | [count of occurrences of x in y](misc.md#count-of-occurrences-of-x-in-y) | `sum x=y`
 
 
 
@@ -189,8 +233,9 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 --:|-------------|-------
 22 | find first occurrence of minimum of x | `x?min x`
 23 | find first occurrence of maximum of x | `x?max x`
-41 | find flags in boolean vector | `where x`
+41, 280 | find flags in boolean vector | `where x`
 55 | [find items of y in array x](misc.md#find-items-of-y-in-array-x) | `shape[x] vs where raze[x] in raze y`
+282 | [find first blank](search.md#find-first-blank) | `x?" "`
 79 | [find last non-blank](misc.md#find-last-non-blank) | `(" "=reverse x)?0b`
 143 | [find distinct items](misc.md#find-distinct-items) | `value group x`
 147, 219 | [find string x in string y](misc.md#find-string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
@@ -198,7 +243,10 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 182 | [find consecutive repeated elements](misc.md#find-consecutive-repeated-elements) | `where differ x`
 207 | [find rows of matrix y in matrix x](search.md#find-rows-of-matrix-y-in-matrix-x) | `x?y`
 217 | [find last non-blank in string](search.md#find-last-non-blank-in-string)| `last where x<>" "`
-
+330 | [find first occurrence of maximum item of x](search.md#find-first-occurrence-of-maximum-item-of-x) | `x?max x`
+336 | [find first occurrence of minimum](search.md#find-first-occurrence-of-minimum) | `x?min x`
+338 | [find first occurrence in x of an item of y](search.md#find-first-occurrence-in-x-of-an-item-of-y) | `x?y`
+359 | [find blank rows](search.md#find-blank-rows) | `all flip x=" "`
 
 
 ## Sort
@@ -218,6 +266,8 @@ Numbers in the tables refer to the defunct wiki page [QIdioms](wikipage.md).
 37 | [invert permutation](sort.md#invert-permutation) | `iasc x`
 42, 43 | [move flagged items to one end](sort.md#move-flagged-items-to-one-end) | `x idesc y`
 156 | [sort y by value into x classes](sort.md#sort-y-by-value-into-x-classes) | `value asc y group x xrank y`
+268, 270 | [is x in ascending order?](sort.md#is-x-in-ascending-order) | `all(>=)prior x`
+
 
 
 ## Sublists
@@ -240,6 +290,17 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 255 | [running sum of sublists of y indicated by x](sublists.md#running-sum-of-sublists-of-y-indicated-by-x) | `raze sums each where[x] _ y` 
 256 | [groups of 1s in y pointed at by x](sublists.md#groups-of-1s-in-y-pointed-at-by-x) | ==FIXME==
 257 | [sums of sublists of x determined by lengths y](sublists.md#sums of sublists-of-x-determined-by-lengths-y) | `deltas sums[x] sums[y]-1`
+265, 279 | [insert x\[i\] zeroes after i-th infix of y](sublists.md#insert-xi-zeroes-after-i-th-infix-of-y) | `raze((0,where y)_y),'(0,x)#'0`
+277 | [end flags from lengths](sublists.md#end-flags-from-lengths) | `(1+til sum x)in sums x`
+278 | [start flags from lengths](sublists.md#start-flags-from-lengths) | `(til sum x)in sums 0,x` 
+283 | [find field y of fields beginning with first of x](sublists.md#find-field-y-of-fields-beginning-with-first-of-x) | `x where y=sums x=first x`
+284 | [sum items of x marked by y](sublists.md#sum-items-of-x-marked-by-y) | `value sum each x group y`
+289 | [or-scan of sublists of y flagged by x](sublists.md#or-scan-of-sublists-of-y-flagged-by-x) | `raze maxs each where[x]_ y`
+290 | [and-scan of sublists of y flagged by x](sublists.md#and-scan-of-sublists-of-y-flagged-by-x) | `raze mins each where[x]_ y`
+291 | [sums of sublists of y flagged by x](sublists.md#sums-of-sublists-of-y-flagged-by-x) | `sum each where[x]_y`
+292 | [groups of 1s in y flagged by x](sublists.md#groups-of-1s-in-y-flagged-by-x) | `a:sums(>)prior y`<br/>`y and a in a where x&y`
+296 | [starting positions of sublists from lengths x](sublists.md#starting-positions-of-sublists-from-lengths-x) | `sums -1_0,x`
+300 | [gth sublist of y flagged by x](sublists.md#gth-sublist-of-y-flagged-by-x) | `((where x)_ y)g`
 
 
 
@@ -258,15 +319,16 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 
 # | description | phrase
 --:|-------------|-------
-73 | [remove trailing blanks](text.md#remove-trailing-blanks) | `neg[(reverse[x]=" ")?0b]_ x`
+73, 266, 272, 298 | [remove trailing blanks](text.md#remove-trailing-blanks) | `(neg reverse[x=" "]?0b)_ x`
+267, 299 | [remove leading blanks](text.md#remove-leading-blanks) | `x where maxs x<>" "`
 259 | [remove leading and trailing blanks](text.md#remove-leading-and-trailing-blanks) | `x{y _ x}/1 -1*(" "=1 reverse\x)?'0b`
-76 | [justify right](text.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
+76, 275 | [justify right](text.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
 160 | [move blanks to end of string](text.md#move blanks-to-end-of-string) | `x iasc x=" "`
 177 | [ordinal of word in x pointed at by y](text.md#ordinal-of-word-in-x-pointed-at-by-y) | `sum not y<1+where x=" "`
 177 | [find start of string x in string y](text.md#find-start-of-string-x-in-string-y) | `y ss x`
 178 | [find first occurrence of string x in string y](text.md#find-first-occurrence-of-string-x-in-string-y) | `first y ss x`
 184 | [right-justify fields x of length y to length g](text.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
-185 | [left-justify fields x of length y to length g](text.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
+185, 276 | [left-justify fields x of length y to length g](text.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
 205 | [remove trailing blank rows](text.md#remove-trailing-blank-rows) | `(neg sum mins reverse(and/)each x=" ")_ x`
 209 | [remove trailing blank columns](text.md#remove-trailing-blank-columns) | `neg[sum mins reverse min x=" "]_'x`
 210 | [remove leading blank columns](text.md#remove-leading-blank-columns) | `sum[mins min x=" "]_'x`
@@ -279,7 +341,12 @@ n/a | [partition list y into sublists](sublists.md#partition-a-list) | `(…)_y`
 226| [remove blank columns](text.md#remove-blank-columns) | `x where max" "<>x`
 228, 229 | [is y a row of x?](text.md#is-y-a-row-of-x) | `y in x`
 231 | [which rows of x contain elements different from y?](text.md#which rows-of-x-contain-elements-different-from-y) | `max y<>flip x`
-248 | [center text x in line of width y](text.md#center-text-x-in-line-of-width-y) | `neg[floor(y-count x)%2]rotate y#x,y#" "`
+248, 323 | [center text x in line of width y](text.md#center-text-x-in-line-of-width-y) | `neg[floor(y-count x)%2]rotate y#x,y#" "`
+264, 271 | [insert x\[i\] blanks after y\[g\[i\]\]](text.md#insert-xi-blanks-after-ygi) | `raze((0,1+g)_y),'(x,0)#'" "`
+293 | [locate quotes and text between them](text.md#locate-quotes-and-text-between-them) | `(or)prior(<>)scan x="\""`
+294 | [locate text between quotes](text.md#locate-text-between-quotes) | `(and)prior(<>)scan x="\""`
+295 | [depth of parentheses](text.md#depth-of-parentheses) | `sums({x-0b,-1_y}/)"()"=\:x`
+297 | [spread flagged field heads right](text.md#spread-flagged-field-heads-right) | `x raze(count each a _ x)#'a:where y`
 
 
 

@@ -1,4 +1,4 @@
-# Strings
+# Text
 
 
 
@@ -20,13 +20,21 @@ q)(neg reverse[x=" "]?0b)_ x
 "trailing blanks"
 ```
 
-Reversing a string is faster than reversing a boolean vector.
+Or.
 
 ```q
-q)neg[(reverse[x]=" ")?0b]_ x
+q)x where reverse maxs reverse x<>" "
 "trailing blanks"
 ```
 
+
+## Remove leading blanks
+
+```q
+q)x:"  phrase 267  "
+q)x where maxs x<>" "
+"phrase 267  "
+```
 
 ## Removing leading and trailing blanks
 
@@ -46,11 +54,11 @@ q)x where maxs[a]and reverse maxs reverse a:x<>" "
 Or.
 
 ```q
-q)x where(&/)0 1(reverse/)'flip maxs" "<>flip 1 reverse\x
+q)x where(and)over 0 1 reverse/'maxs each 1 reverse\x<>" "
 "abcd e  fg"
 ```
 
-Or Find and  Drop rather than `maxs` Index.
+Or Find and  Drop rather than `maxs` and Index.
 
 ```q
 q)x{y _ x}/1 -1*(" "=1 reverse\x)?'0b
@@ -420,4 +428,136 @@ q)@[y#" ";(floor(y-count x)%2)+tc x;:;x]
 Above should be faster but breaks where `y<count x`.
 
 
+## Insert x[i] blanks after y[g[i]]
+
+```q
+q)y:"Thequickbrownfox."
+q)g:2 7 12 16
+q)x:2 3 4 5
+q)(0,1+ -1 _ g_ _ y
+'(
+  [0]  (0,1+ -1 _ g_ _ y
+                       ^
+q)(0,1+ -1 _ g) _ y
+"The"
+"quick"
+"brown"
+"fox."
+q)raze((0,1+g)_y),'(x,0)#'" "
+"The  quick   brown    fox.     "
+```
+
+See also 265.
+
+
+## Locate quotes and text between them
+
+```q
+q)x:"The \"quick\" brown fox jumps over the \"lazy\" dog."
+q)(<>)scan x="\""
+000011111100000000000000000000000000011111000000b
+q)(or)prior(<>)scan x="\""
+000011111110000000000000000000000000011111100000b
+q)x where (or)prior (<>)scan x="\""
+"\"quick\"\"lazy\""
+```
+
+Or, for a single pair of quotes.
+
+```q
+q)x:"abc\"de\"f"
+q)count x
+8
+q)a:x="\""
+q)a
+00010010b
+q)b:where a
+q)b
+3 6
+q)c:(first b)+til 1+ neg -/[b]
+q)c
+3 4 5 6
+q)@[(count x)#0;c;:;1]
+0 0 0 1 1 1 1 0
+```
+
+
+## Locate text between quotes
+
+```q
+q)x
+"The \"quick\" brown fox jumps over the \"lazy\" dog."
+q)x="\""
+000010000010000000000000000000000000010000100000b
+q)(<>)prior x="\""
+000011000011000000000000000000000000011000110000b
+q)(<>)scan x="\""
+000011111100000000000000000000000000011111000000b
+q)(and)prior(<>)scan x="\""
+000001111100000000000000000000000000001111000000b
+q)x where(and)prior(<>)scan x="\""
+"quicklazy"
+```
+
+Or, for a single pair of quotes.
+
+```q
+q)x:"abc\"de\"f"
+q)show b:where x="\""
+3 6
+q)show c:b+1 -1
+4 5
+q)d:(first c)+til 1+neg(-)over c
+q)d
+4 5
+q)@[(count x)#0;d;:;1]
+0 0 0 0 1 1 0 0
+```
+
+
+## Depth of parentheses
+
+```q
+q)x:"a(b((c)de)f)g(h)"
+q)"()"=\:x
+0101100000000100b
+0000001001010001b
+q)({x-0b,-1_y}/)"()"=\:x
+0 1 0 1 1 0 0 -1 0 0 -1 0 -1 1 0 0i
+q)sums({x-0b,-1_y}/)"()"=\:x
+0 1 1 2 3 3 3 2 2 2 1 1 0 1 1 1i
+```
+
+
+## Spread flagged field heads right
+
+```q
+q)x:"abcdef"
+q)y:1 1 0 0 1 0
+q)a:where y
+q)a
+0 1 4
+q)a _ x
+,"a"
+"bcd"
+"ef"
+q)count a _ x
+3
+q)count each a _ x
+1 3 2
+q)
+q)b:count each a _ x
+q)c:b#'a
+q)c
+,0
+1 1 1
+4 4
+q)d:raze c
+q)d
+0 1 1 1 4 4
+q)x[d]
+"abbbee"
+q)x raze(count each a _ x)#'a:where y
+"abbbee"
+```
 

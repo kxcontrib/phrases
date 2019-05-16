@@ -994,3 +994,404 @@ q){x&(&\)x=(|\)x}0 1 0 1 0 1 0
 0 1 0 0 0 0 0
 ```
 
+
+## Join scalar to each list item
+
+```q
+q)"a","XYZ"
+"aXYZ"
+q)"a",'"XYZ"
+"aX"
+"aY"
+"aZ"
+q)"XYZ",'"a"
+"Xa"
+"Ya"
+"Za"
+q)99,'3 4#til 12
+99 0 1 2  3
+99 4 5 6  7
+99 8 9 10 11
+```
+
+
+## Smearing 1s between pairs of 1s
+
+```q
+q)x:0 1 0 0 1 0 1 0 1 0 1 1 0
+q)a:(sums x)mod 2
+q)a
+0 1 1 1 0 0 1 1 0 0 1 0 0
+q)x or a
+0 1 1 1 1 0 1 1 1 0 1 1 0
+q)x|a
+0 1 1 1 1 0 1 1 1 0 1 1 0
+q)x or (sums x) mod 2
+0 1 1 1 1 0 1 1 1 0 1 1 0
+```
+
+
+## Invert 0s following first 1
+
+```q
+q)x:0 0 1 0 0 1 1
+q)maxs x
+0 0 1 1 1 1 1
+```
+
+
+## Invert fields marked by pairs of 1s
+
+```q
+q)x:1 0 1 0 0 1 0 0 1
+q)a:(sums x)mod 2
+q)a
+1 1 0 0 0 1 1 1 0
+q)not x
+010110110b
+q)(not x)&a
+0 1 0 0 0 0 1 1 0
+q)(not x)&(sums x)mod 2
+0 1 0 0 0 0 1 1 0
+```
+
+
+## Invert all 1s after first 0
+
+```q
+q)x:1 1 0 1 0 1 0
+q)mins x
+1 1 0 0 0 0 0
+```
+
+
+## Invert all 1s after first 1
+
+```q
+q)x:0 0 1 1 0 1
+q)(count x)#x
+0 0 1 1 0 1
+q)(count x)#0
+0 0 0 0 0 0
+q)x?1
+2
+q)@[(count x)#0;x?1;:;1]
+0 0 1 0 0 0
+```
+
+Or.
+
+```q
+q)(tc x)=x?1
+001000b
+```
+
+
+## Invert all 0s after first 0
+
+```q
+q)x:1 0 0 1 1 0
+q)a:x?0
+q)a
+1
+q)til count x
+0 1 2 3 4 5
+q)b:(a+1)_tc x
+q)b
+2 3 4 5
+q)@[x;b;:;1]
+1 0 1 1 1 1
+q)@[x;(1+x?0)_tc x;:;1]
+1 0 1 1 1 1
+```
+
+Or.
+
+```q
+q)x or tc[x]<>x?x
+1 0 1 1 1 1
+```
+
+
+## Running parity
+
+```q
+q)x:0 1 1 1 1 0 1 0 0
+q)(sums x)mod 2
+0 1 0 1 0 0 1 1 1
+```
+
+
+## Number of items
+
+```q
+q)count "abcd"
+4
+```
+
+Then it depends what you consider items.
+Strictly:
+
+```q
+q)count(1;2 3;4 5 6)
+3
+q)count 2 3 4#til 24
+'length
+```
+
+Or. 
+
+```q
+q)prd shape 2 3 4#til 24
+24
+```
+
+
+## Mask from positive integers in x
+
+```q
+q)x:2 3 3 -2 4 4 -1
+q)x in til 1+max x
+00111b
+```
+
+
+## Identity for floating-point maximum, negative infinity
+
+```q
+q)max 0#0.0
+-0w
+q)-1e100|-0w
+-1e+100
+q)-1e100|-0W
+-2.147484e+09
+q)-123456789|-0w
+-1.234568e+08
+q)-123456789|-0W
+-123456789
+```
+
+
+## Identity for floating point minimum, positive infinity
+
+```q
+q)min 0#0.0
+0w
+q)1e100&0w
+1e+100
+q)1e100&0W
+2.147484e+09
+q)123456789&0w
+1.234568e+08
+q)123456789&0W
+123456789
+```
+
+
+## Quick membership for non-negative integers
+
+```q
+q)x:5 3 7 2
+q)y:8 5 2 6 1 9
+q)max x,y
+9
+q)(1+max x,y)#0
+0 0 0 0 0 0 0 0 0 0
+q)a:(1+max x,y)#0
+q)a
+0 0 0 0 0 0 0 0 0 0
+q)@[a;y;:;1]
+0 1 1 0 0 1 1 0 1 1
+q)(@[a;y;:;1])[x]
+1 0 0 1
+q)@[(1+max x,y)#0;y;:;1][x]
+1 0 0 1
+```
+
+Instructive to study, but not actually faster than `x in y` (V3.6).
+
+
+## Pairwise match
+
+```q
+q)x:("123";"123";"45";"45")
+q)x
+"123"
+"123"
+"45"
+"45"
+q)~':[x]
+0101b
+q)~':[x],0b
+01010b
+q)(~':[x]),0b
+01010b
+q)pm:{1 _ (~':[x]),0b}
+q)pm 1 1 1 1 2 2 3 4 4 4
+1110100110b
+q)1 rotate(~)prior x
+1010b
+q)1 rotate(~)prior 1 1 1 1 2 2 3 4 4 4
+1110100110b
+```
+
+
+## Do ranges of x and y match?
+
+```q
+q)x:1 2 3
+q)y:3 1 2 1
+q)(~)over('[asc;distinct])each(x;y)
+1b
+q)y:3 1 2 1 4
+q)(~)over('[asc;distinct])each(x;y)
+0b
+```
+
+
+## Do x and y have items in common?
+
+```q
+q)x:"abc"
+q)y:"cdeac"
+q)any x in y
+1b
+```
+
+
+## Is x 1s and 0s only?
+
+```q
+q)ib:{t:abs type x; $[t~1;1b;t in 5 6 7 9h;all x in t$0 1;0b]}
+q)ib each (101b;1 0 1h;1 0 1i;1 0 1j;1 0 1 2;1 0 1f)
+011101b
+q)ib each (101b;1 0 1h;1 0 1i;1 0 1j;1 0 1 2;1 0 1f;1 1.2 0)
+0111010b
+```
+
+
+## Is x a subset of y?
+
+```q
+q)x:"abgk"
+q)y:"abcdefghijkl"
+q)all x in y
+1b
+```
+
+
+## Are items unique?
+
+```q
+q)x:"abcdefg"
+q)x~distinct x
+1b
+q)x:"abcdefa"
+q)x~distinct x
+0b
+```
+
+
+## None
+
+```q
+q)x:7#0
+q)not any x
+1b
+q)show x:7#0 1
+0 1 0 1 0 1 0
+q)not any x
+0b
+```
+
+
+## Any
+
+```q
+q)any 1 0 1
+1b
+q)any 0 0 0
+0b
+```
+
+
+## Does x match y?
+
+```q
+q)x:("abc";`sy;1 3 -7)
+q)y:("abc";`sy;1 3 -7)
+q)x~y
+1b
+q)x:1 2 3
+q)y:1 4 3
+q)x~y
+0b
+```
+
+
+## All
+
+```q
+q)x:1 1 0 1
+q)min x
+0
+q)all x
+0
+q)x:1 1 1 1
+q)min x
+1
+q)all x
+1
+q)x:0 0 0 0
+q)min x
+0
+a)all x
+0
+```
+
+
+## Parity
+
+```q
+q)show x:2 vs til 8
+0 0 0 0 1 1 1 1
+0 0 1 1 0 0 1 1
+0 1 0 1 0 1 0 1
+q)(sum x)mod 2
+0 1 1 0 1 0 0 1
+```
+
+
+## Count of occurrences of x in y
+
+```q
+q)x:"q"
+q)y:"quaquaqua"
+q)sum x=y
+3
+```
+
+Or.
+
+```q
+q)y:"quackadoodledo"
+q)x:"qua"
+q)x=\:y
+10000000000000b
+01000000000000b
+00100100000000b
+q)sum each x=\:y
+1 1 2i
+q)count each group y
+q| 1
+u| 1
+a| 2
+c| 1
+k| 1
+d| 3
+o| 3
+l| 1
+e| 1
+q)(count each group y)x
+1 1 2
+```
