@@ -787,7 +787,7 @@ q)ix 2 3 2#til 12
 ## 52. Truth table of order x
 
 ```q
-q)tt:{2 vs til "j"$2 xexp x
+q)tt:{2 vs til "j"$2 xexp x}
 q)tt 1
 0 1
 q)tt 2
@@ -6464,10 +6464,10 @@ q)y _ x
 ## 389. Playing order of x ranked players
 
 ```q
-q)i:{1+2_sv'+|tt[-_-log2[x]]}
-q)j:{@[x;&x>y;:;0]}
-q)k:{j[i[x];x]}
-q)x:6
+   i:{1+2_sv'+|tt[-_-log2[x]]}
+   j:{@[x;&x>y;:;0]}
+   k:{j[i[x];x]}
+   x:6
    i[x]
 1 5 3 7 2 6 4 8
    j[i[x];x]
@@ -6480,8 +6480,8 @@ q)x:6
 
 ```q
    f390:{@[((1 0*+/^y)|^x)#0;!#x;:;x]}
-q)x:3 3#1+!9
-q)y:1 2 3 4
+   x:3 3#1+!9
+   y:1 2 3 4
    f390[x;y]
 (1 2 3
 4 5 6
@@ -6511,14 +6511,14 @@ q)a
 ## 392. Matrix from scalar or vector
 
 ```q
-q)x:4
-q)x
+   x:4
+   x
    !0
    (1+~#^x),:/x
    ,,4
    (1+~#^x),:/x
 1 1
-q)x:7 8
+   x:7 8
    (1+~#^x),:/x:7 8
 1 2
 ```

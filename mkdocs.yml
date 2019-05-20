@@ -70,12 +70,19 @@ nav:
   - Introduction: intro.md
   - Index: index.md
   - Casting: cast.md
+  - Execution: exec.md
+  - Formatting: form.md
+  - Flags: flag.md
+  - Finance: fin.md
   - Math: math.md
   - Merge: merge.md
   - Miscellaneous: misc.md
   - Search: search.md
+  - Shapes and indices: shape.md
   - Sort: sort.md
+  - Statistics: stat.md
   - Sublists: sublists.md
   - Temporal: temp.md
+  - Tests: test.md
   - Text: text.md
   - Original wiki page: wikipage.md

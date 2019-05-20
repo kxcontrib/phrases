@@ -1,7 +1,7 @@
 # Mathematics
 
 
-## 47. Polynomial with roots x
+## Polynomial with roots x
 
 ```q
 q)x:1 -6 8
@@ -22,7 +22,7 @@ q){(x,0)-y*0,x} over 1,x
 ```
 
 
-## 48. Saddle-point indices
+## Saddle-point indices
 
 ```q
 q)x
@@ -35,7 +35,7 @@ q)x
 ```
 
 
-### 48a. Flag row minimums
+### Flag row minimums
 
 ```q
 q)rn:{x=min each x}
@@ -49,7 +49,7 @@ q)rn x
 ```
 
 
-### 48b. Flag column maximums
+### Flag column maximums
 
 ```q
 q)cx:{x=\:max x}
@@ -63,7 +63,7 @@ q)cx x
 ```
 
 
-### 48c. Flag minmax of rows and columns
+### Flag minmax of rows and columns
 
 ```q
 q)minmax:{(rn x)&cx x}
@@ -77,7 +77,7 @@ q)minmax x
 ```
 
 
-### 48d. Find flags in ravel of Boolean matrix
+### Find flags in ravel of Boolean matrix
 
 ```q
 q)ones:{where raze minmax x}
@@ -86,7 +86,7 @@ q)ones x
 ```
 
 
-### 48e. Row-column indices 
+### Row-column indices 
 
 Where `y` are indices into the ravel of matrix `x`, returns the `x` row-column indices of `y`.
 
@@ -104,7 +104,7 @@ q)sp x
 ```
 
 
-## 262. Value of saddle point
+## Value of saddle point
 
 ```q
 q)show x:(5 4 6 4 12 5;16 2 4 5 16 18;8 18 7 12 16 11;20 17 16 14 16 20;16 8 12 9 17 13)
@@ -297,93 +297,6 @@ q)x sv\:y
 ```
 
 
-## Present value of cash flows 
-
-Example: a 3-year bond with an annual 10% coupon and discount rate of 0.9
-
-```q
-q)c:0.1 0.1 1.1     / cash flows
-q)t:1 2 3           / times
-q)d:0.9             / discount rate
-q)sum c*d xexp t
-0.9729
-```
-
-
-## Future value of cash flows
-
-```q
-q)x:10 15 20 25                         / cash flows
-q)y:5                                   / interest rate
-q)sum x* (1+y%100) xexp reverse tc x
-74.11375
-```
-
-
-## Is matrix x antisymmetric?
-
-```q
-q)show x:(0 -7 1; 7 0 -4; -1 4 0)
-0  -7 1
-7  0  -4
--1 4  0
-q)x~neg flip x
-1b
-```
-
-
-## Is matrix x symmetric?
-
-```q
-q)show x:(0 4 7 1; 4 8 6 4; 7 6 2 0; 1 4 0 6)
-0 4 7 1
-4 8 6 4
-7 6 2 0
-1 4 0 6
-q)x~flip x
-1b
-
-q)show x:4 4#16?10
-6 6 3 3
-9 7 9 4
-4 7 9 9
-4 7 8 9
-q)x~flip x
-0b
-```
-
-
-## Number of decimals
-
-Maximum 7.
-
-```q
-q)nd:{$[1=count x;0;-2+count x]}
-q)ff:{string x-floor x}
-q)ff 6.567
-"0.567"
-q)nd ff 1.234
-3
-q)nd ff 1234
-0
-q)nd ff 78.1234567
-7
-q)nd ff 78.12345678
-7
-```
-
-
-## Normal deviates from interval (0,1)
-
-```q
-q)\P 4
-q)4?1.
-0.7418 0.007865 0.4953 0.1869
-```
-
-==DROP Not an idiom; just how Roll works. Or explain relation to “normal deviates”==
-
-
 ## Predicted values of exponential fit
 
 ```q
@@ -453,50 +366,6 @@ q)lsq[enlist y;x xexp/:0 1]
 4.587803 0.7927486
 ```
 
-
-
-## Complementary angle (arccos sin x)
-
-```q
-q)x:0.25
-q)acos sin x
-1.320796
-q)x+acos sin x / should be 0.5*pi, approximately
-1.570796
-q)2*x+acos sin x
-3.141593
-```
-
-
-## Rotation matrix for angle x (in radians) counter-clockwise
-
-```q
-q)x:0.25
-q)((cos x;neg sin x);(sin x;cos x))
-0.9689124 -0.247404
-0.247404  0.9689124
-```
-
-
-## Degrees from radians
-
-```q
-q)x:0.5
-q)57.295779513082323*x
-28.64789
-```
-
-
-## Radians from degrees
-
-```q
-q)x:0.5
-q)z:57.295779513082323*x
-q)z
-28.64789
-q)0.017453292519943295*z
-0.5
-```
 
 
 ## Number of permutations of n objects taken k at a time
@@ -593,20 +462,6 @@ q)binn[12;7]
 792f
 q)binn[10;4]
 210f
-```
-
-
-## Compound interest for principals y at percentages g for periods x
-
-```q
-q)x:1 2 3
-q)y:100 200 300 400
-q)g:0.5 1 1.5 2
-q)y*\:(1+g%100)xexp\:x
-100.5 101    101.51 101   102.01 103.03 101.5 103.02 104.57 102   104.04 106.12
-201 202    203.02   202 204.02 206.06   203 206.04 209.14   204 208.08 212.24
-301.5 303.01 304.52 303   306.03 309.09 304.5 309.07 313.7  306   312.12 318.36
-402 404.01 406.03   404 408.04 412.12   406 412.09 418.27   408 416.16 424.48
 ```
 
 
@@ -828,61 +683,6 @@ q)x&\:x
 ```
 
 
-## 185. Left-justify fields x of length y to length g
-
-```q
-q)x:"abcdefghij"
-q)y:2 3 4 1
-q)g:5
-q)a:sums 0,-1_y
-q)a
-0 2 5 9
-q)a _ x
-"ab"
-"cde"
-"fghi"
-,"j"
-q)((sums 0,-1_y)_x),\:g#" "
-"ab     "
-"cde     "
-"fghi     "
-"j     "
-q)g#/:((sums 0,-1_y)_x),\:g#" "
-"ab   "
-"cde  "
-"fghi "
-"j    "
-q)ljust:{[x;y;g]raze g#/:((sums 0,-1_y)_x),\:g#" "}
-q)ljust[x;y;g]
-"ab   cde  fghi j    "
-```
-
-
-## Annuity coefficient for x periods at interest rate y%
-
-```q
-q)x:10 15 20 25
-q)y:8 9 10 15
-q)flip 1-xexp\:[(1+y%100);neg x]
-0.5368065 0.5775892 0.6144567 0.7528153
-0.6847583 0.725462  0.760608  0.8771055
-0.7854518 0.8215691 0.8513564 0.9388997
-0.8539821 0.8840322 0.907704  0.9696224
-q)\P 3
-q)flip 1-xexp\:[(1+y%100);neg x]
-0.537 0.578 0.614 0.753
-0.685 0.725 0.761 0.877
-0.785 0.822 0.851 0.939
-0.854 0.884 0.908 0.97
-q)ac:{(y%100)%/:flip 1-xexp\:[(1+y%100);neg x]}
-q)ac[x;y]
-0.149  0.156 0.163 0.199
-0.117  0.124 0.131 0.171
-0.102  0.11  0.117 0.16
-0.0937 0.102 0.11  0.155
-```
-
-
 ## Direct matrix product
 
 ```q
@@ -1026,26 +826,6 @@ q)mt 5
 ```
 
 
-## Maximum of x with weights y
-
-```q
-q)x:1 2 3 4 5
-q)y:5 4 3 2 1
-q)max x*y
-9
-```
-
-
-## Minimum of x with weights y
-
-```q
-q)x:1 2 3 4 5
-q)y:5 4 3 2 1
-q)min x*y
-5
-```
-
-
 ## Extend distance table to next leg
 
 ```q
@@ -1089,20 +869,6 @@ q)x &\:x  / did I miss something?
 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0
 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0
-```
-
-
-## Average (mean) of x weighted by y
-
-```q
-q)y:78 80 90 88 72
-q)x:20 15 20 22 19
-q)x*y
-1560 1200 1800 1936 1368
-q)sum x*y
-7864
-q)(sum x*y)%count x
-1572.8
 ```
 
 
@@ -1214,38 +980,6 @@ q)fg 4
 ```
 
 
-## Moving sum
-
-```q
-q)y:3
-q)x:1 2 3 5 7 11
-q)y msum 1 2 3 5 7 11
-1 3 6 10 15 23
-```
-
-
-## Fifo stock y decremented with x units
-
-```q
-q)x:5
-q)y:1 2 3 4 5
-q)sums y
-1 3 6 10 15
-q)(sums y)-x
--4 -2 1 5 10
-q)g:0|(sums y)-x
-q)g
-0 0 1 5 10
-q)deltas 0,g
-0 0 0 1 4 5
-q)1_ deltas 0,g
-0 0 1 4 5
-q)ff:{1_deltas 0,0|(sums y)-x}
-q)ff[x;y]
-0 0 1 4 5
-```
-
-
 ## Alternating sum series
 
 ```q
@@ -1263,14 +997,6 @@ q)sums b
 q)as:{sums x*(count x)#1 -1}
 q)as[x]
 1 -1 2 -2 3 -3 4 -4 5 -5
-```
-
-
-## Running sum
-
-```q
-q)sums x
-1 21 321 4321
 ```
 
 
@@ -1292,36 +1018,6 @@ q)(-)over(x 0)*reverse x 1
 ```
 
 
-## Area of triangle with sides x
-
-Heron’s rule.
-
-```q
-```q
-q)hr:{sqrt (prd (sum x%2)-0,x)}
-q)hr x
-6f
-```
-
-
-## 319. Standard deviation
-
-```q
-q)x:44 77 48 24 28 36 17 49 90 91
-q)sqrt sum{x*x}[x-(sum x)%c]%c:count x
-25.48411
-```
-
-
-## Variance (dispersion)
-
-```q
-q)x:44 77 48 24 28 36 17 49 90 91.0
-q)sum {x*x}[x-(sum x)%c]%c:count x
-649.44
-```
-
-
 ## Y-th moment of x
 
 ```q
@@ -1329,47 +1025,6 @@ q)x:44 77 48 24 28 36 17 49
 q)ym:{(sum(x-(sum x)%c)xexp y)%c:count x}
 q)x ym/:2 0 1 3
 309.2344 1 4.440892e-16 3889.934
-```
-
-
-## Average (mean)
-
-```q
-q)av:{(sum x)%count x}
-q)av[1 10 100]
-37f
-```
-
-
-## Maximum
-
-```q
-q)x:5 3 7 2
-q)max x
-7
-```
-
-
-## Non-negative maximum
-
-```q
-q)x:1 2 3 4 5
-   |/x,0
-5
-q)x:-1 -2 -3 -4 -5
-   |/x,0
-0
-q)x:!0
-q)x
-   !0
-   |/x,0
-0
-```
-
-```q
-q)x:-1 -2 -3 -4 -5
-q)max 0,x
-0
 ```
 
 
@@ -1395,5 +1050,78 @@ q)qu[1;-8;15]
 5 3f
 q){(q%x),z%q:0.5*y+signum[y]*sqrt(y*y)-4*x*z}[1;-8;15]
 -5 -3f
+```
+
+
+## Alternating sum
+
+```q
+q)x:1+til 10
+q)x
+1 2 3 4 5 6 7 8 9 10
+q)a:((count x)#1 -1)
+q)b:x*a
+q)sum b
+-5
+q)sum x*(count x)#1 -1
+-5
+```
+
+
+## Product
+
+```q
+q)x:1 2 3 4 5
+q)prd x
+120
+```
+
+
+## Alternating product
+
+```q
+q)x:1 2 3 4 5
+q)a:(count x)#1 -1
+q)a
+1 -1 1 -1 1
+q)prd xexp[x;a]
+1.875
+q)xexp[x;a]
+1 0.5 3 0.25 5
+```
+
+
+## Sum a vector
+
+```q
+q)x:1 2 3 4 5
+q)sum x
+15
+```
+
+
+## Sum columns of matrix
+
+```q
+q)x:1+3 4#til 12
+q)x
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)sum x
+15 18 21 24
+```
+
+
+## Sum rows of matrix
+
+```q
+q)x:1+3 4#til 12
+q)x
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)sum each x
+10 26 42
 ```
 

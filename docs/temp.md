@@ -3,15 +3,6 @@
 
 
 
-## Is year a leap year?
-
-Leap year from 463.
-
-```q
-q)ly:{sum[0=x mod/:4 100 400]mod 2}
-```
-
-
 ## Number of days in month x of Gregorian year y 
 
 ```q

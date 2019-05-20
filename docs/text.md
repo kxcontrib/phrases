@@ -375,19 +375,6 @@ q)x[;where max x<>" "]
 ```
 
 
-## Is y a row of x?
-
-```q
-q)show x:("xxx";"yyy";"zzz";"yyy")
-q)"yyy" in x
-1b
-q)"abc" in x
-0b
-```
-
-== DROP Keyword, not idiom ==
-
-
 ## Which rows of x contain elements different from y?
 
 ```q

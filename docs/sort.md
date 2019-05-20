@@ -154,7 +154,7 @@ q)x iasc x      / check
 ```
 
 
-## 156. Sort y b y value into x classes 
+## Sort y b y value into x classes 
 
 Between min and max y.
 
@@ -181,24 +181,54 @@ q)value asc y group 4 xrank y
 ```
 
 
-## 268. Is x in ascending order?
+## Mesh
+
+
+_Merge `x`, `y`, and `z` under control of `g`_
+
+<big>`(x,y,z…)rank g`</big> 
 
 ```q
-q)all(>=)prior 0 1 1 1 7 8 9
-1b
-q)all(>=)prior 2 5 7 9 6 8 3
-0b
+q)x:"abcd"
+q)y:"123456789"
+q)z:"zz"
+q)g:1 0 1 1 2 1 2 1 1 0 1 0 1 0 1
+q)iasc iasc g
+4 0 5 6 13 7 14 8 9 1 10 2 11 3 12
+q)rank g
+4 0 5 6 13 7 14 8 9 1 10 2 11 3 12
+q)(x,y,z)rank g
+"1a23z4z56b7c8d9"
 ```
 
-Or. 
+
+<big>`(x,y,z…)iasc idesc g`</big>
 
 ```q
-q)x~asc x:2 5 7 9 6 8 3
-0b
-q)x~asc x:0 1 1 1 7 8 9
-1b
+q)x:5 9 8 7 4 3
+q)y:10 20 30 40
+q)g:1 0 1 1 0 0 1 0 1 1
+q)(x,y)iasc idesc g
+5 10 9 8 20 30 7 40 4 3
 ```
 
+
+<i class="far fa-hand-point-right"></i>
+Reference: 
+[`iasc`](https://code.kx.com/v2/ref/iasc/), 
+[`rank`](https://code.kx.com/v2/ref/rank/), 
+[Case](https://code.kx.com/v2/ref/maps/#case)
+
+
+## Playing order of x ranked players
+
+```q
+q)x:6
+q)show f:1+2 sv reverse tt neg floor neg 2 xlog x
+1 5 3 7 2 6 4 8
+q)f*f<=x
+1 5 3 0 2 6 4 0
+```
 
 
 
