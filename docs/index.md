@@ -266,7 +266,7 @@
 391 | [conform table x columns to list y](shape.md#conform-table-x-columns-to-list-y) | `a:(count each(x;y))#0`<br/>`a[;til count first x]:x`
 392, 402 | [matrix from scalar or vector](shape.md#matrix-from-scalar-or-vector) | `{$[0<type x;(1,count x)#x;1 1#x]}`
 396 | [remove columns y from x](shape.md#remove-columns-y-from-x) | `s:til each shape x`<br/>`x . (-1_s),enlist(last s)except y`
-398 | [diagonals from columns](shape.mddiagonals-from-columns) | `(neg til 5)rotate'x`
+398 | [diagonals from columns](shape.md#diagonals-from-columns) | `(neg til 5)rotate'x`
 399 | [columns from diagonals](shape.md#columns-from-diagonals) | `(til 5)rotate'x`
 408 | [initial empty row to start matrix of x columns](shape.md#initial-empty-row-to-start-matrix-of-x-columns) | `()`
 410 |[number of columns in matrix x](shape.md#number-of-columns-in-matrix-x) | `count first x`
@@ -333,7 +333,7 @@
 28 | insert g items h after indices y of x | `a:g*count y`<br>`(x,a#h)iasc(tc x),a#count y`
 29 | insert g items h before indices y of x | `a:g*count y`<br>`((a#h),x)iasc(a#y),tc x`
 39, 40 | [reverse each sublist](sublists.md#reverse-each-sublist) | `x reverse idesc sums tc[x] in y`
-213 | [maxima of sublists of x specified by boolean list y](sublists.mdmaxima-of-sublists-of-x-specified-by-boolean-list-y) | `max each where[y]_x`
+213 | [maxima of sublists of x specified by boolean list y](sublists.md#maxima-of-sublists-of-x-specified-by-boolean-list-y) | `max each where[y]_x`
 254 | [running parity of sublists of y indicated by x](sublists.md#running-parity-of-sublists-of-y-indicated-by-x) | `raze(sums each where[x] _ y)mod 2`
 255 | [running sum of sublists of y indicated by x](sublists.md#running-sum-of-sublists-of-y-indicated-by-x) | `raze sums each where[x] _ y` 
 256 | [groups of 1s in y pointed at by x](sublists.md#groups-of-1s-in-y-pointed-at-by-x) | ==FIXME==
@@ -414,7 +414,7 @@
 209 | [remove trailing blank columns](text.md#remove-trailing-blank-columns) | `neg[sum mins reverse min x=" "]_'x`
 210 | [remove leading blank columns](text.md#remove-leading-blank-columns) | `sum[mins min x=" "]_'x`
 211 | [remove leading blank rows](text.md#remove-leading-blank-rows) | `((min each x=" ")?0b)_ x`
-206 | [remove duplicate rows](strings.md#remove-duplicate-rows) | `distinct x`
+206 | [remove duplicate rows](text.md#remove-duplicate-rows) | `distinct x`
 216 | [rows of matrix x starting with y](text.md#rows-of-matrix-x-starting-with-y) | `x where x[;tc y]~\:y`
 218 | [single blank row from multiple](text.md#single-blank-row-from-multiple) | `x where{x|1_x,1b}max" "<>flip x`
 220 | [remove duplicate blank columns](text.md#remove-duplicate-blank-columns) | `x where{x|1_x,1b}max" "<>x`
