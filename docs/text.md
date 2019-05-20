@@ -548,3 +548,17 @@ q)x raze(count each a _ x)#'a:where y
 "abbbee"
 ```
 
+
+## First word in string x
+
+```q
+q)x:"twas brillig and the slith"
+q)x?" "
+4
+q)(x?" ")#x
+"twas"
+q)fw:{(x?" ")#x}
+q)fw x
+"twas"
+```
+

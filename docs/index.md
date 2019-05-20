@@ -51,24 +51,6 @@
 
 
 
-## Format
-
-# | description | phrase
---:|-------------|-------
-46 | [formatted integers](form.md#formatted-integers) | `flip DEC 10 vs x`
-64 | [character time hh:mm:ss from integer hhmmss](form.md#character-time-hhmmss-from-integer-hhmmss) | `":"sv 0 2 4_ string x`
-65 | [character date yyyy/mm/dd from integer yyyymmdd](form.md#character-date-yyyymmdd-from-integer-yyyymmdd) | `"/"sv 0 4 6_ string x`
-87 | [number of decimals](math.md#number-of-decimals) | `count[string x-floor x]-2`
-106 | [leading zeros for positive integers x in field width y](form.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
-111 | [count of format of x](form.md#count-of-format-of-x) | `('[count;string])`
-144 | [histogram](form.md#histogram) | `" *"(1+ til max x)<=/:x`
-166 | [barchart of integer list x](form.md#barchart-of-integer-list-x)| `" X" reverse til[max x]<\:x`
-170 | [horizontal barchart of x, normalized to length y](form.md#horizontal-barchart-of-x-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
-171 | [horizontal barchart of integers](form.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
-149 | [number of decimals in x, maximum y](form.md#number-of-decimals-in-x-maximum-y) | `sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1`
-
-
-
 ## Flags
 
 # | description | phrase
@@ -93,6 +75,25 @@
 360 | [all](flag.md#all) | `all x`
 370 | [count of 1s in boolean list](flag.md#count-of-1s-in-boolean-list) | `sum x`
 381 | [invert all but first 1 in group of 1s](flag.md#invert-all-but-first-1-in-group-of-1s) | `x>-1 _ 0,x`
+407 | [vector length y of x 1s, the rest 0s](flag.md#vector-length-y-of-x-1s-the-rest-0s) | `x>til y`
+
+
+## Format
+
+# | description | phrase
+--:|-------------|-------
+46 | [formatted integers](form.md#formatted-integers) | `flip DEC 10 vs x`
+64 | [character time hh:mm:ss from integer hhmmss](form.md#character-time-hhmmss-from-integer-hhmmss) | `":"sv 0 2 4_ string x`
+65 | [character date yyyy/mm/dd from integer yyyymmdd](form.md#character-date-yyyymmdd-from-integer-yyyymmdd) | `"/"sv 0 4 6_ string x`
+87 | [number of decimals](math.md#number-of-decimals) | `count[string x-floor x]-2`
+106 | [leading zeros for positive integers x in field width y](form.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
+111 | [count of format of x](form.md#count-of-format-of-x) | `('[count;string])`
+144 | [histogram](form.md#histogram) | `" *"(1+ til max x)<=/:x`
+166 | [barchart of integer list x](form.md#barchart-of-integer-list-x)| `" X" reverse til[max x]<\:x`
+170 | [horizontal barchart of x, normalized to length y](form.md#horizontal-barchart-of-x-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
+171 | [horizontal barchart of integers](form.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
+149 | [number of decimals in x, maximum y](form.md#number-of-decimals-in-x-maximum-y) | `sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1`
+
 
 
 ## Geometry
@@ -210,7 +211,7 @@
 380 | [change items of x with value y\[0\] to y\[1\]](misc.md#change-items-of-x-with-value-y0-to-y1) | `@[x;where x=y 0;:;y 1]`
 382 | [insert x in y after index g](misc.md#insert-x-in-y-after-index-g) | `y[til g+1],x,(g+1)_y`
 383 | [pairwise difference](misc.md#pairwise-difference) | `1_neg deltas x`
-
+406 | [add y to last item of x](misc.md#add-y-to-last-item-of-x) | `x[count[x]-1]+:y`
 
 
 ## Search
@@ -263,10 +264,13 @@
 388 | [drop y rows from top of matrix x](shape.md#drop-y-rows-from-top-of-matrix-x) | `y _ x`
 390 | [conform table x rows to list y](shape.md#conform-table-x-rows-to-list-y)| `s:(count y),count first x`<br/>`s#(raze x),(prd s)#0`
 391 | [conform table x columns to list y](shape.md#conform-table-x-columns-to-list-y) | `a:(count each(x;y))#0`<br/>`a[;til count first x]:x`
-392 | [matrix from scalar or vector](shape.md#matrix-from-scalar-or-vector) | `{$[0<type x;(1,count x)#x;1 1#x]}`
+392, 402 | [matrix from scalar or vector](shape.md#matrix-from-scalar-or-vector) | `{$[0<type x;(1,count x)#x;1 1#x]}`
 396 | [remove columns y from x](shape.md#remove-columns-y-from-x) | `s:til each shape x`<br/>`x . (-1_s),enlist(last s)except y`
 398 | [diagonals from columns](shape.mddiagonals-from-columns) | `(neg til 5)rotate'x`
 399 | [columns from diagonals](shape.md#columns-from-diagonals) | `(til 5)rotate'x`
+408 | [initial empty row to start matrix of x columns](shape.md#initial-empty-row-to-start-matrix-of-x-columns) | `()`
+410 |[number of columns in matrix x](shape.md#number-of-columns-in-matrix-x) | `count first x`
+411 | [number of rows in matrix x](shape.md#411.-Number-of-rows-in-matrix-x) | `count x`
 
 
 
@@ -344,7 +348,12 @@
 291 | [sums of sublists of y flagged by x](sublists.md#sums-of-sublists-of-y-flagged-by-x) | `sum each where[x]_y`
 292 | [groups of 1s in y flagged by x](sublists.md#groups-of-1s-in-y-flagged-by-x) | `a:sums(>)prior y`<br/>`y and a in a where x&y`
 296 | [starting positions of sublists from lengths x](sublists.md#starting-positions-of-sublists-from-lengths-x) | `sums -1_0,x`
+404 | [end points for x fields of length y](sublists.md#end-points-for-x-fields-of-length-y) | `-1+sums x#y`
+405 | [start points for x fields of length y](sublists.md#start-points-for-x-fields-of-length-y) | `where 0=(til x*y)mod 3`
+414 | [ending indices from field lengths](sublists.md#ending-indices-from-field-lengths) | `sums[x]-1`
 300 | [gth sublist of y flagged by x](sublists.md#gth-sublist-of-y-flagged-by-x) | `((where x)_ y)g`
+415 | [lengths of infixes of 1 in x](sublists.md#lengths-of-infixes-of-1-in-x) | `deltas sums[x]where 1_(<)prior x,0`
+417 | [end points of equal infixes](sublists.md#end-points-of-equal-infixes) | `where 1_(<)prior((=)prior x),0b`
 
 
 
@@ -399,7 +408,7 @@
 177 | [ordinal of word in x pointed at by y](text.md#ordinal-of-word-in-x-pointed-at-by-y) | `sum not y<1+where x=" "`
 177 | [find start of string x in string y](text.md#find-start-of-string-x-in-string-y) | `y ss x`
 178 | [find first occurrence of string x in string y](text.md#find-first-occurrence-of-string-x-in-string-y) | `first y ss x`
-184 | [right-justify fields x of length y to length g](text.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
+184, 412 | [right-justify fields x of length y to length g](text.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
 185, 276 | [left-justify fields x of length y to length g](text.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
 205 | [remove trailing blank rows](text.md#remove-trailing-blank-rows) | `(neg sum mins reverse(and/)each x=" ")_ x`
 209 | [remove trailing blank columns](text.md#remove-trailing-blank-columns) | `neg[sum mins reverse min x=" "]_'x`
@@ -418,7 +427,7 @@
 294 | [locate text between quotes](text.md#locate-text-between-quotes) | `(and)prior(<>)scan x="\""`
 295 | [depth of parentheses](text.md#depth-of-parentheses) | `sums({x-0b,-1_y}/)"()"=\:x`
 297 | [spread flagged field heads right](text.md#spread-flagged-field-heads-right) | `x raze(count each a _ x)#'a:where y`
-
+401 | [first word in string x](text.md#first-word-in-string-x) | 
 
 
 ## Utilities and constants

@@ -388,3 +388,53 @@ q)(til 5)rotate'x
 21 22 23 24 25
 ```
 
+
+## Initial empty row to start matrix of x columns
+
+```q
+q)(),5 4#.Q.a
+"abcd"
+"efgh"
+"ijkl"
+"mnop"
+"qrst"
+```
+
+Ancestor languages of q, such as APL, used a zero-row matrix as a ‘template’ to which rows could be joined. In q this would look like 
+
+```q
+q)(0 4#" "),5 4#.Q.a
+'length
+  [0]  (0 4#" "),5 4#.Q.a
+           ^
+q)0 4#" "
+'length
+  [0]  0 4#" "
+          ^
+```
+
+but q does not require zero-row matrixes with a defined number of columns, nor allow their definition. 
+
+
+## Number of columns in matrix x
+
+```q
+q)x:2 7#" "
+q)count x
+2
+q)count each x
+7 7
+q)count first x
+2 7
+```
+
+
+## Number of rows in matrix x
+
+```
+q)x:2 7#" "
+q)count x
+2
+```
+
+

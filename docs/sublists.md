@@ -432,7 +432,7 @@ q)y and a in(a:sums(>)prior y) where x&y
 ```
 
 
-## 296. Starting positions of sublists from lengths x
+## Starting positions of sublists from lengths x
 
 ```q
 q)x:2 3 1 5
@@ -441,6 +441,52 @@ q)sums -1 _0,x
 q)sl:{sums -1 _ 0,x}
 q)sl x
 0 2 5 6
+```
+
+
+## End points for x fields of length y
+
+```q
+q)x:5
+q)y:3
+q)x#y
+3 3 3 3 3
+q)sums x#y
+3 6 9 12 15
+q)-1+sums x#y
+2 5 8 11 14
+```
+
+
+## Start points for x fields of length y
+
+```q
+q)x:5
+q)y:3
+q)@[(x*y)#0;y*til x;:;1]
+1 0 0 1 0 0 1 0 0 1 0 0 1 0 0
+q)where @[(x*y)#0;y*til x;:;1]
+0 3 6 9 12
+```
+
+Or.
+
+```q
+q)(til x*y)mod 3
+0 1 2 0 1 2 0 1 2 0 1 2 0 1 2
+q)0=(til x*y)mod 3
+100100100100100b
+q)where 0=(til x*y)mod 3
+0 3 6 9 12
+```
+
+
+## Ending indices from field lengths
+
+```q
+q)x:4 7 13 15 20
+q)sums[x]-1
+3 10 23 38 58
 ```
 
 
@@ -462,5 +508,40 @@ q)b 2
 "fghi"
 q)((where x)_ y)[g]
 "fghi"
+```
+
+
+## Lengths of infixes of 1 in x
+
+```q
+q)x:0 0 1 1 1 0 0 1 1 1 1 0 1
+q)sums x
+0 0 1 2 3 3 3 4 5 6 7 7 8
+q)(<)prior x
+0000010000010b
+q)where 1_(<)prior x,0
+4 10 12
+q)sums[x]where 1_(<)prior x,0
+3 7 8
+q)deltas sums[x]where 1_(<)prior x,0
+3 4 1
+```
+
+
+## End points of equal infixes
+
+```q
+q)x:"baackkkegtt"
+q)(=)prior x
+00100110001b
+q)((=)prior x),0b
+001001100010b
+q)(<)prior((=)prior x),0b
+000100010001b
+q)where 1_(<)prior((=)prior x),0b
+2 6 10
+q)(x;1_(<)prior((=)prior x),0b)
+b a a c k k k e g t t
+0 0 1 0 0 0 1 0 0 0 1
 ```
 

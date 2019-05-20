@@ -340,3 +340,21 @@ q)(sums x)mod 2
 ```
 
 
+## Vector length y of x 1s, the rest 0s
+
+```q
+q)x:5
+q)y:12
+q)@[y#0;til x;:;1]
+1 1 1 1 1 0 0 0 0 0 0 0
+```
+
+Or.
+
+```q
+q>x>til y
+111110000000b
+```
+
+
+

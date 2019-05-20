@@ -781,3 +781,22 @@ q)(y _ x),y#0
 ```
 
 
+## Add y to last item of x
+
+```q
+q)x:1 2 3 4 5
+q)y:100
+q)@[x;-1+count x;+;y]
+1 2 3 4 105
+```
+
+Or.
+
+```q
+q)x:1 2 3 4 5
+q)y:100
+q)x[count[x]-1]+:y
+q)x
+1 2 3 4 105
+```
+
