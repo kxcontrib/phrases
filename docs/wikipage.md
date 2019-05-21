@@ -7948,7 +7948,7 @@ q)x*not x in y
 1 0 3 0 5
 ```
 
-481.replace items of x not in y by 0
+## 481. Replace items of x not in y by 0
 
 ```q
 q)x:1 2 3 4 5
@@ -8002,11 +8002,12 @@ q)reverse sums reverse x
 15 14 12 9 5
 ```
 
+
 ## 485. Append empty row on matrix
 
 ```q
-q)x:("ab";"cd";"ef")
-q)x
+   x:("ab";"cd";"ef")
+   x
 ("ab"
 "cd"
 "ef")
@@ -8016,6 +8017,8 @@ q)x
 "ef"
 " ")
 ```
+
+
 
 ## 486. [omitted]
 
@@ -8336,7 +8339,7 @@ q)x[where x in y]
 "abcxyz"
 ```
 
-501.see 154
+## 501.see 154
 
 ## 502. Deferred
 

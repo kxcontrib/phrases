@@ -36,6 +36,7 @@ q)x where maxs x<>" "
 "phrase 267  "
 ```
 
+
 ## Removing leading and trailing blanks
 
 ```q
@@ -65,6 +66,16 @@ q)x{y _ x}/1 -1*(" "=1 reverse\x)?'0b
 "abcd e  fg"
 ```
 
+
+## Collapse multiple blanks
+
+<i class="far fa-hand-point-right"></i> 379, 426
+
+```q
+q)x:"a    b       c    d"
+q)x where 1 rotate(or)prior a:x<>" "
+"a b c d"
+```
 
 
 ## Justify right
@@ -560,5 +571,151 @@ q)(x?" ")#x
 q)fw:{(x?" ")#x}
 q)fw x
 "twas"
+```
+
+
+## Remove leading zeros
+
+```q
+q)x:"00002345600345000"
+q)((x="0")?0b) _ x
+"2345600345000"
+```
+
+
+## 441. Comma-separated list from table
+
+```q
+q)show x:("Swift";"Austen";"Dickens")
+"Swift"
+"Austen"
+"Dickens"
+q)","sv x
+"Swift,Austen,Dickens"
+```
+
+And.
+
+```q
+q)show x:("Jonathan Swift ";"Jane Austen    ";"Charles Dickens")
+"Jonathan Swift "
+"Jane Austen    "
+"Charles Dickens"
+q){neg[(reverse x=" ")?0b]_x}each x                     / trim
+"Jonathan Swift"
+"Jane Austen"
+"Charles Dickens"
+q){"\"",x,"\""}each{neg[(reverse x=" ")?0b]_x}each x    / quote
+"\"Jonathan Swift\""
+"\"Jane Austen\""
+"\"Charles Dickens\""
+q)","sv{"\"",x,"\""}each{neg[(reverse x=" ")?0b]_x}each x
+"\"Jonathan Swift\",\"Jane Austen\",\"Charles Dickens\""
+```
+
+
+## Framing character matrix x
+
+```q
+q)show x:4 4#"abcdefghijklmnop"
+"abcd"
+"efgh"
+"ijkl"
+"mnop"
+q)flip"-",'(flip"|",'x,'"|"),'"-"
+"------"
+"|abcd|"
+"|efgh|"
+"|ijkl|"
+"|mnop|"
+"------"
+```
+
+
+## Append empty row on matrix
+
+```q
+q)x
+"ab"
+"cd"
+"ef"
+q)1 0+shape x
+4 2
+q)@[(1 0+shape x)#" ";tc x;:;x]
+"ab"
+"cd"
+"ef"
+"  "
+q)x,enlist(count first x)#" "
+"ab"
+"cd"
+"ef"
+"  "
+q)flip(flip x),'" "
+"ab"
+"cd"
+"ef"
+"  "
+```
+
+
+## Insert empty row in x after row y
+
+```q
+q)show x:("ab";"cd";"ef")
+"ab"
+"cd"
+"ef"
+q)(flip(flip x),'" ")rank@[(1+count x)#1;y+1;+;1]
+"ab"
+"cd"
+"  "
+"ef"
+q)@[x raze(1+tc[x]=y)#'tc x;y+1;:;" "]
+"ab"
+"cd"
+" "
+"ef"
+```
+
+
+## Table from string y at partitions flagged by x
+
+```q
+q)y:"eachwordinarow"
+q)x:1 0 0 0 1 0 0 0 1 0 1 1 0 0
+q)(where x) _ y
+"each"
+"word"
+"in"
+,"a"
+"row"
+```
+
+
+## Insert spaces in text
+
+```q
+q)x:"wider"
+q)-1_raze x,'" "
+"w i d e r"
+```
+
+Or.
+
+```q
+q)c:-1+2*count x
+q)@[c#" ";where c#1 0;:;x]
+"w i d e r"
+```
+
+
+## Remove punctuation characters
+
+```q
+q)x:"oh! no, stop it. you will?"
+q)PUN:",;:.!?"
+q)x except y
+"oh no stop it you will"
 ```
 

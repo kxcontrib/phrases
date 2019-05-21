@@ -5,6 +5,17 @@
 
 
 
+## Find all occurrences of y in x
+
+```q
+q)x:"abcdefgab"
+q)y:"afc*"
+q)x in y
+101001010b
+q)where x in y
+0 2 5 7
+```
+
 ## Find items of y in array x
 
 ```q
@@ -189,5 +200,33 @@ q)show x:flip 5 6#"a bc d"
 "ddddd"
 q)all flip x=" "
 010010b
+```
+
+
+## 471. Find first occurrence of g in x (circularly) after y
+
+```q
+q)x:6 6 0 0 8 9 8 1 0 2 9 4 6 3 5
+q)g:0 6 5
+q)y:9
+q)(y+(y rotate x)?g)mod count x
+2 12 14
+```
+
+
+## 499. Rows of y starting with item of x
+
+```q
+q)show x:("abcd";"efgh";"ijkl";"mnop")
+"abcd"
+"efgh"
+"ijkl"
+"mnop"
+q)y:"ai"
+q)x[;0]in y
+1010b
+q)x where x[;0]in y
+"abcd"
+"ijkl"
 ```
 

@@ -69,7 +69,7 @@ q)x reverse idesc sums til[count x] in il y         / from partition lengths
 Aggregate functions remove one level of depth.
 For example, returns an atom from a vector, or a vector from a matrix.
 
-Use `each` to apply an aggregate function to each sublist.
+Use `each` to apply an aggregate function to each part of a list.
 
 ```q
 q)x:1 1 0 0 0 1 1 0 0 1
@@ -84,6 +84,26 @@ q)-1+count each where[y=" "]_y
 ```
 
 Above, the aggregate function returns an atom from each sublist; the result is a vector.
+
+Or-reduce parts of y marked by x:
+
+```q
+q)x:1 0 0 1 0 0 0 1 0 0 0 0
+q)y:0 0 0 0 1 0 0 0 0 0 1 0
+q)max each(where x)_y
+0 1 1
+```
+
+And-reduce parts of y marked by x:
+
+```q
+q)x:1 0 0 1 0 0 0 1 0 0 0 0
+q)y:0 1 1 1 1 1 1 1 1 1 1 0
+q)min each(where x)_y
+0 1 0
+```
+
+
 
 
 ## Apply uniform function to sublists
@@ -511,7 +531,7 @@ q)((where x)_ y)[g]
 ```
 
 
-## Lengths of infixes of 1 in x
+## Lengths of sublists of 1 in x
 
 ```q
 q)x:0 0 1 1 1 0 0 1 1 1 1 0 1
@@ -528,20 +548,50 @@ q)deltas sums[x]where 1_(<)prior x,0
 ```
 
 
-## End points of equal infixes
+## Starting indices of equal-item sublists
 
 ```q
 q)x:"baackkkegtt"
-q)(=)prior x
-00100110001b
-q)((=)prior x),0b
-001001100010b
-q)(<)prior((=)prior x),0b
-000100010001b
-q)where 1_(<)prior((=)prior x),0b
-2 6 10
-q)(x;1_(<)prior((=)prior x),0b)
+q)(<>)prior x
+11011001110b
+q)(x;(<>)prior x)
 b a a c k k k e g t t
-0 0 1 0 0 0 1 0 0 0 1
+1 1 0 1 1 0 0 1 1 1 0
+q)differ x
+11011001110b
+```
+
+
+## End indices of equal-item sublists
+
+```q
+q)x:"baackkkegtt"
+q)(x;(<>)prior x)
+b a a c k k k e g t t
+1 1 0 1 1 0 0 1 1 1 0
+q)(x;(1_(<>)prior x),1b)
+b a a c k k k e g t t
+1 0 1 1 0 0 1 1 1 0 1
+```
+
+
+## Lengths from start indexes
+
+```q
+q)x:1 0 1 0 0 1 0 0 0 1 0
+q)1_deltas where x,1
+2 3 4 2
+```
+
+
+## Change all multiple sublists of y in x to single
+
+<i class="far fa-hand-point-right"></i> 424
+
+```q
+q)x:"bccbceekl"
+q)y:"c"
+q)x where 1 rotate(or)prior a:x<>y
+"bcbceekl"
 ```
 

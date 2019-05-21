@@ -74,3 +74,16 @@ q).Q.fu[f;x]
 ```
 
 
+## Choose x or y depending on flag g
+
+```q
+q)x:"abcdef"
+q)y:"xyz"
+q)g:0
+q)$[g;x;y]
+"xyz"
+q)g:1
+q)$[g;x;y]
+"abcdef"
+```
+

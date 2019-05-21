@@ -3,6 +3,8 @@
 
 Flags are booleans or integers in the range \[0,1\]. 
 
+Tests return flags. Working with flags is a core q skill.
+
 
 
 
@@ -356,5 +358,44 @@ q>x>til y
 111110000000b
 ```
 
+
+## Find first 1 following index y in x
+
+```q
+q)x:1 0 0 1 1 0 1 1 0
+q)y:3
+q)a+first where (a:y+1) _ x
+4
+q)first a where y<a:where x
+4
+```
+
+
+## First 1s in groups of 1s
+
+```q
+q)x:0 1 1 0 1 1 1 0 0 1
+q)(>)prior x
+1100100001b
+q)(x;(>)prior x)
+0 1 1 0 1 1 1 0 0 1
+1 1 0 0 1 0 0 0 0 1
+q)(x;1_(>)prior 0,x)
+0 1 1 0 1 1 1 0 0 1
+0 1 0 0 1 0 0 0 0 1
+q)1_(>)prior 0,x
+0100100001b
+```
+
+
+## Last 1s in groups of 1s
+
+```q
+q)x:0 1 1 0 1 1 1 0 0 1
+q)x>1 _ x,0
+0010001001b
+q)1_(<)prior x,0
+0010001001b
+```
 
 

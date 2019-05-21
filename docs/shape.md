@@ -261,7 +261,7 @@ q)y#x,y#last  x
 ```
 
 
-## Drop y rows from top of matrix x
+## Drop first y rows from top of matrix x
 
 ```q
 q)x:6 3#til 18
@@ -278,6 +278,60 @@ q)y _ x
 9  10 11
 12 13 14
 15 16 17
+```
+
+
+## Drop first y columns from matrix x
+
+```q
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)2_'3 4#til 12
+2  3
+6  7
+10 11
+```
+
+
+## Conditional drop of y items from list x
+
+```q
+q)x:4 3#til 12
+q)g:0           / conditional
+q)y:2
+q)(y*g)_ x
+0 1  2
+3 4  5
+6 7  8
+9 10 11
+q)g:1           / conditional
+q)(y*g)_ x
+6 7  8
+9 10 11
+```
+
+
+## Conditional drop of last item of list x
+
+```q
+q)show x:4 3#til 12
+0 1  2
+3 4  5
+6 7  8
+9 10 11
+q)g:0           / conditional
+q)(neg g)_x
+0 1  2
+3 4  5
+6 7  8
+9 10 11
+q)g:1           / conditional
+q)(neg g)_x
+0 1 2
+3 4 5
+6 7 8
 ```
 
 
@@ -416,6 +470,53 @@ q)0 4#" "
 but q does not require zero-row matrixes with a defined number of columns, nor allow their definition. 
 
 
+## 485. Append empty row on matrix
+
+```q
+q)x:("ab";"cd";"ef")
+q)flip(flip x),'" "
+"ab"
+"cd"
+"ef"
+"  "
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)flip(flip x),'0
+0 1 2  3
+4 5 6  7
+8 9 10 11
+0 0 0  0
+```
+
+Or – depends what _empty_ means. 
+
+```q
+q)y:("ab";"cd";"ef")
+q){x count x}y 0            / null for y
+" "
+q){c#x c:count x}y 0
+"  "
+q)y,{(1,c)#x c:count x}y 0
+"ab"
+"cd"
+"ef"
+"  "
+q)x
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)x,{(1,c)#x c:count x}x 0
+0 1 2  3
+4 5 6  7
+8 9 10 11
+
+q)last x,{(1,c)#x c:count x}x 0
+0N 0N 0N 0N
+```
+
+
 ## Number of columns in matrix x
 
 ```q
@@ -435,6 +536,97 @@ q)count first x
 q)x:2 7#" "
 q)count x
 2
+```
+
+
+## Matrix with diagonal x
+
+```q
+q)x:5 9 6 7 2
+q)(2#count x)#raze x,'(2#count x)#0
+5 0 0 0 0
+0 9 0 0 0
+0 0 6 0 0
+0 0 0 7 0
+0 0 0 0 2
+```
+
+Or.
+
+```q
+q)neg[tc x]rotate'x,\:(count[x]-1)#0
+5 0 0 0 0
+0 9 0 0 0
+0 0 6 0 0
+0 0 0 7 0
+0 0 0 0 2
+
+q)x*{x=/:\:x}tc x
+5 0 0 0 0
+0 9 0 0 0
+0 0 6 0 0
+0 0 0 7 0
+0 0 0 0 2
+```
+
+
+## Replace first item of x with y
+
+```q
+q)x:"abbccdefcdab"
+q)y:"t"
+q)@[x;0;:;y]
+"tbbccdefcdab"
+```
+
+Or.
+
+```q
+q)y,1_ x
+"tbbccdefcdab"
+```
+
+Or in place.
+
+```q
+q)@[`x;0;:;y]
+`x
+q)x
+"tbbccdefcdab"
+q)x:"abbccdefcdab"
+q)x[0]:y
+q)x
+"tbbccdefcdab"
+```
+
+
+## Replace last item of x with y
+
+```q
+q)x:"abbccdefcdab"
+q)y:"t"
+q)@[x;-1+count x;:;y]
+"abbccdefcdat"
+```
+
+Or.
+
+```q
+q)(-1_ x),y
+"abbccdefcdat"
+```
+
+Or in place.
+
+```q
+q)@[`x;count[x]-1;:;y]
+`x
+q)x
+"abbccdefcdat"
+q)x:"abbccdefcdab"
+q)x[count[x]-1]:y
+q)x
+"abbccdefcdat"
 ```
 
 

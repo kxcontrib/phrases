@@ -3,15 +3,6 @@
 
 
 
-## Is year a leap year?
-
-Leap year from 463.
-
-```q
-q)ly:{sum[0=x mod/:4 100 400]mod 2}
-```
-
-
 ## Is matrix x antisymmetric?
 
 ```q
@@ -325,4 +316,40 @@ q)x~y
 0b
 ```
 
+
+## Does item differ from previous one?
+
+```q
+q)differ x
+11010011111b
+```
+
+
+## Does item differ from next one?
+
+```q
+```q
+q)x:"ceefffmeksc"
+q)1_ differ x
+1010011111b
+```
+
+
+## Is x integral?
+
+```q
+q)ii:{x=floor x}
+q)x:67 -120 3.83 -5.5
+q)ii x
+1100b
+```
+
+
+## 473. Is x even?
+
+```q
+q)x:1 2 3 4 5
+q)not x mod 2
+01010b
+```
 

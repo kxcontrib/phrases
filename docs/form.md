@@ -270,3 +270,39 @@ q)sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1
 ```
 
 
+## Number of digits in nonnegative integer x
+
+```q
+q)np:{1+floor log10 x+0=x}
+q)x:0 13 523 16008
+q)np x
+1 2 3 5
+```
+
+
+## Number of positions in integer x
+
+```q
+q)dp:{1+(x<0)+floor 10 xlog abs x+0=x}
+q)dp 1234
+4
+q)dp -1234
+5
+q)dp 0
+1
+q)dp 7
+1
+q)dp 12345678
+8
+```
+
+Or.
+
+```q
+q)nd:{1+floor 10 xlog(x=0)+x*1 -10[x<0]}
+q)x:4 678 -21 -10854
+q)nd x
+1 3 3 6
+```
+
+

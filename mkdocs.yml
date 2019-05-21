@@ -69,20 +69,22 @@ nav:
   - Q Reference: 'https://code.kx.com/v2/ref'
   - Introduction: intro.md
   - Index: index.md
+  - Arithmetic: arith.md
   - Casting: cast.md
   - Execution: exec.md
-  - Formatting: form.md
-  - Flags: flag.md
   - Finance: fin.md
+  - Find: find.md
+  - Flags: flag.md
+  - Formatting: form.md
   - Geometry: trig.md
   - Math: math.md
   - Merge: merge.md
   - Miscellaneous: misc.md
-  - Search: search.md
+  - Rounding: round.md
   - Shapes and indices: shape.md
   - Sort: sort.md
   - Statistics: stat.md
-  - Sublists: sublists.md
+  - Sublists: sub.md
   - Temporal: temp.md
   - Tests: test.md
   - Text: text.md

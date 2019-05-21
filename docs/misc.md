@@ -716,19 +716,6 @@ q)(y,x)rank raze((g+1),(count x),count[y]-1+count x)#'1 2 1
 ```
 
 
-## Pairwise difference
-
-```q
-q)x:9 3 5 2 0
-q)deltas x
-9 -6 2 -3 -2
-q)1_ deltas x
--6 2 -3 -2
-q)1_ neg deltas x
-6 -2 3 2
-```
-
-
 ## Drop first, suffix 0
 
 ```q
@@ -799,4 +786,185 @@ q)x[count[x]-1]+:y
 q)x
 1 2 3 4 105
 ```
+
+
+## 449. Limiting x between l and h, inclusive
+
+```q
+q)x:(58 9 37 84 39 99;60 30 45 97 77 35;49 87 82 79 8 30;46 61 20 51 12 34;31 51 29 35 17 89)
+q)l:30
+q)h:70
+q)l|h&x
+58 30 37 70 39 70
+60 30 45 70 70 35
+49 70 70 70 30 30
+46 61 30 51 30 34
+31 51 30 35 30 70
+```
+
+
+## Arithmetic precision of system in decimals
+
+```q
+q)10 xlog 3
+0.4771213
+q)/ set maximum precision
+q)\P 0
+q)10 xlog 3
+0.47712125471966244
+q)string 10 xlog 3
+"0.47712125471966244"
+q)reverse[string 10 xlog 3]?"."
+17
+```
+
+
+## Arithmetic progression from x to y with step g
+
+```q
+q)ap:{[x;y;g]x+g*til 1+ floor (y-x)%g}
+q)ap[3;20;5]
+3 8 13 18
+q)ap[3;-20;-5]
+3 -2 -7 -12 -17
+```
+
+
+## Select every y-th item of y
+
+```q
+q)show x:4+til 10
+4 5 6 7 8 9 10 11 12 13
+q)y:3
+q)til count x
+0 1 2 3 4 5 6 7 8 9
+q)(1+tc x)mod 3
+1 2 0 1 2 0 1 2 0 1
+q)0=(1+tc x)mod 3
+0010010010b
+q)where 0=(1+tc x)mod 3
+2 5 8
+q)x where 0=(1+tc x)mod 3
+6 9 12
+```
+
+
+## Remove every y-th item of x
+
+```q
+q)x where 0<(1+tc x)mod 3
+4 5 7 8 10 11 13
+```
+
+
+## Remove every second item
+
+```q
+q)x:"abcdefghijklmn"
+q)x where(count x)#0 1
+"bdfhjln"
+q)x where 0=(1+tc x)mod 2
+"bdfhjln"
+```
+
+
+## Replace items of x in y by 0
+
+```q
+q)show x:6?5
+4 0 2 1 2 1
+q)show y:5?7
+2 3 2 5 4
+q)y in x
+10101b
+q)@[y;where y in x;:;0]
+0 3 0 5 0
+```
+
+Or.
+
+```q
+q)y*not y in x
+0 3 0 5 0
+```
+
+
+### 481. Replace items of x not in y by 0
+
+```q
+q)x:1 2 3 4 5
+q)y:2 4
+q)x in y
+01010b
+q)x*x in y
+0 2 0 4 0
+```
+
+
+
+## Items of x divisible by y
+
+```q
+q)x:95 33 64 10 78 1 47 20 92 95
+q)y:4
+q)x mod y
+3 1 0 2 2 1 3 0 0 3
+q)0=x mod y
+0010000110b
+q)where 0=x mod y
+2 7 8
+q)x where 0=x mod y
+64 20 92
+```
+
+
+## Right to left scan
+
+```q
+q)x:1 2 3 4 5
+q)reverse sums reverse x
+15 14 12 9 5
+q)reverse(+\)reverse x
+15 14 12 9 5
+```
+
+Generally,for any binary object y, `reverse(y\)reverse x`.
+
+
+## Set union
+
+```q
+q)x:"12345"
+q)y:"4567890"
+q)y,x where not x in y
+"4567890123"
+```
+
+Or – gives different result with repeated items:
+
+```q
+q)distinct y,x
+"4567890123"
+```
+
+
+## Set difference
+
+```q
+q)x:"12345"
+q)y:"4567890"
+q)x except y
+"123"
+```
+
+
+## Set intersection
+
+```q
+q)x:"abcdefghijxyz"
+q)y:"yacqwopzbx"
+q)x where x in y
+"abcxyz"
+```
+
 
