@@ -3,7 +3,9 @@
 
 
 
-## Fractional part
+## Parts of numbers
+
+### Fractional part
 
 ```q
 q)x:0 1 -2 3.4 -5.6 -6.1
@@ -12,7 +14,7 @@ q)x mod 1
 ```
 
 
-## Integer and fractional parts of positive x
+### Integer and fractional parts of positive x
 
 ```q
 q)x:12.3 23.4 5.33 8.999
@@ -24,7 +26,7 @@ q){f,'x-f:floor x}x
 ```
 
 
-## Magnitude of fractional part
+### Magnitude of fractional part
 
 ```q
 q)x:6.13 -6.13
@@ -35,7 +37,7 @@ q)a-floor a:abs x
 ```
 
 
-## Fractional part with sign
+### Fractional part with sign
 
 ```q
 q)signum[x]*abs[x]mod 1
@@ -43,7 +45,7 @@ q)signum[x]*abs[x]mod 1
 ```
 
 
-## Leading digit of numeric code abbb
+### Leading digit of numeric code abbb
 
 ```q
 q)ld:{floor x%1000}
@@ -53,7 +55,7 @@ q)ld x
 ```
 
 
-## Last part of abbb
+### Last part of abbb
 
 ```q
 q)x:1234 5678 9012 345 6789
@@ -63,8 +65,9 @@ q)x mod 1000
 
 
 
+## Add
 
-## Sum a vector
+### Sum a vector
 
 ```q
 q)x:1 2 3 4 5
@@ -73,7 +76,35 @@ q)sum x
 ```
 
 
-## Sum columns of matrix
+## Consecutive integers from x to y
+
+```q
+q)x:5
+q)y:10
+q)x+til 1+y-x
+5 6 7 8 9 10
+```
+
+Or.
+
+```q
+q)x_til y+1
+5 6 7 8 9 10
+```
+
+
+## Arithmetic progression of y numbers from x with step g
+
+```q
+q)x:5
+q)y:8
+q)g:100
+q)x+g*til y
+5 105 205 305 405 505 605 705
+```
+
+
+### Sum columns of matrix
 
 ```q
 q)x:1+3 4#til 12
@@ -86,7 +117,7 @@ q)sum x
 ```
 
 
-## Sum rows of matrix
+### Sum rows of matrix
 
 ```q
 q)x:1+3 4#til 12
@@ -99,7 +130,7 @@ q)sum each x
 ```
 
 
-## Sum items of x given by y
+### Sum items of x given by y
 
 ```q
 q)show x:log 1+til 5
@@ -119,7 +150,7 @@ q)sum each x value group y
 ```
 
 
-## Add x to each row of y
+### Add x to each row of y
 
 ```q
 q)x:1+til 4
@@ -134,7 +165,7 @@ q)x+/:y
 ```
 
 
-## Add x to each column of y
+### Add x to each column of y
 
 ```q
 q)x:1+til 2
@@ -147,7 +178,7 @@ q)x+'y
 ```
 
 
-## Sum reciprocal series
+### Sum reciprocal series
 
 ```q
 q)x:10 9 10 7 8
@@ -157,7 +188,7 @@ q)sum y%x
 ```
 
 
-## Sum over subsets of x specified by y
+### Sum over subsets of x specified by y
 
 ```q
 q)show x:`float$1+3 4#til 12
@@ -178,7 +209,7 @@ q)x mmu y
 ==FIXME: how does y specify subsets of x?==
 
 
-## Sum squares of x
+### Sum squares of x
 
 ```q
 q)x:1 2 3 4 5
@@ -189,7 +220,7 @@ q)sum x*x
 ==DROP: trivial==
 
 
-## Alternating sum
+### Alternating sum
 
 ```q
 q)x:1+til 10
@@ -204,7 +235,7 @@ q)sum x*(count x)#1 -1
 ```
 
 
-## Alternating sum series
+### Alternating sum series
 
 ```q
 q)x:1+til 10
@@ -224,7 +255,7 @@ q)as[x]
 ```
 
 
-## Increase absolute value without sign change
+### Increase absolute value without sign change
 
 ```q
 q)x:0 -1 2 -3 4 -5
@@ -236,7 +267,9 @@ q)x+y*@[signum x;where x=0;:;1]
 ```
 
 
-## First difference
+## Subtract
+
+### First difference
 
 ```q
 q)show x:sums 1 2 3 4 5
@@ -246,7 +279,7 @@ q)deltas x
 ```
 
 
-## Pairwise difference
+### Pairwise difference
 
 ```q
 q)x:9 3 5 2 0
@@ -259,7 +292,255 @@ q)1_ neg deltas x
 ```
 
 
-## Primes to n
+## Multiply
+
+### Product
+
+```q
+q)x:1 2 3 4 5
+q)prd x
+120
+```
+
+
+### Multiplication table of order x
+
+```q
+q)mt:{{x*\:x}1+til x}
+q)mt 5
+1 2  3  4  5
+2 4  6  8  10
+3 6  9  12 15
+4 8  12 16 20
+5 10 15 20 25
+```
+
+
+### Square x retaining sign
+
+```q
+q)x:0 -1 2 -3 4
+q)x*abs x
+0 -1 4 -9 16
+```
+
+
+### Multiply each column of x by y
+
+```q
+q)show x:2 5#1+til 10
+1 2 3 4 5
+6 7 8 9 10
+q)y:10 100
+q)x*y
+10  20  30  40  50
+600 700 800 900 1000
+```
+
+
+### Vector (cross) product
+
+```q
+q)x:2 8 5 6 3 1 7 7 10 4
+q)y:6 9 1 1 6 7 1 4 1 5
+q)((1 rotate x)*-1 rotate y)-(-1 rotate x)*1 rotate y
+4 28 46 -27 -41 39 45 3 -19 -58
+```
+
+Or.
+
+```q
+q)(-)over prd each(1 neg\1 -1)rotate''2 2#(x;y)
+4 28 46 -27 -41 39 45 3 -19 -58
+q)(-/)(*/')(1 neg\1 -1)rotate''2 2#(x;y)
+4 28 46 -27 -41 39 45 3 -19 -58
+```
+
+
+### Alternating product
+
+```q
+q)x:1 2 3 4 5
+q)a:(count x)#1 -1
+q)a
+1 -1 1 -1 1
+q)prd xexp[x;a]
+1.875
+q)xexp[x;a]
+1 0.5 3 0.25 5
+```
+
+
+### Direct matrix product
+
+```q
+q)x:1+3 2#til 6
+q)y:1+2 4#til 8
+q)flip each x*\:\:y
+1 2 3 4     2 4 6 8     5  6  7  8  10 12 14 16
+3 6 9  12   4 8 12 16   15 18 21 24 20 24 28 32
+5 10 15 20  6 12 18 24  25 30 35 40 30 36 42 48
+q)dp:{flip each x*\:\:y}
+```
+
+
+### Matrix product
+
+```q
+q)show x:`float$(1 2 3;4 5 6)
+1 2 3
+4 5 6
+q)show y:`float$(1 2;3 4;5 6)
+1 2
+3 4
+5 6
+q)x mmu y
+22 28
+49 64
+```
+
+==DROP: keyword not idiom==
+
+
+### Dot product of vectors
+
+```q
+q)x:1 2 3 4 5
+q)y:10 20 30 40 50
+q)sum x*y
+550
+```
+
+
+
+### Product over subsets of x specified by y
+
+```q
+q)show x:1+3 4#til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)show y:4 3#1 0
+1 0 1
+0 1 0
+1 0 1
+0 1 0
+q)x('[prd;xexp])\:y
+3  8   3
+35 48  35
+99 120 99
+```
+
+
+## Divide
+
+### Divisors
+
+```q
+q)dv:{where 0=x mod/:key 1+x}
+q)x:363
+q)dv x
+1 3 11 33 121 363
+q)x:365
+q)dv x
+1 5 73 365
+q)dv 367
+1 367
+q)dv each 1 2 3 4 5 6 7 8 9 10
+,1
+1 2
+1 3
+1 2 4
+1 5
+1 2 3 6
+1 7
+1 2 4 8
+1 3 9
+1 2 5 10
+```
+
+
+### Greatest common divisor
+
+```q
+q)x:6 9 12
+q)1+til min x
+1 2 3 4 5 6
+q)x mod/:1+til min x
+0 0 0
+0 1 0
+0 0 0
+2 1 0
+1 4 2
+0 3 0
+q)0=x mod/:1+til min x
+111b
+101b
+111b
+001b
+000b
+101b
+q)min each 0=x mod/:1+til min x
+101000b
+q)where min each 0=x mod/:1+til min x
+0 2
+q)1+last where min each 0=x mod/:1+til min x
+3
+```
+
+
+### Pairwise ratios
+
+```q
+q)ratios x
+2 5 5 2f
+q)1_ratios x
+5 5 2f
+```
+
+
+## Compare
+
+### Maximum table
+
+```q
+q)x:til 10
+q)x&\:x
+0 0 0 0 0 0 0 0 0 0
+0 1 1 1 1 1 1 1 1 1
+0 1 2 2 2 2 2 2 2 2
+0 1 2 3 3 3 3 3 3 3
+0 1 2 3 4 4 4 4 4 4
+0 1 2 3 4 5 5 5 5 5
+0 1 2 3 4 5 6 6 6 6
+0 1 2 3 4 5 6 7 7 7
+0 1 2 3 4 5 6 7 8 8
+0 1 2 3 4 5 6 7 8 9
+```
+
+
+### Minimum table
+
+```q
+q)x:til 10
+q)x|\:x
+0 1 2 3 4 5 6 7 8 9
+1 1 2 3 4 5 6 7 8 9
+2 2 2 3 4 5 6 7 8 9
+3 3 3 3 4 5 6 7 8 9
+4 4 4 4 4 5 6 7 8 9
+5 5 5 5 5 5 6 7 8 9
+6 6 6 6 6 6 6 7 8 9
+7 7 7 7 7 7 7 7 8 9
+8 8 8 8 8 8 8 8 8 9
+9 9 9 9 9 9 9 9 9 9
+```
+
+
+
+## Numbers
+
+### Primes to n
 
 ```q
 q)n:10
@@ -296,7 +577,7 @@ q)p 30
 ```
 
 
-## First 10 figurate numbers of order x
+### First 10 figurate numbers of order x
 
 ```q
 q)fg:{x+\/10#1}
@@ -310,195 +591,6 @@ q)fg 3
 1 4 10 20 35 56 84 120 165 220
 q)fg 4
 1 5 15 35 70 126 210 330 495 715
-```
-
-
-## Maximum table
-
-```q
-q)x:til 10
-q)x&\:x
-0 0 0 0 0 0 0 0 0 0
-0 1 1 1 1 1 1 1 1 1
-0 1 2 2 2 2 2 2 2 2
-0 1 2 3 3 3 3 3 3 3
-0 1 2 3 4 4 4 4 4 4
-0 1 2 3 4 5 5 5 5 5
-0 1 2 3 4 5 6 6 6 6
-0 1 2 3 4 5 6 7 7 7
-0 1 2 3 4 5 6 7 8 8
-0 1 2 3 4 5 6 7 8 9
-```
-
-
-## Product
-
-```q
-q)x:1 2 3 4 5
-q)prd x
-120
-```
-
-
-## Multiplication table of order x
-
-```q
-q)mt:{{x*\:x}1+til x}
-q)mt 5
-1 2  3  4  5
-2 4  6  8  10
-3 6  9  12 15
-4 8  12 16 20
-5 10 15 20 25
-```
-
-
-## Square x retaining sign
-
-```q
-q)x:0 -1 2 -3 4
-q)x*abs x
-0 -1 4 -9 16
-```
-
-
-## Alternating product
-
-```q
-q)x:1 2 3 4 5
-q)a:(count x)#1 -1
-q)a
-1 -1 1 -1 1
-q)prd xexp[x;a]
-1.875
-q)xexp[x;a]
-1 0.5 3 0.25 5
-```
-
-
-## Direct matrix product
-
-```q
-q)x:1+3 2#til 6
-q)y:1+2 4#til 8
-q)flip each x*\:\:y
-1 2 3 4     2 4 6 8     5  6  7  8  10 12 14 16
-3 6 9  12   4 8 12 16   15 18 21 24 20 24 28 32
-5 10 15 20  6 12 18 24  25 30 35 40 30 36 42 48
-q)dp:{flip each x*\:\:y}
-```
-
-
-## Matrix product
-
-```q
-q)show x:`float$(1 2 3;4 5 6)
-1 2 3
-4 5 6
-q)show y:`float$(1 2;3 4;5 6)
-1 2
-3 4
-5 6
-q)x mmu y
-22 28
-49 64
-```
-
-==DROP: keyword not idiom==
-
-
-## Dot product of vectors
-
-```q
-q)x:1 2 3 4 5
-q)y:10 20 30 40 50
-q)sum x*y
-550
-```
-
-
-
-## Product over subsets of x specified by y
-
-```q
-q)show x:1+3 4#til 12
-1 2  3  4
-5 6  7  8
-9 10 11 12
-q)show y:4 3#1 0
-1 0 1
-0 1 0
-1 0 1
-0 1 0
-q)x('[prd;xexp])\:y
-3  8   3
-35 48  35
-99 120 99
-```
-
-
-## Divisors
-
-```q
-q)dv:{where 0=x mod/:key 1+x}
-q)x:363
-q)dv x
-1 3 11 33 121 363
-q)x:365
-q)dv x
-1 5 73 365
-q)dv 367
-1 367
-q)dv each 1 2 3 4 5 6 7 8 9 10
-,1
-1 2
-1 3
-1 2 4
-1 5
-1 2 3 6
-1 7
-1 2 4 8
-1 3 9
-1 2 5 10
-```
-
-
-## Greatest common divisor
-
-```q
-q)x:6 9 12
-q)1+til min x
-1 2 3 4 5 6
-q)x mod/:1+til min x
-0 0 0
-0 1 0
-0 0 0
-2 1 0
-1 4 2
-0 3 0
-q)0=x mod/:1+til min x
-111b
-101b
-111b
-001b
-000b
-101b
-q)min each 0=x mod/:1+til min x
-101000b
-q)where min each 0=x mod/:1+til min x
-0 2
-q)1+last where min each 0=x mod/:1+til min x
-3
-```
-
-
-## Pairwise ratios
-
-```q
-q)ratios x
-2 5 5 2f
-q)1_ratios x
-5 5 2f
 ```
 
 

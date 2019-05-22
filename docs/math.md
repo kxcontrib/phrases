@@ -726,3 +726,40 @@ q)-1 _ x*reverse tc x
 ```
 
 
+## Set union
+
+```q
+q)x:"12345"
+q)y:"4567890"
+q)y,x where not x in y
+"4567890123"
+```
+
+Or – gives different result with repeated items:
+
+```q
+q)distinct y,x
+"4567890123"
+```
+
+
+## Set difference
+
+```q
+q)x:"12345"
+q)y:"4567890"
+q)x except y
+"123"
+```
+
+
+## Set intersection
+
+```q
+q)x:"abcdefghijxyz"
+q)y:"yacqwopzbx"
+q)x where x in y
+"abcxyz"
+```
+
+

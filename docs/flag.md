@@ -8,6 +8,17 @@ Tests return flags. Working with flags is a core q skill.
 
 
 
+## Flags for x at y
+
+```q
+q)x:"abcdefghijklmn"
+q)y:3 79
+q)y:3 7 9
+q)tc[x] in y
+00010001010000b
+```
+
+
 ## Count of 1s in boolean list
 
 ```q
@@ -398,4 +409,77 @@ q)1_(<)prior x,0
 0010001001b
 ```
 
+
+## Insert 0 in list of ones x after indices y
+
+```q
+q)x:1 1 1 1 1 1 1 1 1 1
+q)y:1 3 7
+q)@[x,\:();y;,;0]
+,1
+1 0
+,1
+1 0
+,1
+,1
+,1
+1 0
+,1
+,1
+q)raze@[x,\:();y;,;0]
+1 1 0 1 1 0 1 1 1 1 0 1 1
+```
+
+Using `x` as the first argument of `@` signals a type error: `x` is a vector and its items cannot be amended to lists. 
+Joining each item to the empty list `x,\:()` replaces each atomm with a 1-list.
+
+```q
+q)(enlist each x)~x,\:()
+1b
+```
+
+
+## Boolean vector of length y with zeros in locations x
+
+```q
+q)x:2 3 4 8
+q)y:10
+q)@[y#1b;x;:;0b]
+1100011101b
+```
+
+
+## Ones in boolean vector of length x at indices y
+
+```q
+q)x:10
+q)y:1 3 7
+q)not til[x]in y
+1010111011b
+```
+
+Or.
+
+```q
+q)@[x#1b;y;:;0b]
+1010111011b
+```
+
+
+## Find first 1
+
+```q
+q)x:0 0 1 0 1 0 0 1 1 0
+q)x?1
+2
+```
+
+
+## Zero all items
+
+```q
+q)x:0 1 0 1 1 0 0 1 1 1 0
+q)0*x
+0 0 0 0 0 0 0 0 0 0 0
+```
 

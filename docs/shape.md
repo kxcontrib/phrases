@@ -630,3 +630,152 @@ q)x
 ```
 
 
+## Select items of x according to flags in y
+
+```q
+q)show x:2 3 4#1+til 24
+1 2  3  4   5 6  7  8   9 10 11 12
+13 14 15 16 17 18 19 20 21 22 23 24
+q)y:1 0 0 1
+q)x[;;where y]
+1 4   5 8   9 12
+13 16 17 20 21 24
+```
+
+
+## Empty matrix
+
+In q’s ancestor languages arrays were rectangular. A matrix might have five columns but no rows. Any rows joined to it could have only five columns. 
+Such an ‘empty matrix’ would be `0 5#0`, but this signals a length error in q.
+
+In q arrays are lists. A five-column matrix `x` is a list in which the items _happen_ themselves to all have five items. (Being a five-column matrix is a property that emerges from the items of `x`.It is not a property of `x` itself.) 
+
+The nearest equivalent in q to an ‘empty matrix’ is the generic empty list `()`.
+
+
+## Apply to dimension 1 function defined on dimension 0
+
+```q
+q)x:3 4#1+!12
+q)sum x
+15 18 21 24
+q)sum each x
+10 26 42
+```
+
+
+## Transpose matrix x on condition y
+
+```q
+q)show x:2 3 #til 6
+0 1 2
+3 4 5
+q)0 flip/x
+0 1 2
+3 4 5
+q)1 flip/x
+0 3
+1 4
+2 5
+```
+
+
+## Matrix with x columns from list y
+
+```q
+q)x:4
+q)y:"abc"
+q)x#'y
+"aaaa"
+"bbbb"
+"cccc"
+```
+
+
+## 525. Main diagonal
+
+```q
+q)show x:3 4#1+til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)show y:2#'tc x
+0 0
+1 1
+2 2
+q)x ./:y
+1 6 11
+```
+
+
+## Transpose planes of three-dimensional x
+
+```q
+q)show x:2 3 4#1+til 24
+1 2  3  4   5 6  7  8   9 10 11 12
+13 14 15 16 17 18 19 20 21 22 23 24
+q)shape x
+2 3 4
+q)flip each x
+1 5 9    2 6 10   3 7 11   4 8 12
+13 17 21 14 18 22 15 19 23 16 20 24
+q)shape flip each x
+2 4 3
+q)shape flip flip each x
+4 2 3
+```
+
+
+## Rotate rows left
+
+```q
+q)x:3 4#1+til 12
+q)1 rotate 'x
+2  3  4  1
+6  7  8  5
+10 11 12 9
+```
+
+## Rotate rows right
+
+```q
+q)x:3 4#1+til 12
+q)-1 rotate 'x
+4  1 2  3
+8  5 6  7
+12 9 10 11
+```
+
+
+## All axes of rectangular array x
+
+```q
+q)show x:2 3 4 5#til 120
+0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19                  ..
+60 61 62 63 64      65 66 67 68 69      70 71 72 73 74      75 76 77 78 79   ..
+q)depth x
+4
+q)til depth x
+0 1 2 3
+```
+
+
+## All indices of vector x
+
+```q
+q)show x:10?.Q.a
+"uwgbyfenjc"
+q)tc x
+0 1 2 3 4 5 6 7 8 9
+```
+
+
+### Empty vector
+
+```q
+q)()        / general
+q)0#0b      / boolean
+q)0#0.0     / float
+q)0#" "     / character
+..
+```

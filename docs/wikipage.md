@@ -8487,8 +8487,8 @@ q)x[where not  x in y]
 ## 511. Apply f over all of x
 
 ```q
-q)x:2 3 4#1+!24
-q)x
+  x:2 3 4#1+!24
+   x
 ((1 2 3 4
 5 6 7 8
 9 10 11 12)
@@ -8509,8 +8509,8 @@ q)x
 ## 512. Select items of x according to markers in y
 
 ```q
-q)x:2 3 4#1+!24
-q)x
+   x:2 3 4#1+!24
+   x
 ((1 2 3 4
 5 6 7 8
 9 10 11 12)
@@ -8530,10 +8530,10 @@ q)y:1 0 0 1
 ## 513. Empty matrix
 
 ```q
-q)x:,!0
-q)x
+   x:,!0
+   x
 ,!0
-q)x
+   x
 1 0
 ```
 
@@ -8654,11 +8654,11 @@ q)x#'y
 ## 525. Main diagonal
 
 ```q
-q)x:(1 2 3 4
+   x:(1 2 3 4
 5 6 7 8
 9 10 11 12)
-q)y:2#'!#x
-q)y
+   y:2#'!#x
+   y
 (0 0
 1 1
 2 2)
@@ -8671,8 +8671,8 @@ q)y
 ## 527. Transpose planes of three-dimensional x
 
 ```q
-q)x:2 2 2# !8
-q)x
+   x:2 2 2# !8
+   x
 ((0 1
 2 3)
 (4 5

@@ -849,6 +849,22 @@ q)x where 0=(1+tc x)mod 3
 ```
 
 
+## Remove y from x
+
+```q
+q)x:"abcdeabc"
+q)y:"ad"
+q)x where not x in y
+"bcebc"
+q)y:"a"
+q)x where x<>y
+"bcdebc"
+q)y:"ae"
+q)x except y
+"bcdbc"
+```
+
+
 ## Remove every y-th item of x
 
 ```q
@@ -889,7 +905,7 @@ q)y*not y in x
 ```
 
 
-### 481. Replace items of x not in y by 0
+### Replace items of x not in y by 0
 
 ```q
 q)x:1 2 3 4 5
@@ -900,6 +916,29 @@ q)x*x in y
 0 2 0 4 0
 ```
 
+
+## Replace items of y flagged by x with g
+
+```q
+q)x:1 0 0 0 1 0 1 1 0 1
+q)y:"abcdefghij"
+q)g:" "
+q)@[y;where x;:;g]
+" bcd f  i "
+```
+
+Or in place:
+
+```q
+q)@[`y;where x;:;g]
+`y
+q)y
+" bcd f  i "
+q)y:"abcdefghij"
+q)y[where x]:" "
+q)y
+" bcd f  i "
+```
 
 
 ## Items of x divisible by y
@@ -931,40 +970,56 @@ q)reverse(+\)reverse x
 Generally,for any binary object y, `reverse(y\)reverse x`.
 
 
-## Set union
+## Apply f over all of x
 
 ```q
-q)x:"12345"
-q)y:"4567890"
-q)y,x where not x in y
-"4567890123"
-```
-
-Or – gives different result with repeated items:
-
-```q
-q)distinct y,x
-"4567890123"
-```
-
-
-## Set difference
-
-```q
-q)x:"12345"
-q)y:"4567890"
-q)x except y
-"123"
+q)show m:2 3 4#1+til 24
+1 2  3  4   5 6  7  8   9 10 11 12
+13 14 15 16 17 18 19 20 21 22 23 24
+q)((+)over)over m
+300
+q)(+//)m
+300
+q)ao:{[f;x](f//)x}
+q)ao[+;m]
+300
+q)ao[*;m*1.0]
+6.204484e+23
+q)ao[+;neg m]
+-300
 ```
 
 
-## Set intersection
+## Avoiding parentheses using reverse
 
 ```q
-q)x:"abcdefghijxyz"
-q)y:"yacqwopzbx"
-q)x where x in y
-"abcxyz"
+q)x:1 2 3 4 5
+q)(count x),1
+5 1
+q)reverse 1,count x
+5 1
 ```
 
+
+## Zero items of y not in x
+
+```q
+q)y: 2 3 4 5 6 7 8 9 10 11
+q)x:2 3 5 7 11
+q)y in x
+1101010001b
+q)y*y in x
+2 3 0 5 0 7 0 0 0 11
+```
+
+
+## Select from g based on index of x in y
+
+```q
+q)g:("William Shakespeare";"John Milton";"Jonathan Swift";"Jane Austen";"John Keats";"Charles Dickens")
+q)y:1564 1608 1667 1775 1795 1812
+q)x:1775
+q)g[y?x]
+"Jane Austen"
+```
 

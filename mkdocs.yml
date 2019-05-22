@@ -84,6 +84,7 @@ nav:
   - Shapes and indices: shape.md
   - Sort: sort.md
   - Statistics: stat.md
+  - Strings: string.md
   - Sublists: sub.md
   - Temporal: temp.md
   - Tests: test.md

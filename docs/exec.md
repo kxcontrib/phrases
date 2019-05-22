@@ -87,3 +87,14 @@ q)$[g;x;y]
 "abcdef"
 ```
 
+
+## Reverse x on condition y
+
+```q
+q)x:1 2 3 4 5
+q)0 reverse/x
+1 2 3 4 5
+q)1 reverse/x
+5 4 3 2 1
+```
+

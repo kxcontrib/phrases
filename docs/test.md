@@ -345,11 +345,89 @@ q)ii x
 ```
 
 
-## 473. Is x even?
+## Is x even?
 
 ```q
 q)x:1 2 3 4 5
 q)not x mod 2
 01010b
+```
+
+
+## Do x and y match?
+
+```q
+q)show q:10?2
+0 0 0 1 0 1 0 1 0 1
+q)x:enlist each q
+q)y:x,\:()
+q)x~y
+1b
+```
+
+
+## Is count of atoms 1?
+
+See 366.
+
+```q
+q)cs:{count raze over x}
+q)co:{1=cs[x]}
+q)co[35]
+1b
+q)co[enlist 35]
+1b
+q)co[1 1#35]
+1b
+q)co[1 2]
+0b
+q)co[til 0]
+0b
+```
+
+
+## Is x vector?
+
+```q
+q)iv:{0<type x}
+q)iv each (0;1 2;"abc";2 3#til 6)
+0110b
+q)iv (0;1 2;"abc";2 3#til 6)        / mixed list, not vector
+0b
+```
+
+
+## Is x empty?
+
+```q
+q)ie:{0=count raze over x}
+q)ie each(0;0#0;enlist 0#0;"";first til[3]#'"x")
+01111b
+```
+
+
+## Is x within range ( y[0],y[1] )
+
+```q
+q)2 3 5 8 9<\:y+0 1
+11b
+01b
+01b
+01b
+00b
+q)(</')2 3 5 8 9<\:y+0 1
+01110b
+q)2 3 5 8 9{(<)over x<y+0 1}\:y
+01110b
+```
+
+
+## Is x within range [ y[0],y[1] ]
+
+```q
+q)(</')2 3 5 8 9<\:y+ 1 0
+00100b
+q)2 3 5 8 9{(<)over x<y+1 0}y
+00100b
 ```
 

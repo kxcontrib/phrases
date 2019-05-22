@@ -10,7 +10,9 @@ HEX:"0123456789abcdef"
 ```
 
 
-## Binary representation of a positive integer
+## Number base
+
+### Binary from integer
 
 ```q
 q)2 vs 20
@@ -32,7 +34,15 @@ q)(2;0b;0x0) vs/:\: (20h;20i;20j)
 ```
 
 
-## Hexadecimal from decimal
+### Integer from binary
+
+```q
+q)2 sv 1 0 0 1 1 1 0 1
+157
+```
+
+
+### Hexadecimal from decimal
 
 ```q
 q)HEX 16 vs 10
@@ -59,7 +69,7 @@ q){HEX 16 vs x}each 10 12 19 1 28 300
 ```
 
 
-## Decimal digits from integer
+### Decimal digits from integer
 
 ```q
 q)10 vs 2001
@@ -77,7 +87,7 @@ q){("i"$string x)-48} 1234567890
 ```
 
 
-## Represent y in base x
+### Integer y in base x
 
 ```q
 q)16 vs 256
@@ -98,7 +108,7 @@ q)0b vs 36h
 ```
 
 
-## Hexadecimal from decimal characters
+### Hexadecimal from decimal characters
 
 ```q
 q)"i"$" abcdef"
@@ -122,22 +132,7 @@ q)raze" ",'flip HEX 16 vs"i"$"GOLDEN"
 ```
 
 
-## Vector from date
-
-```q
-q)100000 100 100 vs 19980522
-1998 5 22
-```
-
-```q
-/not quite the same as above
-q)dt:gtime .z.Z
-q)(dt.year;dt.mm;dt.dd)
-2007 7 21
-```
-
-
-## Represent x in radix 10 100 1000
+### Integer x in base 10 100 1000
 
 ```q
 q)10 100 1000 vs 123456
@@ -147,17 +142,7 @@ q) 10 100 1000 vs 123456789
 ```
 
 
-## Encode date as integer
-
-```q
-q)string .z.d
-"2019.05.08"
-q)"I"$string[.z.d]except"."
-20190508i
-```
-
-
-## Decimal from hexadecimal
+### Integer from hexadecimal
 
 ```q
 q)x:("ff";"a9";"8ac";"ffff")
@@ -184,7 +169,44 @@ q)16 sv'hex?/:x
 ```
 
 
-## Number from alphanumeric
+## Temporal
+
+### Vector from date
+
+```q
+q)100000 100 100 vs 19980522
+1998 5 22
+```
+
+```q
+/not quite the same as above
+q)dt:gtime .z.Z
+q)(dt.year;dt.mm;dt.dd)
+2007 7 21
+```
+
+
+### Integer from date
+
+```q
+q)string .z.d
+"2019.05.08"
+q)"I"$string[.z.d]except"."
+20190508i
+```
+
+
+## String
+
+Numbers from text. 
+
+<i class="far fa-hand-point-right"></i>
+[Format](format.md),
+[Strings](string.md),
+[Text](text.md)
+
+
+### Number from string
 
 ```q
 q)x:"1998 51"
@@ -194,16 +216,65 @@ q)3+parse x
 2001 54
 ```
 
-
-## Scalar from boolean vector
+Or multiple numbers.
 
 ```q
-q)2 sv 1 0 0 1 1 1 0 1
-157
+q)x:"123 438"
+q)parse each  " "vs x
+123 438
 ```
 
 
-## Numbers from alphanumeric matrix
+### Number from string x, default y
+
+```q
+q)na:{[x;y]$[x~"";parse y;parse x]}
+q)na["";"-1"]
+-1
+q)na["123";"-1"]
+123
+```
+
+
+## Numeric codes from string
+
+```q
+q)x:" aA0"
+q)"i"$x
+32 97 65 48
+```
+
+
+### Integer from Roman
+
+```q
+q)x:"MCMIX"
+q)"MDCLXVI"?x
+0 2 0 6 4
+q)a:0,1000 500 100 50 10 5 1["MDCLXVI"?/:x]
+q)a
+0 1000 100 1000 1 10
+q)a<1 rotate a
+101010b
+q)floor a*-1 xexp a<1 rotate a
+0 1000 -100 1000 -1 10
+q)sum floor a*-1 xexp a<1 rotate a
+1909
+q)ar:{sum floor a*-1 xexp a<1 rotate a:0,1000 500 100 50 10 5 1["MDCLXVI"?x]}
+q)ar[x]
+1909
+```
+
+
+## Text
+
+<i class="far fa-hand-point-right"></i>
+[Format](format.md),
+[Strings](string.md),
+[Text](text.md)
+
+
+### Numbers from text matrix
 
 ```q
 q)show x:4 3#" 1 12 0.5"
@@ -267,37 +338,7 @@ q)na y
 ```
 
 
-## Number from alphanumeric x, default y
-
-```q
-q)x:""
-q)y:"-1"
-   .((x~"")#"y"),x
-"-1"
-q)x:"234.5"
-   .((x~"")#"y"),x
-234.5
-```
-
-```q
-q)na:{[x;y]$[x~"";parse y;parse x]}
-q)na["";"-1"]
--1
-q)na["123";"-1"]
-123
-```
-
-
-## Numeric from proper alphanumeric non-negative integer
-
-```q
-q)x:"123 438"
-q)eval parse each  " "vs x
-123 438
-```
-
-
-## Numeric vector from evaluating rows of character matrix
+### Numbers from evaluating rows of text matrix
 
 ```q
 q)show x:2 5#"1+2 41+3 6"
@@ -313,24 +354,4 @@ q)raze('[eval;parse])each x
 3 5 4 7
 ```
 
-
-## Arabic from Roman number
-
-```q
-q)x:"MCMIX"
-q)"MDCLXVI"?x
-0 2 0 6 4
-q)a:0,1000 500 100 50 10 5 1["MDCLXVI"?/:x]
-q)a
-0 1000 100 1000 1 10
-q)a<1 rotate a
-101010b
-q)floor a*-1 xexp a<1 rotate a
-0 1000 -100 1000 -1 10
-q)sum floor a*-1 xexp a<1 rotate a
-1909
-q)ar:{sum floor a*-1 xexp a<1 rotate a:0,1000 500 100 50 10 5 1["MDCLXVI"?x]}
-q)ar[x]
-1909
-```
 
