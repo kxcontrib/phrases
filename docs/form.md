@@ -229,6 +229,36 @@ q)" X" (floor x*y%max x)>\:til y
 ```
 
 
+## Indexing plotting characters with flags
+
+```q
+q)3 6 5 7 2>=/:1+til 7
+11111b
+11111b
+11110b
+01110b
+01110b
+01010b
+00010b
+q)show x:reverse 3 6 5 7 2>=/:1+til 7
+00010b
+01010b
+01110b
+01110b
+11110b
+11111b
+11111b
+q)" X" x
+"   X "
+" X X "
+" XXX "
+" XXX "
+"XXXX "
+"XXXXX"
+"XXXXX"
+```
+
+
 ## Horizontal barchart of integers
 
 Compare `bh` here with `xl` in #172.

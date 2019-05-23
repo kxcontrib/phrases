@@ -87,3 +87,60 @@ q)ff[x;y]
 ```
 
 
+## Payback
+
+Cumulative accumulation factors.
+
+<i class="far fa-hand-point-right"></i>
+[Zark APL Tutor](http://www.dyalog.com/dyalogue-newsletters.htm?nl=19&a=135) News 1998 Quarter 2
+
+```txt
+B initial balance
+T time of withdrawal: 0 start of period, 1 end
+R interest rate per period
+W withdrawal amount
+```
+
+```q
+q)pay:{[B;T;R;W]C:prds(count W)#1+R; C*B-sums W%(count W)#T _ 1,C}
+q)pay2:{[B;END;R;W]CPA:prds A:1+R; CPA*B-sums W%CPA%A*1-END}
+q)B:1000
+q)T:0
+q)R:0.05
+q)W:200 300 400 200
+q)pay[B;T;R;W]
+840 567 175.35 -25.8825
+q)T:1
+q)pay[B;T;R;W]
+850 592.5 222.125 33.23125
+q)R:0.05 0.04 0.06 0.05
+q)T:0
+q)pay[B;T;R;W]
+840 561.6 171.296 -30.1392
+q)T:1
+q)pay[B;T;R;W]
+850 584 219.04 29.992
+```
+
+The version `pay2` replaces `T` by `END`, and permits `END` to be any value between 0 and 1.
+
+
+## Round summands
+
+Ensure sum of rounded summands matches round of sum
+
+```q
+q)rs:{i:floor Y:y%x; x*@[i;{(floor .5+/x)#idesc x}Y-i;+;1]}
+q)
+q)y:42.35 38.45 19.20
+q)(floor .5+sum y;sum 0N!rs[1;y])
+42 39 19
+100 100
+q)
+q)y:42.65 37.60 19.75
+q)(floor .5+sum y;sum 0N!rs[1;y])
+43 37 20
+100 100
+```
+
+

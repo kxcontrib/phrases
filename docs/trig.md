@@ -58,3 +58,42 @@ q)hr x
 ```
 
 
+## Great circle distance
+
+```q
+q)gcd:{cos distinct(prd sin x)+(prd cos x)*cos(-/)y}
+```
+
+The great circle distance in radians between two points on a sphere whose latitudes in radians are in `x` and longitudes in radians are in `y`.
+
+
+## Great-circle distance
+
+```q
+q)gcd:{cos distinct(prd sin x)+(prd cos x)*cos(-/)y}
+```
+
+The great-circle distance in radians between two points on a sphere whose latitudes in radians are in `x` and longitudes in radians are in `y`.
+
+
+## Nautical miles from radians
+
+```q
+q)nmr:{x*180*60%3.141592653589798238}
+```
+
+
+## Degrees from degrees and minutes
+
+```q
+q)dfdm:{sum x%1 60}
+q)dfdm 60 0
+60f
+q)dfdm 60 3
+60.05
+q)dfdm 60 10
+60.16667
+q)dfdm 60 30
+60.5
+```
+

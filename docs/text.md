@@ -568,3 +568,17 @@ q)distinct x
 ==DROP: not an idiom==
 
 
+## Variable length lines
+
+```q
+q)x:"Tthe quick brown fox"
+q)x:"The quick brown fox"
+q)y:"jumps over"
+q)z:"the lazy dog."
+q)(x;y;z)
+"The quick brown fox"
+"jumps over"
+"the lazy dog."
+```
+
+

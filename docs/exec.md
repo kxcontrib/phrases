@@ -98,3 +98,14 @@ q)1 reverse/x
 5 4 3 2 1
 ```
 
+
+## Error to stop execution
+
+```q
+q)'`stop
+'stop
+  [0]  '`stop
+        ^
+```
+
+

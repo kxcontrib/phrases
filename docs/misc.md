@@ -1023,3 +1023,246 @@ q)g[y?x]
 "Jane Austen"
 ```
 
+
+## Select x or y depending on g
+
+```q
+q)x:`hot`white`short`old
+q)y:`cold`black`tall`young
+q)g:1 0 0 1
+
+q)x,'y
+hot   cold
+white black
+short tall
+old   young
+q)tc[g],'g
+0 1
+1 0
+2 0
+3 1
+q)(x,'y)./:tc[g],'g
+`cold`white`short`young
+
+q)?["b"$g;y;x]                  / vector conditional
+`cold`white`short`young
+q)g'[x;y]                       / Case
+`cold`white`short`young
+```
+
+
+## Change y to one if x
+
+```q
+q)y:10 5 7 12 20.0
+q)x:0 1 0 1 1
+q)@[y;where x;:;1.]             /note that 1. --otherwise 'type as 9h=type y
+10 1 7 1 1f
+
+q)y xexp not x
+10 1 7 1 1f
+```
+
+Or in place:
+
+```q
+q)@[`y;where x;:;1.]
+`y
+q)y
+q)y:10 5 7 12 20.0
+q)y[where x]:1.
+q)y
+10 1 7 1 1f
+```
+
+
+## Y where x is 0
+
+```q
+q)x:0 7 8 0 2
+q)y:10 4 6 7 3
+q)x+y*x=0
+10 7 8 7 2
+
+q)?[x=0;y;x]                    / vector conditional
+10 7 8 7 2
+
+q)(0+x=0)'[x;y]                 / Case
+10 7 8 7 2
+```
+
+
+## Append y items g to each item of x
+
+```q
+q)x:1 3 5
+q)y:2
+q)g:10
+q)raze x,\:y#g
+1 10 10 3 10 10 5 10 10
+```
+
+
+## Prepend y items of g to each item of x
+
+```q
+q)x:1 3 5
+q)y:2
+q)g:10
+q)y#g
+10 10
+q)(y#g),/:x
+10 10 1
+10 10 3
+10 10 5
+q)raze (y#g),/:x
+10 10 1 10 10 3 10 10 5
+```
+
+
+## Insert y after each item of x
+
+```q
+q)x:"abc"
+q)y:"d"
+q)raze x,'y
+"adbdcd"
+```
+
+
+## Vector and its negative
+
+```q
+q)x:1 -3 5
+q)x,'neg x
+1  -1
+-3 3
+5  -5
+
+q)1 -1*/:x
+1  -1
+-3 3
+5  -5
+```
+
+
+## Choosing from y according to sign of x
+
+```q
+q)y:"-0+"
+q)signum -4.5 0 6.78
+-1 0 1i
+q)y 1+signum -4.5 0 6.78
+"-0+"
+```
+
+
+## Conditional change of sign
+
+```q
+q)show y:1+til 6
+1 2 3 4 5 6
+q)x:0 1 0 1 1 0
+q)y*1 -1 x
+1 -2 3 -4 -5 6
+```
+
+
+## Zeroing an array
+
+```q
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)x*0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+q)x[;]:0
+q)x
+0 0 0 0
+0 0 0 0
+0 0 0 0
+```
+
+
+## Retain value of items marked by y, zero others
+
+```q
+q)x:3 7 15 1 292
+q)y:1 0 1 1 0
+q)x*y
+3 0 15 1 0
+```
+
+
+## Conditional change of sign
+
+```q
+q)x:5 -3 20 9 -10
+q)y:1 0 1 0 1
+q)@[x;where y;neg]
+-5 -3 -20 9 10
+q)
+q)x*1 -1 y
+-5 -3 -20 9 10
+q)x*-1 xexp y
+-5 -3 -20 9 10f
+```
+
+
+## Tree from depth;value
+
+```q
+q)tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}
+```
+
+
+## Depth from tree
+
+```q
+q)dt:{0,/1+dt'[1_ x]}
+```
+
+
+## Value from tree
+
+```q
+q)vt:{(1#x),/vt each 1_ x}
+q)show t:tdv[d;v]
+0
+(1;,2;,3)
+,4
+,5
+q)dt t
+0 1 2 2 1 1
+q)vt t
+0 1 2 3 4 5
+```
+
+These three recursions stop when they run out of data.
+
+
+## Streak of numbers with same sign
+
+```q
+q)n:2 3 4 -2 -7 1 4 2
+q){1+(x;0)y}\[1;]differ signum n
+1 2 3 1 2 1 2 3
+```
+
+
+## Permutations
+
+```q
+q)perm:{(1 0#x){raze(1 rotate)scan'x,'y}/x}
+q)perm`a`b`c
+a b c
+b c a
+c a b
+b a c
+a c b
+c b a
+q)
+```

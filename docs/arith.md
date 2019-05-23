@@ -338,6 +338,21 @@ q)x*y
 ```
 
 
+## Multiply each row of x by vector y
+
+```q
+q)show x:3 4#1+til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)y:1 10 100 10000
+q)x*\:y
+1 20  300  40000
+5 60  700  80000
+9 100 1100 120000
+```
+
+
 ### Vector (cross) product
 
 ```q
@@ -433,6 +448,19 @@ q)x('[prd;xexp])\:y
 
 
 ## Divide
+
+## Divide by 0
+
+```q
+q)dz:{not[z]*y%x+z:x=0}
+q)y:10 15 -20
+q)x:2 0 0
+q)y%x
+5 0w -0w
+q)dz[x;y]
+5 0 -0f
+```
+
 
 ### Divisors
 

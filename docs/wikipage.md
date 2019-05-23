@@ -9718,12 +9718,12 @@ q)x,'y
 ## 590. Increasing rank of y to rank of x
 
 ```q
-q)x:("abcd"
+   x:("abcd"
 > "efgh")
-q)x
+   x
 ("abcd"
 "efgh")
-q)y:"ijkl"
+   y:"ijkl"
    #^x
 2
    #^y
@@ -9774,8 +9774,8 @@ q)((floor 0.5*count x),2)#x:"abcdefgh"
 ## 592. Vector from array
 
 ```q
-q)x:2 1 2 1 2 1# !8
-q)x
+   x:2 1 2 1 2 1# !8
+   x
 2 1 2 1 2 1
    ,//x
 0 1 2 3 4 5 6 7
@@ -9808,8 +9808,8 @@ q)y#enlist x
 ## 595. One-row matrix from vector
 
 ```q
-q)x:2 3 5 7 11
-q)x
+   x:2 3 5 7 11
+   x
 2 3 5 7 11
    ^x
 ,5
@@ -9838,7 +9838,7 @@ q)x:1 1 1 1 1 678#0
 ## 600. Number of columns in matrix x
 
 ```q
-q)x:3 19#0
+   x:3 19#0
    ^x
 3 19
    (^x)[1]
@@ -9848,7 +9848,7 @@ q)x:3 19#0
 ## 601. Number of rows in matrix x
 
 ```q
-q)x:17 2#0
+   x:17 2#0
    #x
 17
 ```
@@ -9864,14 +9864,14 @@ q)count x
    sg:{(x>0)-(x<0)}
    sg -4.5 0 6.78
 -1 0 1
-q)y:"-0+"
-q)x:-54
+   y:"-0+"
+   x:-54
    y[1+sg[x]]
 "-"
-q)x:0
+   x:0
    y[1+sg[x]]
 "0"
-q)x:1234.5
+   x:1234.5
    y[1+sg[x]]
 "+"
 ```
@@ -9891,10 +9891,10 @@ q)y[1+signum[x]]
 ## 603. Conditional change of sign
 
 ```q
-q)y:1+!6
-q)y
+   y:1+!6
+   y
 1 2 3 4 5 6
-q)x:0 1 0 1 1 0
+   x:0 1 0 1 1 0
    y*1 -1[x]
 1 -2 3 -4 -5 6
 ```
@@ -9913,8 +9913,8 @@ q)y*1 -1[x]
 ## 605. Indexing plotting characters with boolean index
 
 ```q
-q)x:~3 6 5 7 2<\:1+!7
-q)x
+   x:~3 6 5 7 2<\:1+!7
+   x
 (1 1 1 0 0 0 0
 1 1 1 1 1 1 0
 1 1 1 1 1 0 0
@@ -9949,8 +9949,8 @@ q)" *"[x]
 ## 607. Vector from column of matrix
 
 ```q
-q)x:3 4# !12
-q)x
+   x:3 4# !12
+   x
 (0 1 2 3
 4 5 6 7
 8 9 10 11)
@@ -10311,33 +10311,33 @@ q)pay[B;T;R;W]
 ensure sum of rounded summands matches round of sum
 
 ```q
-q)f:{y%:x
-q)i:_y
-   x*@[i;{(_.5+/x)#>x}[y-i];+;1]}
-q)y:42.35 38.45 19.20
-_.5++/y
+   f:{y%:x
+     i:_y
+     x*@[i;{(_.5+/x)#>x}[y-i];+;1]}
+   y:42.35 38.45 19.20
+   _.5++/y
 100
-_.5+y
+   _.5+y
 42 38 19
-+/_.5+y
+   +/_.5+y
 99
-q)x:1
-q)z:f[x;y]
-q)z
+   x:1
+   z:f[x;y]
+   z
 42 39 19
-+/z
+   +/z
 100
-q)y:42.65 37.60 19.75
-_.5++/y
+   y:42.65 37.60 19.75
+   _.5++/y
 100
-_.5+y
+   _.5+y
 43 38 20
-+/_.5+y
+   +/_.5+y
 101
-q)z:f[x;y]
-q)z
+   z:f[x;y]
+   z
 43 37 20
-+/z
+   +/z
 100
 ```
 
@@ -10361,10 +10361,10 @@ q)f x
 ## 1004. Range union
 
 ```q
-q)i:(1 3;8 10;11 12;2 4)
-/ given ordered (lefts;rights)
-/ interval 0 and where left is greater than 1+ max previous right
-q)f:{(x i;1!y i:0,&x>1+y:-1!|\y)}
+   i:(1 3;8 10;11 12;2 4)
+   / given ordered (lefts;rights)
+   / interval 0 and where left is greater than 1+ max previous right
+   f:{(x i;1!y i:0,&x>1+y:-1!|\y)}
    +f .+{x@<x}i /flip f apply flip sort i
 (1 4;8 12)
 ```
@@ -10402,7 +10402,7 @@ q)a\[1]
 
 ```q
    part:{t:x _!1+_ y%2
-(,/t,''t _f'y-t),y}
+     (,/t,''t _f'y-t),y}
    part[3;10]
 (3 3 4
 3 7
@@ -10451,7 +10451,7 @@ q)count each part[1]'[1+til 10]
 
 ## 1007. Pascal's triangle
 
-```q
+```k
    pt:{+':0,x,0}
    4 pt\1
 (1
@@ -10493,17 +10493,20 @@ q)4 pt\ 1
 
 ## 1008. Polygon area
 
-```q
+```k
    area: 0.5*+/{-/y*|x}':
+```
 The dyad {-/y*|x} yields the determinant of a 2-by-2 matrix. The dyad area yields the area of a polygon whose x-y coordinates are, in order, the rows of a 2-column matrix, where the last row is the same as the first row.
-q)x:(7 2;10 5;6 8;3 6;4 3;7 2)
+
+```k
+   x:(7 2;10 5;6 8;3 6;4 3;7 2)
    area x
 24.5
 ```
 
 ## 1009. Great circle distance
 
-```q
+```k
    gcd:{_cos?(*/_sin x)+(*/_cos x)*_cos[-/y]}
 ```
 
@@ -10511,8 +10514,8 @@ The great circle distance in radians between two points on a sphere whose latitu
 
 ## 1010. Nautical miles from radians
 
-```q
-nmr:{x*180*60%3.141592653589798238}
+```k
+   nmr:{x*180*60%3.141592653589798238}
 ```
 
 ```q
@@ -10521,7 +10524,7 @@ q)nmr:{x*180*60%3.141592653589798238}
 
 ## 1011. Degrees from degrees and minutes
 
-```q
+```k
    dfdm:{+/x%1 60}
 ```
 
@@ -10550,8 +10553,8 @@ q)fn:{x{x,sum -2#x}/0 1}
 
 ## 1013. Tree from depth;value
 
-```q
-tdv:{[d;v](1#v),(c _ d-1)_f'(c:&1=d)_ v}
+```k
+   tdv:{[d;v](1#v),(c _ d-1)_f'(c:&1=d)_ v}
 ```
 
 ```q
@@ -10560,7 +10563,7 @@ q)tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}
 
 ## 1014. Depth from tree
 
-```q
+```k
    dt:{0,/1+_f'1_ x}
 ```
 
@@ -10570,13 +10573,13 @@ q)dt:{0,/1+dt'[1_ x]}
 
 ## 1015. Value from tree
 
-```q
+```k
    vt:{(1#x),/_f'1_ x}
-q)vt:{(1#x),/vt'[1_ x]}
-q)d:0 1 2 2 1 1
-q)v:0 1 2 3 4 5
-q)t:tdv[d;v]
-q)t
+   vt:{(1#x),/vt'[1_ x]}
+   d:0 1 2 2 1 1
+   v:0 1 2 3 4 5
+   t:tdv[d;v]
+   t
 (0
 (1
 ,2
@@ -10589,8 +10592,8 @@ q)t
 0 1 2 3 4 5
 ```
 
-```q
-q)tdv[d;v]
+```k
+tdv[d;v]
 (0;(1;,2;,3);,4;,5)
 q)dt t
 0 1 2 2 1 1
@@ -10610,11 +10613,12 @@ q)f n
 ```
 
 ## 1017. Permutations
-```q
-  perm:{(1 0#x){,/(.q.rotate 1)\'x,'y}/x}
-  perm`a`b`c
+```k
+   perm:{(1 0#x){,/(.q.rotate 1)\'x,'y}/x}
+   perm`a`b`c
 (`a`b`c;`b`c`a;`c`a`b;`b`a`c;`a`c`b;`c`b`a)
 ```
+
 ```q
 q)perm:{(1 0#x){raze(1 rotate)scan'x,'y}/x}
 q)perm`a`b`c

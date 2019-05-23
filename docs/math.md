@@ -763,3 +763,111 @@ q)x where x in y
 ```
 
 
+## Range union
+
+```q
+q)/ given ordered (lefts;rights)
+q)/ interval 0 and where left is greater than 1+ max previous right
+q)show r:(1 3;8 10;11 12;2 4)  / ranges
+1  3
+8  10
+11 12
+2  4
+q)f:{(x b;1 rotate a b:0,where x>1+a:-1 rotate maxs y)}
+q)flip f . flip asc r
+1 4
+8 12
+q)
+q)flip asc r
+1 2 8  11
+3 4 10 12
+q){-1 rotate(|\)y} . flip asc r
+12 3 4 10
+q){-1 rotate maxs y} . flip asc r
+12 3 4 10
+q){x>1+-1 rotate maxs y} . flip asc r
+0010b
+q){0,where x>1+-1 rotate maxs y} . flip asc r
+0 2
+q){a b:0,where x>1+a:-1 rotate maxs y} . flip asc r
+12 4
+q){1 rotate a b:0,where x>1+a:-1 rotate maxs y} . flip asc r
+4 12
+q){(x b;1 rotate a b:0,where x>1+a:-1 rotate maxs y)} . flip asc r
+1 8
+4 12
+q)flip {(x b;1 rotate a b:0,where x>1+a:-1 rotate maxs y)} . flip asc r
+1 4
+8 12
+```
+
+
+## Pointer chasing
+
+For `r` a primitive root of prime `p`, the additive list formed by `(r*til p)mod p` has an interesting property, first discussed by August Crelle in the early 19th century. For example, if we take such a list for the primitive root 3 of 7:
+
+```q
+q)show a:(3*til 7)mod 7  / list of successive sums of 3, starting from 0, mod 7
+0 3 6 2 5 1 4
+```
+
+then if we treat the items of this list as pointers, and write
+
+```q
+q)a\[1]
+1 3 2 6 4 5
+```
+
+we find that the new list is the successive powers of 3, mod 7.
+
+
+## Partitions of y with no part less than x
+
+```q
+q)part:{t:x _ til 1+ floor y%2;(raze t,''t part'y-t),y}  / recurses
+q)part[3;10]
+3 3 4
+3 7
+4 6
+5 5
+10
+q)part[1;6]
+1 1 1 1 1 1
+1 1 1 1 2
+1 1 1 3
+1 1 2 2
+1 1 4
+1 2 3
+1 5
+2 2 2
+2 4
+3 3
+6
+q)count each part[1]'[1+til 10]
+1 2 3 5 7 11 15 22 30 42
+```
+
+
+## Polygon area
+
+```q
+q)area:{0.5*sum last[x]{(-)over y*reverse x}':x}
+```
+
+The binary `{(-)over y*reverse x}` yields the determinant of a 2-by-2 matrix. The binary `area` yields the area of a polygon whose x-y coordinates are, in order, the rows of a 2-column matrix.
+
+```q
+q)area(10 5;6 8;3 6;4 3;7 2)
+24.5
+```
+
+
+## Fibonacci numbers
+
+First 10 Fibonacci numbers.
+
+```q
+q)10 {x,sum -2#x}/0 1
+0 1 1 2 3 5 8 13 21 34 55 89
+```
+

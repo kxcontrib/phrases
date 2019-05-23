@@ -231,6 +231,17 @@ q)f*f<=x
 ```
 
 
+## Merge items from x and y alternately
+
+```q
+q)x:1 3 5 7
+q)y:2 4 6 8
+q)raze x,'y
+1 2 3 4 5 6 7 8
+```
+
+
+
 
 ## Sorting and grading sublists
 

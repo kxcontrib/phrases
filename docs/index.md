@@ -34,12 +34,14 @@
 199 | [multiplication table of order x](arith.md#multiplication-table-of-order-x) | `{x*\:x}1+til x`
 477 | [square x retaining sign](arith.md#square-x-retaining-sign) | `x*abs x`
 516 | [multiply each column of x by y](arith.md#multiply-each-column-of-x-by-y) | `x*y`
+611 | [multiply each row of x by vector y](arith.md#multiply-each-row-of-x-by-vector-y) | `x*\:y`
 528 | [vector (cross) product](arith.md#vector-cross-product) | `(-/)(*/')(1 neg\1 -1)rotate''2 2#(x;y)`
 367 | [alternating product](arith.md#alternating-product) | `prd x xexp(count x)#1 -1`
 187 | [direct matrix product](math.md#direct-matrix-product) | `flip each x*\:\:y`
 240 | [matrix product](arith.md#matrix-product) | `x mmu y`
 243 | [dot product of vectors](arith.md#dot-product-of-vectors) | `sum x*y`
 244 | [product over subsets of x specified by y](arith.md#product-over-subsets-of-x-specified-by-y) | `x('[prd;xexp])\:y`
+572 | [divide by 0](arith.md#divide-by-0) | `not[z]*y%x+z:x=0`
 164, 468 | [divisors](arith.md#divisors) | `where 0=x mod/:til 1+x`
 155 | [greatest common divisor](arith.md#greatest-common-divisor) | `1+last where min each 0=x mod/:1+til min x`
 419 | [pairwise ratios](arith.md#pairwise-ratios) | `1_ratios x`
@@ -84,6 +86,7 @@
 151 | [efficient execution of f x where x has repeated values](exec.md#efficient-execution-of-f-x-where-x-has-repeated-values) | `u:distinct x`<br/>`(f u)u?x`
 493 | [choose x or y depending on flag g](exec.md#choose-x-or-y-depending-on-flag-g) | `$[g;x;y]`
 533 | [reverse x on condition y](exec.md#reverse-x-on-condition-y) | `y reverse/x`
+629 | [error to stop execution](exec.md#error-to-stop-execution) | ``'`stop``
 
 
 
@@ -96,7 +99,8 @@
 146 | [compound interest for principals y at percentages g for periods x](fin.md#compound-interest-for-principals-y-at-percentages-g-for-periods-x) | `y*\:(1+g%100)xexp\:x`
 186 | [annuity coefficient for x periods at interest rate y%](fin.md#annuity-coefficient-for-x-periods-at-interest-rate-y) | `y%/:100*flip 1-(1+y%100)xexp\:neg x`
 286 | [fifo stock y decremented with x units](fin.md#fifo-stock-y-decremented-with-x-units) | `1_deltas 0,0|(sums y)-x`
-
+1001 | [payback](fin.md#) | `C:prds(count W)#1+R`<br/>`C*B-sums W%(count W)#T _ 1,C`
+1002 | [round summands](fin.md#round-summands) | `i:floor Y:y%x`<br/>`a:{(floor .5+/x)#idesc x}Y-i`<br/>`x*@[i;a;+;1]`
 
 
 ## Find
@@ -163,7 +167,11 @@
 539 | [boolean vector of length y with zeros in locations x](flag.md#boolean-vector-of-length-y-with-zeros-in-locations-x) | `@[y#1b;x;:;0b]`
 540, 543 | [ones in boolean vector of length x at indices y](flag.md#ones-in-boolean-vector-of-length-x-at-indices-y) | `@[x#1b;y;:;0b]`
 559 | [find first 1](flag.md#find-first-1) | `x?1`
-566 | [zero all items](flag.md#zero-all-items) ` x*0`
+566, 624 | [zero all items](flag.md#zero-all-items) ` x*0`
+570 | [x implies y](flag.md#x-implies-y) | `x<=y`
+571 | [x but not y](flag.md#x-but-not-y) | `x>y`
+573 | [exclusive or](flag.md#exclusive-or) | `x<>y`
+575 | [Kronecker delta of x and y](flag.md#Kronecker-delta-of-x-and-y)` x=y`
 
 
 ## Format
@@ -179,10 +187,12 @@
 144 | [histogram](form.md#histogram) | `" *"(1+ til max x)<=/:x`
 166 | [barchart of integer list x](form.md#barchart-of-integer-list-x)| `" X" reverse til[max x]<\:x`
 170 | [horizontal barchart of x, normalized to length y](form.md#horizontal-barchart-of-x-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
+605 | [indexing plotting characters with flags](form.md#indexing-plotting-characters-with-flags) | " X" x
 171 | [horizontal barchart of integers](form.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
 149 | [number of decimals in x, maximum y](form.md#number-of-decimals-in-x-maximum-y) | `sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1`
 456 | [number of digits in nonnegative integer x](form.md#number-of-digits-in-nonnegative-integer-x) | `1+floor log10 x+0=x`
 452, 455 | [number of positions in integer x](form.md#number-of-positions-in-integer-x) | `1+(x<0)+floor 10 xlog abs x+0=x`
+
 
 
 ## Geometry
@@ -195,6 +205,9 @@
 133 | [degrees from radians](trig.md#degrees-from-radians) | `57.295779513082323*x`
 134 | [radians from degrees](trig.md#radians-from-degrees) | `0.017453292519943295*x`
 318 | [area of triangle with sides x (Heron’s rule)](trig.md#area-of-triangle-with-sides-x) | `sqrt prd(sum x%2)-0,x`
+1009 | [great circle distance](trig.md#great-circle-distance) | `cos distinct(prd sin x)+(prd cos x)*cos(-/)y`
+1010 | [nautical miles from radians](trig.md#nautical-miles-from-radians) | `x*180*60%PI`
+1011 | [degrees from degrees and minutes](trig.md#degrees-from-degrees-and-minutes) | `sum x%1 60`
 
 
 
@@ -233,7 +246,7 @@
 191 | [Shur sum](math.md#shur-sum) | `((last shape x)#x) + (first shape y)#'y`
 195 | [upper triangular matrix of order x](math.md#upper-triangular-matrix-of-order-x) | `{x<=\:x}til x`
 196 | [lower triangular matrix of order x](math.md#lower-triangular-matrix-of-order-x) | `{x>=\:x}til x`
-197 | [identity matrix of order x](math.md#identity-matrix-of-order-x) | `{x=/:x}til x`
+197, 582 | [identity matrix of order x](math.md#identity-matrix-of-order-x) | `{x=/:x}til x`
 198 | [Hilbert matrix of order x](math.md#hilbert-matrix-of-order-x) | `reciprocal 1+{x+/:x}til x`
 224 | [extend distance table to next leg](math.md#extend-distance-table-to-next-leg) | `x('[min;+])\:x`
 230 | [extend a transitive binary relation](math.md#extend-a-transitive-binary-relation) | ==FIXME==
@@ -245,6 +258,12 @@
 497 | [set union](math.md#set-union) | `distinct y,x`
 498 | [set difference](math.md#set-difference) | `x except y`
 500 | [set intersection](math.md#set-intersection) | `x where x in y`
+1004 | [range union](math.md#range-union) | `f:{(x b;1 rotate a b:0,where x>1+a:-1 rotate maxs y)}`<br/>`flip f . flip asc x`
+1005 | [pointer chasing](math.md#pointer-chasing) | `((r*til p)mod p)\[1]`
+1006 | [partitions of y with no part less than x](math.md#partitions-of-y-with-no-part-less-than-x) | `part:{t:x _ til 1+floor y%2;(raze t,''t part'y-t),y}`
+1008 | [polygon area](math.md#polygon-area) | `0.5*sum last[x]{(-/)y*reverse x}':x`
+1012 | [first y Fibonacci numbers](math.md#fibonacci-numbers) | `y{x,sum -2#x}/0 1`
+1017 | [permutations](math.md#permutations) | `(1 0#x){raze(1 rotate)scan'x,'y}/x`
 
 
 
@@ -297,6 +316,22 @@
 535 | [avoiding parentheses using reverse](misc.md#avoiding-parentheses-using-reverse) | `reverse 1,count x`
 545 | [zero items of y not in x](misc.md#zero-items-of-y-not-in-x) | `y*y in x`
 554 | [select from g based on index of x in y](misc.md#select-from-g-based-on-index-of-x-in-y) | `g y?x`
+567 | [select x or y depending on g](misc.md#select-x-or-y-depending-on-g) | `g'[x;y]`
+569 | [change y to one if x](misc.md#change-y-to-one-if-x) | `y xexp not x`
+574 | [y where x is 0](misc.md#y-where-x-is-0) | `x+y*x=0`
+577 | [append y items g to each item of x](misc.md#append-y-items-g-to-each-item-of-x) | `raze x,\:y#g`
+576 | [prepend y items of g to each item of x](misc.md#prepend-y-items-of-g-to-each-item-of-x) | `raze(y#g),/:x`
+581 | [insert y after each item of x](misc.md#insert-y-after-each-item-of-x) | `raze x,'y`
+583, 621 | [vector and its negative](misc.md#vector-and-its-negative) | `1 -1*/:x`
+602 | [choosing from y according to sign of x](misc.md#choosing-from-y-according-to-sign-of-x) | `y 1+signum x`
+603 | [conditional change of sign](misc.md#conditional-change-of-sign) | `y*1 -1 x`
+608 | [zeroing an array](misc.md#zeroing-an-array) | `x*0`
+622 | [retain value of items marked by y, zero others](misc.md#retain-value-of-items-marked-by-y-zero-others) | `x*y`
+623 | [conditional change of sign](misc.md#conditional-change-of-sign) | `x*1 -1 y`
+1013 | [tree from depth;value](misc.md#tree-from-depth-value) | `tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}`
+1014 | [depth from tree](misc.md#depth-from-tree) | `dt:{0,/1+dt'[1_ x]}`
+1015 | [value from tree](misc.md#value-from-tree) | `vt:{(1#x),/vt each 1_ x}`
+1016 | [streak of numbers with same sign](misc.md#streak-of-numbers-with-same-sign) | `{1+(x;0)y}\[1;]differ signum x`
 
 
 
@@ -328,7 +363,7 @@
 200 | [replicating a dimension of rank-3 array x y-fold](shape.md#replicating-a-dimension-of-rank-3-array-x-y-fold) | `x[;raze(y#1)*\:til(shape x)1;]`
 201 | [moving index y-wide for x](shape.md#moving-index-y-wide-for-x) | `y+til count[x]-y-1`
 202 | [indexes of infixes of length y](shape.md#indexes-of-infixes-of-length-y) | `x+\:til y`
-203, 534 | [one-column matrix from numeric vector](shape.md#one-column-matrix-from-numeric-vector) | `1#'x`
+203, 534, 594 | [one-column matrix from numeric vector](shape.md#one-column-matrix-from-numeric-vector) | `1#'x`
 250, 251, 253 | [replicate y x times](shape.md#replicate-y-x-times) | `x#y`
 273, 274 | [join scalar to each list item](shape.md#join-scalar-to-each-list-item) | `x,'y`
 328 | [number of items](shape.md#number of items) ` count x`
@@ -367,6 +402,22 @@
 555 | [all axes of rectangular array x](shape.md#all-axes-of-rectangular-array-x) | `til depth x`
 556 | [all indices of vector x](shape.md#all-indices-of-vector-x) | `tc x`
 563 | [empty vector](shape.md#empty-vector) | `()`
+587 | [first column as a matrix](shape.md#first-column-as-a-matrix) | `x[;enlist 0]`
+588 | [2-row matrix from two vectors](shape.md#2-row-matrix-from-two-vectors) | `(x;y)`
+589 | [2-column matrix from two vectors](shape.md#2-column-matrix-from-two-vectors) | `x,'y`
+590 | [increasing rank of y to rank of x](shape.md#increasing-rank-of-y-to-rank-of-x) | `(depth[x]-depth y)enlist/y`
+591 | [reshape vector x into 2-column matrix](shape.md#reshape-vector-x-into-2-column-matrix) | `2 cut x,(count[x]mod 2)#" "`
+592 | [vector from array](shape.md#vector-from-array) | `(raze/)x`
+593 | [matrix of y rows, each x](shape.md#matrix-of-y-rows-each-x) | `y#enlist x`
+595 | [one-row matrix from vector](shape.md#one-row-matrix-from-vector) | `enlist x`
+600 | [number of columns in matrix x](shape.md#number-of-columns-in-matrix-x) | `count first x`
+599 | [number of columns in array x](shape.md#number-of-columns-in-array-x) | `last shape x`
+607 | [vector from column y of matrix](shape.md#vector-from-column-y-of-matrix) | `x[;y]`
+610 | [y cyclic repetitions of vector x](shape.md#y-cyclic-repetitions-of-vector-x) | `(y*count x)#x`
+612 | [rank of array y (number of dimensions)](shape.md#rank-of-array-y-number-of-dimensions) | `depth x`
+614 | [array with shape of y and x as its rows](shape.md#array-with-shape-of-y-and-x-as-its-rows) | `count[y]#enlist x`
+615 | [first atom in x](shape.md#first-atom-in-x) | `(first/)x`
+616 | [scalar from one-item vector](shape.md#scalar-from-one-item-vector) | `first x`
 
 
 
@@ -390,7 +441,7 @@
 42, 43 | [move flagged items to one end](sort.md#move-flagged-items-to-one-end) | `x idesc y`
 156 | [sort y by value into x classes](sort.md#sort-y-by-value-into-x-classes) | `value asc y group x xrank y`
 389 | [playing order of x ranked players](sort.md#playing-order-of-x-ranked-players) | `f:1+2 sv reverse tt neg floor neg 2 xlog x`<br/>`f*f<=x`
-
+578 | [merge items from x and y alternately](sort.md#merge-items-from-x-and-y-alternately) | `raze x,'y`
 
 
 ## Statistics
@@ -437,7 +488,7 @@
 297 | [spread flagged field heads right](string.md#spread-flagged-field-heads-right) | `x raze(count each a _ x)#'a:where y`
 401 | [first word in string x](string.md#first-word-in-string-x) | 
 437 | [remove leading zeros](string.md#remove-leading-zeros) | `((x="0")?0b) _ x`
-490 | [insert spaces in text](string.md#insert-spaces-in-text) | `-1_raze x,'" "`
+490, 580 | [insert spaces in text](string.md#insert-spaces-in-text) | `-1_raze x,'" "`
 496 | [remove punctuation characters](string.md#remove-punctuation-characters) | `x except PUN`
 508 | [conditional text](string.md#conditional-text) | `$[x;"true";"false"]`
 549 | [alphabetic comparison](string.md#alphabetic-comparison) | `x<y`
@@ -483,7 +534,7 @@
 417 | [end indices of equal-item sublists](sub.md#end-indices-of-equal-item-sublists) | `(1_(<>)prior x),1b`
 423 | [lengths from start indexes](sub.md#lengths-from-start-indexes) | `1_deltas where x,1`
 426 | [change all multiple sublists of y in x to single](sub.md#change-all-multiple-sublists-of-y-in-x-to-single) | `x where 1 rotate(or)prior a:x<>y`
-
+1003 | [maximum sum of sublists](sub.md#maximum-sum-of-sublists) | `max 0 (0|+)\x`
 
 
 ## Temporal
@@ -551,11 +602,12 @@
 225 | [remove blank rows](text.md#remove-blank-rows) | `x where max" "<>flip x`
 226 | [remove blank columns](text.md#remove-blank-columns) | `x where max" "<>x`
 231 | [which rows of x contain elements different from y?](text.md#which rows-of-x-contain-elements-different-from-y) | `max y<>flip x`
-441 | [comma-separated list from table](text.md#comma-separated-list-from-table) | `","sv x`
+441, 613 | [comma-separated list from table](text.md#comma-separated-list-from-table) | `","sv x`
 464 | [framing character matrix x](text.md#framing-character-matrix-x) | `flip"-",'(flip"|",'x,'"|"),'"-"`
 485 | [append empty row on matrix](text.md#append-empty-row-on-matrix) | `flip(flip x),'" "`
 487 | [insert empty row in x after row y](text.md#insert-empty-row-in-x-after-row-y) | `a:flip(flip x),'" "`<br/>`a rank@[count[a]#1;y+1;+;1]`
 489 | [table from string y at partitions flagged by x](text.md#table-from-string-y-at-partitions-flagged-by-x) | `(where x)_y` 
+579 | [variable length lines](text.md#variable-length-lines) | `(x;y;z)`
 
 
 
@@ -568,6 +620,7 @@
 ```q
 DEC:"0123456789"
 HEX:"0123456789abcdef"
+PI:3.141592653589798238
 PUN:",;:.!?"
 depth:{$[type[x]<0; 
   0; 

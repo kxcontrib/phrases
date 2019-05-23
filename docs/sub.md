@@ -595,3 +595,20 @@ q)x where 1 rotate(or)prior a:x<>y
 "bcbceekl"
 ```
 
+
+## Maximum sum of sublists
+
+```q
+q)x:-100 2 3 4 -100 6 7 8 9 -100
+q)max 0 (0|+)\x
+30
+q)(x;0 (0|+)\x)
+-100 2 3 4 -100 6 7  8  9  -100
+0    2 5 9 0    6 13 21 30 0
+```
+
+Above, `(0|+)` composes the unary projection `0|` with Add. The composition becomes the argument to Scan, which derives the ambivalent function `(0|+)\`, which is then applied infix to 0 and `x` to return cumulative sums.
+
+If we take `-100` to flag parts of `x`, the expression `max 0 (0|+)\x` returns the largest of the sums of the parts. 
+
+

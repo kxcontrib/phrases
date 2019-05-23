@@ -483,3 +483,44 @@ q)0*x
 0 0 0 0 0 0 0 0 0 0 0
 ```
 
+
+## X implies y
+
+```q
+q)x:0 1  0 1
+q)y:0 0 1 1
+q)x<=y
+1011b
+```
+
+
+## X but not y
+
+```q
+q)x:0 1  0 1
+q)y:0 0 1 1
+q)x>y
+0100b
+```
+
+
+## Exclusive or
+
+```q
+q)x:0 0 1 1
+q)y:0 1 0 1
+q)x<>y
+0110b
+```
+
+
+## Kronecker delta of x and y
+
+```q
+q)x:0 0 1 1
+q)y:0 1 0 1
+q)x=y
+1001b
+```
+
+

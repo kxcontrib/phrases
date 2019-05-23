@@ -779,3 +779,242 @@ q)0#0.0     / float
 q)0#" "     / character
 ..
 ```
+
+
+## First column as a matrix
+
+```q
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)x[;enlist 0]
+0
+4
+8
+```
+
+
+## 2-row matrix from two vectors
+
+```q
+q)x:"abcd"
+q)y:"efgh"
+q)(x;y)
+"abcd"
+"efgh"
+
+q)flip x,'y
+"abcd"
+"efgh"
+
+q)(enlist x),enlist y
+"abcd"
+"efgh"
+```
+
+
+## 2-column matrix from two vectors
+
+```q
+q)x:"abcd"
+q)y:"efgh"
+q)x,'y
+"ae"
+"bf"
+"cg"
+"dh"
+
+q)flip(x;y)
+"ae"
+"bf"
+"cg"
+"dh"
+```
+
+
+## Increasing rank of y to rank of x
+
+```q
+q)x:("abcd";"efgh")
+q)y:"ijkl"
+q)depth x
+2
+q)depth y
+1
+q)(depth[x]-depth y)enlist/y
+"ijkl"
+q)shape (depth[x]-depth y)enlist/y
+1 4
+```
+
+
+## Reshape vector x into 2-column matrix
+
+```q
+q)x:"abcdefghi"
+q)2 cut x
+"ab"
+"cd"
+"ef"
+"gh"
+,"i"
+q)count[x]mod 2
+1
+q)2 cut x,(count[x]mod 2)#" "
+"ab"
+"cd"
+"ef"
+"gh"
+"i "
+```
+
+
+## Vector from array
+
+```q
+q)show x:2 3 4#til 24
+0 1 2  3    4 5 6  7    8 9 10 11
+12 13 14 15 16 17 18 19 20 21 22 23
+q)(raze/)x
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+q)
+q)show y:("The quick brown fox ";"jumps over ";"the lazy dog.")
+"The quick brown fox "
+"jumps over "
+"the lazy dog."
+q)(raze/)y
+"The quick brown fox jumps over the lazy dog."
+```
+
+Not quite. A vector has uniform type. If the array does not have uniform type, only casting can return a vector. 
+
+
+## Matrix of y rows, each x
+
+```q
+q)x:"abcd"
+q)y:3
+q)y#enlist x
+"abcd"
+"abcd"
+"abcd"
+
+q)flip y#'x'
+"abcd"
+"abcd"
+"abcd"
+```
+
+
+## One-row matrix from vector
+
+```q
+q)shape x:2 3 5 7 11
+,5
+q)shape enlist x
+1 5
+```
+
+
+## Number of columns in matrix x
+
+```q
+q)x:3 19#0
+q)count first x
+19
+```
+
+
+## Number of columns in array x
+
+```q
+q)x:1 1 1 1 1 678#0
+q)shape x
+1 1 1 1 1 678
+q)last shape x
+678
+```
+
+
+## Vector from column y of matrix
+
+```q
+q)x:3 4#til 12
+q)x
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)y:0
+q)x[;y]
+0 4 8
+```
+
+
+## Y cyclic repetitions of vector x
+
+```q
+q)x:"abcd"
+q)y:3
+q)(y*count x)#x
+"abcdabcdabcd"
+
+q)raze y#enlist x
+"abcdabcdabcd"
+```
+
+
+## Rank of array y (number of dimensions)
+
+```q
+q)x:2 1 2 1 3 1 4#0
+q)shape x
+2 1 2 1 3 1 4
+q)count shape x
+7
+q)depth x
+7
+q)depth 0
+0
+q)depth enlist 0
+1
+```
+
+
+## Array with shape of y and x as its rows
+
+Implies `count[x]~count first y`
+
+```q
+q)y:3 4#til 12
+q)x:"abcd"
+q)count[y]#enlist x
+"abcd"
+"abcd"
+"abcd"
+```
+
+
+## First atom in x
+
+```q
+q)show x:(("The";"quick");"brown";"fox";(("jumps";"over");(("the";"lazy");"dog")))
+("The";"quick")
+"brown"
+"fox"
+(("jumps";"over");(("the";"lazy");"dog"))
+q)(first/)x
+"T"
+```
+
+
+## Scalar from one-item vector
+
+```q
+q)show x:enlist 3
+,3
+q)first x
+3
+```
+
+
