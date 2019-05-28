@@ -612,3 +612,41 @@ Above, `(0|+)` composes the unary projection `0|` with Add. The composition beco
 If we take `-100` to flag parts of `x`, the expression `max 0 (0|+)\x` returns the largest of the sums of the parts. 
 
 
+## Append y items g to each item of x
+
+```q
+q)x:1 3 5
+q)y:2
+q)g:10
+q)raze x,\:y#g
+1 10 10 3 10 10 5 10 10
+```
+
+
+## Prepend y items of g to each item of x
+
+```q
+q)x:1 3 5
+q)y:2
+q)g:10
+q)y#g
+10 10
+q)(y#g),/:x
+10 10 1
+10 10 3
+10 10 5
+q)raze (y#g),/:x
+10 10 1 10 10 3 10 10 5
+```
+
+
+## Insert y after each item of x
+
+```q
+q)x:"abc"
+q)y:"d"
+q)raze x,'y
+"adbdcd"
+```
+
+

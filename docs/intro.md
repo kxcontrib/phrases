@@ -2,8 +2,6 @@
 
 
 
-<big><big>==DRAFT==</big></big>
-
 The phrasebook is a collection of q expressions used for common tasks. 
 
 Q is a terse language. 
@@ -16,29 +14,42 @@ They are also illuminating guides to skilled use of the language, and repay stud
 
 This is an open-source collection, and a repository of community programming knowledge. 
 
-Please feel free to contribute to the project at
+You can contribute to the project at
 <i class="fab fa-github"></i>
-[KxSystems/phrases](htpps://github.com/kxsystems/phrases/).
+[kxcontrib/phrases](htpps://github.com/kxcontrib/phrases/).
 
 
 ## Genealogy
 
-The q phrases derive originally from the [FinnAPL Idiom Library](https://aplwiki.com/FinnAplIdiomLibrary), a legendary resource for programmers. 
+The q phrases derive originally from the [FinnAPL Idiom Library](https://aplwiki.com/FinnAplIdiomLibrary), a legendary resource for vector programmers. 
 
 Iverson’s reboot of APL was the [J programming language](https://jsoftware.com/), where the idioms became [phrases](https://code.jsoftware.com/wiki/Phrases).
 
 [Eugene McDonnell](https://en.wikipedia.org/wiki/Eugene_McDonnell) 
-ported the FinnAPL Idiom Library to the k language. A partial translation of that into q was hosted – as an extraordinarily long page – on the old wiki. 
+ported the FinnAPL Idiom Library to the k language. A partial translation of that into q was hosted – as an extraordinarily long page – on the old wiki.
 
 <i class="far fa-hand-point-right"></i>
 Simon Garland on  “[Q idioms](https://kx.com/blog/q-idioms/)” 
+
+The k idiom list and its partial translation as the QIdioms page were exercises by experienced programmers who at the time were getting to know the respective languages. 
+
+The Q Phrasebook aims to fulfill their project of producing a q equivalent of the FinnAPL Idiom Library and the J Phrases. 
+
+
 
 
 ## Paint the town red
 
 The meaning of an idiom is given by customary usage. It cannot be understood by analysing the words in it. 
 
-For example, people who set out to _paint the town red_ will not use paint of any color. They intend to go out and enjoy themselves. 
+For example, someone who _paints the town red_ might not use paint of any color; but just goes out for a good time.  
 
-The Q Phrases can be understood by analysis. They reward study. 
-So _phrases_, not _idioms_.
+The Q Phrases are not idioms. They can be understood by analysis, and reward study. So _phrases_, not _idioms_.
+
+
+## That’s a phrase?
+
+Some of the ‘phrases’ turn out to be just q operators or keywords. 
+For example, [_Case structure_](exec.md#case-structure) is nothing but the [Cond operator](https://code.kx.com/v2/ref/cond "Reference"). 
+
+They are included here because, although they are elementary in q, readers coming from verbose languages might reasonably expect them to be at least a phrase. 

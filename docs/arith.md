@@ -3,68 +3,6 @@
 
 
 
-## Parts of numbers
-
-### Fractional part
-
-```q
-q)x:0 1 -2 3.4 -5.6 -6.1
-q)x mod 1
-0 0 0 0.4 0.4 0.9
-```
-
-
-### Integer and fractional parts of positive x
-
-```q
-q)x:12.3 23.4 5.33 8.999
-q){f,'x-f:floor x}x
-12 0.3
-23 0.4
-5  0.33
-8  0.999
-```
-
-
-### Magnitude of fractional part
-
-```q
-q)x:6.13 -6.13
-q)abs[x]
-6.13 6.13
-q)a-floor a:abs x
-0.13 0.13
-```
-
-
-### Fractional part with sign
-
-```q
-q)signum[x]*abs[x]mod 1
-0.2 0.3 -0.2 -0.8 0 0 -0
-```
-
-
-### Leading digit of numeric code abbb
-
-```q
-q)ld:{floor x%1000}
-q)x:1319 8629 6581 6988 790 9045
-q)ld x
-1 8 6 6 0 9
-```
-
-
-### Last part of abbb
-
-```q
-q)x:1234 5678 9012 345 6789
-q)x mod 1000
-234 678 12 345 789
-```
-
-
-
 ## Add
 
 ### Sum a vector
@@ -73,34 +11,6 @@ q)x mod 1000
 q)x:1 2 3 4 5
 q)sum x
 15
-```
-
-
-## Consecutive integers from x to y
-
-```q
-q)x:5
-q)y:10
-q)x+til 1+y-x
-5 6 7 8 9 10
-```
-
-Or.
-
-```q
-q)x_til y+1
-5 6 7 8 9 10
-```
-
-
-## Arithmetic progression of y numbers from x with step g
-
-```q
-q)x:5
-q)y:8
-q)g:100
-q)x+g*til y
-5 105 205 305 405 505 605 705
 ```
 
 
@@ -175,6 +85,34 @@ q)show y:2 5#3+til 10
 q)x+'y
 4  5  6  7  8
 10 11 12 13 14
+```
+
+
+## Add x to last item of y
+
+```q
+q)x:100
+q)y:1 2 3 4 5
+q)@[y;-1+count y;+;x]
+1 2 3 4 105
+```
+
+Or in place:
+
+```q
+q)@[`y;-1+count y;+;x]
+`y
+q)y
+1 2 3 4 105
+```
+
+Or.
+
+```q
+q)y:1 2 3 4 5
+q)y[count[y]-1]+:x
+q)y
+1 2 3 4 105
 ```
 
 
@@ -269,6 +207,40 @@ q)x+y*@[signum x;where x=0;:;1]
 
 ## Subtract
 
+### Vector and its negative
+
+```q
+q)x:1 -3 5
+q)x,'neg x
+1  -1
+-3 3
+5  -5
+
+q)1 -1*/:x
+1  -1
+-3 3
+5  -5
+```
+
+
+## Numeric array and its negative
+
+```q
+q)show x:3+3 4#til 12
+3  4  5  6
+7  8  9  10
+11 12 13 14
+q)x,''neg x
+3 -3   4 -4   5 -5   6 -6
+7  -7  8  -8  9  -9  10 -10
+11 -11 12 -12 13 -13 14 -14
+q)((1 -1*)'')x
+3 -3   4 -4   5 -5   6 -6
+7  -7  8  -8  9  -9  10 -10
+11 -11 12 -12 13 -13 14 -14
+```
+
+
 ### First difference
 
 ```q
@@ -293,6 +265,25 @@ q)1_ neg deltas x
 
 
 ## Multiply
+
+### Zeroing an array
+
+```q
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)x*0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+q)x[;]:0
+q)x
+0 0 0 0
+0 0 0 0
+0 0 0 0
+```
+
 
 ### Product
 
@@ -338,7 +329,7 @@ q)x*y
 ```
 
 
-## Multiply each row of x by vector y
+### Multiply each row of x by vector y
 
 ```q
 q)show x:3 4#1+til 12
@@ -449,7 +440,7 @@ q)x('[prd;xexp])\:y
 
 ## Divide
 
-## Divide by 0
+### Divide by 0
 
 ```q
 q)dz:{not[z]*y%x+z:x=0}
@@ -568,6 +559,45 @@ q)x|\:x
 
 ## Numbers
 
+### Consecutive integers from x to y
+
+```q
+q)x:5
+q)y:10
+q)x+til 1+y-x
+5 6 7 8 9 10
+```
+
+Or.
+
+```q
+q)x_til y+1
+5 6 7 8 9 10
+```
+
+
+### Arithmetic progression of y numbers from x with step g
+
+```q
+q)x:5
+q)y:8
+q)g:100
+q)x+g*til y
+5 105 205 305 405 505 605 705
+```
+
+
+### Arithmetic progression from x to y with step g
+
+```q
+q)ap:{[x;y;g]x+g*til 1+ floor (y-x)%g}
+q)ap[3;20;5]
+3 8 13 18
+q)ap[3;-20;-5]
+3 -2 -7 -12 -17
+```
+
+
 ### Primes to n
 
 ```q
@@ -597,12 +627,22 @@ q)pn:{[n]where 0b,2=sum 0=x mod/:x:1+til n}
 q)pn 30
 2 3 5 7 11 13 17 19 23 29
 q)/Classic:
-q)p:{x[where not (x in distinct raze x*/:\:x:2_ key x)]}
+q)p:{a where not a in distinct raze a*/:\:a:2_ til x}
 q)p 10
 2 3 5 7
 q)p 30
 2 3 5 7 11 13 17 19 23 29
 ```
+
+
+### X first triangular numbers
+
+```q
+q)x:6
+q)sums til x
+0 1 3 6 10 15
+```
+
 
 
 ### First 10 figurate numbers of order x
@@ -619,6 +659,103 @@ q)fg 3
 1 4 10 20 35 56 84 120 165 220
 q)fg 4
 1 5 15 35 70 126 210 330 495 715
+```
+
+
+
+## Parts of numbers
+
+### Fractional part
+
+```q
+q)x:0 1 -2 3.4 -5.6 -6.1
+q)x mod 1
+0 0 0 0.4 0.4 0.9
+```
+
+
+### Integer and fractional parts of positive x
+
+```q
+q)x:12.3 23.4 5.33 8.999
+q){f,'x-f:floor x}x
+12 0.3
+23 0.4
+5  0.33
+8  0.999
+```
+
+
+### Magnitude of fractional part
+
+```q
+q)x:6.13 -6.13
+q)abs[x]
+6.13 6.13
+q)a-floor a:abs x
+0.13 0.13
+```
+
+
+### Fractional part with sign
+
+```q
+q)signum[x]*abs[x]mod 1
+0.2 0.3 -0.2 -0.8 0 0 -0
+```
+
+
+### Leading digit of numeric code abbb
+
+```q
+q)ld:{floor x%1000}
+q)x:1319 8629 6581 6988 790 9045
+q)ld x
+1 8 6 6 0 9
+```
+
+
+### Last part of abbb
+
+```q
+q)x:1234 5678 9012 345 6789
+q)x mod 1000
+234 678 12 345 789
+```
+
+
+
+## Infinity and beyond
+
+### Identity for floating-point maximum, negative infinity
+
+```q
+q)max 0#0.0
+-0w
+q)-1e100|-0w
+-1e+100
+q)-1e100|-0W
+-2.147484e+09
+q)-123456789|-0w
+-1.234568e+08
+q)-123456789|-0W
+-123456789
+```
+
+
+### Identity for floating point minimum, positive infinity
+
+```q
+q)min 0#0.0
+0w
+q)1e100&0w
+1e+100
+q)1e100&0W
+2.147484e+09
+q)123456789&0w
+1.234568e+08
+q)123456789&0W
+123456789
 ```
 
 

@@ -5,7 +5,7 @@
 Phrases relating to character matrixes and nested lists, such as correspond to text files.
 
 <i class="far fa-hand-point-right"></i>
-[Strings](strings.md)
+[Strings](string.md)
 
 
 ## Right-justify fields x of length y to length g

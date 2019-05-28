@@ -78,7 +78,9 @@ nav:
   - Formatting: form.md
   - Geometry: trig.md
   - Math: math.md
+  - Matrixes: matrix.md
   - Miscellaneous: misc.md
+  - Polynomials: poly.md
   - Rounding: round.md
   - Shapes and indices: shape.md
   - Sort: sort.md

@@ -1018,3 +1018,81 @@ q)first x
 ```
 
 
+## Count atoms
+
+```q
+q)cs:{count raze over x}
+q)cs 1
+1
+q)cs[1 2]
+2
+q)cs[(1 2;3 4 5)]
+5
+q)cs[(1 2;(3 4;5))]
+5
+q)cs[("ab";("cd";"efg"))]
+7
+q)cs[til 0]
+0
+```
+
+
+## Tree from depth;value
+
+```q
+q)tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}
+```
+
+
+## Depth from tree
+
+```q
+q)dt:{0,/1+dt'[1_ x]}
+```
+
+
+## Value from tree
+
+```q
+q)vt:{(1#x),/vt each 1_ x}
+q)show t:tdv[d;v]
+0
+(1;,2;,3)
+,4
+,5
+q)dt t
+0 1 2 2 1 1
+q)vt t
+0 1 2 3 4 5
+```
+
+These three recursions stop when they run out of data.
+
+
+## Y-shaped array of numbers from x[0] to x[1]-1
+
+```q
+q)x:4 9
+q)y:3 4
+q)y#first[x]+prd[y]?(-)over reverse x
+4 6 8 8
+5 8 7 7
+4 6 5 8
+```
+
+
+### Offset indexes
+
+```q
+q)x:10
+q)y:3
+q)x+til y
+10 11 12
+
+q)x:10 20 30
+q)y:3 4 2
+q)raze x+til each y
+10 11 12 20 21 22 23 30 31
+```
+
+

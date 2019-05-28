@@ -765,7 +765,7 @@ q)lm m
 
 ## 51. Indexes
 
-The [depth](../basics/glossary.md#depth) of a list is the number of nesting levels at which it is rectangular. 
+The [depth](https://code.kx.com/v2/basics/glossary.md#depth) of a list is the number of nesting levels at which it is rectangular. 
 Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](../ref/take/).
 
 ```q

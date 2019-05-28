@@ -1,13 +1,17 @@
-# Casting and representation
+# Formatting
 
 
-
-
-
-## Formatted integers
 
 ```q
 DEC:"0123456789"
+```
+
+
+## Cast to string 
+
+### Formatted integers
+
+```q
 q)show x:5?100
 14 13 9 74 55
 q)10 vs x
@@ -33,55 +37,22 @@ Reference:
 [`vs`](/v2/ref/vs)
 
 
-
-## Character time hh:mm:ss from integer hhmmss
+### Count of format of x
 
 ```q
-q)":" sv 0 2 4 _ string 121129
-"12:11:29"
-q)("::",string 121129)rank 11011011b
-"12:11:29"
+q)cf:{count string x}
+q)cf 12.345
+6
+q)cf -1
+2
+q)cf 1e-12
+5
+q)string 1e-12
+"1e-12"
 ```
 
 
-## Character date yyyy/mm/dd from integer yyyymmdd
-
-```q
-q)"/"sv 0 4 6 _ string 20190507
-"2019/05/07"
-q)("//",string 20190507)rank 1111011011b
-"2019/05/07"
-```
-
-Not quite the same as above:
-
-```q
-q)ssr[;".";"/"]string .z.D
-"2019/05/07"
-```
-
-
-## Number of decimals
-
-Maximum 7.
-
-```q
-q)nd:{$[1=count x;0;-2+count x]}
-q)ff:{string x-floor x}
-q)ff 6.567
-"0.567"
-q)nd ff 1.234
-3
-q)nd ff 1234
-0
-q)nd ff 78.1234567
-7
-q)nd ff 78.12345678
-7
-```
-
-
-## Leading zeros for positive integers x in field width y
+### Leading zeros for positive integers x in field width y
 
 ```q
 q)y:3
@@ -101,22 +72,148 @@ q)1_'string x+10 xexp y
 ```
 
 
-## Count of format of x
+## Precision
+
+### Number of decimals
+
+Limited by print precision: see Reference [`\P`](https:
+//code.kx.com/v2/basics/syscmds/##p-precision).
 
 ```q
-q)cf:{count string x}
-q)cf 12.345
-6
-q)cf -1
-2
-q)cf 1e-12
-5
-q)string 1e-12
-"1e-12"
+q)x:1.4321 1.21 10
+q)x mod 1
+0.4321 0.21 0
+q)count each 2_'string x mod 1
+4 2 0
 ```
 
 
-## Histogram
+### Number of decimals in x, maximum y
+
+```q
+q)x:1.4321 1.21 10
+q)y:3
+q)x mod 1
+0.4321 0.21 0
+q)count each 2_'string x mod 1
+4 2 0
+q)y&count each 2_'string x mod 1
+3 2 0
+```
+
+
+### Number of positions in non-negative integer x
+
+```q
+q)x:0 13 523 16008
+q)1+floor log10 x+0=x
+1 2 3 5
+```
+
+
+### Number of positions in integer x
+
+```q
+q)x:1234 -1234 0 7 12345678
+q)1+(x<0)+floor 10 xlog abs x+0=x
+4 5 1 1 8
+```
+
+Or.
+
+```q
+q)1+floor 10 xlog(x=0)+x*1 -10[x<0]
+4 5 1 1 8
+```
+
+
+## Temporal 
+
+### Time hh:mm:ss from integer hhmmss
+
+```q
+q)":" sv 0 2 4 _ string 121129
+"12:11:29"
+q)("::",string 121129)rank 11011011b
+"12:11:29"
+```
+
+
+### Date yyyy/mm/dd from integer yyyymmdd
+
+```q
+q)"/"sv 0 4 6 _ string 20190507
+"2019/05/07"
+q)("//",string 20190507)rank 1111011011b
+"2019/05/07"
+```
+
+Not quite the same as above:
+
+```q
+q)ssr[;".";"/"]string .z.D
+"2019/05/07"
+```
+
+
+
+## Charts
+
+### Indexing plotting characters with flags
+
+```q
+q)/ flag primes to x
+q)p:{til[x]in a where not a in distinct raze a*/:\:a:2_ til x}
+q)p 1200
+00110101000101000101000100000101000001000101000100000100000101000001000101000..
+q)where p 1200
+2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 10..
+q)20 60#p 1200
+001101010001010001010001000001010000010001010001000001000001b
+010000010001010000010001000001000000010001010001010001000000b
+000000010001000001010000000001010000010000010001000001000001b
+010000000001010001010000000000010000000000010001010001000001b
+010000000001000001000001000001010000010001010000000001000000b
+000000010001010001000000000000010000010000000001010001000001b
+000000010000010000010001000001000000010001000000010000000001b
+010000000001010000010001000001000000010001010001000000000001b
+000000010001000000010001000001000000000001010000000000000000b
+010000010000000001000001000001010000010000000001000001000001b
+010000010000010001010000000000010000000001010001000001000001b
+010000000000010001000001000000010000000001000000010000000001b
+000000010000010000010001000000010000010001000000010001000000b
+000000010000000001000000000001010000000001010001010000000001b
+000000000000010001010001000000000000010001010001000000000000b
+000000010001000000010000000001000000010001000001000001000000b
+000000010001000001000001000000010000010000000000010001000001b
+010000000001010000010000000001010000000001010000010000000000b
+000000010001010001000001000001000000010000010000010000000000b
+000000000001010000000001000000010000000001000001000001000000b
+q)" X" 20 60#p 1200  / distribution of primes to 1200
+"  XX X X   X X   X X   X     X X     X   X X   X     X     X"
+" X     X   X X     X   X     X       X   X X   X X   X      "
+"       X   X     X X         X X     X     X   X     X     X"
+" X         X X   X X           X           X   X X   X     X"
+" X         X     X     X     X X     X   X X         X      "
+"       X   X X   X             X     X         X X   X     X"
+"       X     X     X   X     X       X   X       X         X"
+" X         X X     X   X     X       X   X X   X           X"
+"       X   X       X   X     X           X X                "
+" X     X         X     X     X X     X         X     X     X"
+" X     X     X   X X           X         X X   X     X     X"
+" X           X   X     X       X         X       X         X"
+"       X     X     X   X       X     X   X       X   X      "
+"       X         X           X X         X X   X X         X"
+"             X   X X   X             X   X X   X            "
+"       X   X       X         X       X   X     X     X      "
+"       X   X     X     X       X     X           X   X     X"
+" X         X X     X         X X         X X     X          "
+"       X   X X   X     X     X       X     X     X          "
+"           X X         X       X         X     X     X      "
+```
+
+
+### Histogram
 
 ```q
 q)v:8 3 11 9 9 4 6 6 3 3 9 7 9  / values
@@ -156,7 +253,7 @@ q)x!" *"(1+ til max y)<=/:y
 ```
 
 
-## Barchart of integer list x
+### Barchart of integer list x
 
 ```q
 q)x:2 5 7 4 9 3 6
@@ -197,69 +294,7 @@ q)"X " flip x xl\:max x
 ```
 
 
-## Horizontal barchart of x, normalized to length y
-
-```q
-q)x:2 8 5 6 3 1 7 7 10 4
-q)y:5
-q)floor x*y%max x
-1 4 2 3 1 0 3 3 5 2
-q)(floor x*y%max x)>\:til y
-10000b
-11110b
-11000b
-11100b
-10000b
-00000b
-11100b
-11100b
-11111b
-11000b
-q)" X" (floor x*y%max x)>\:til y
-"X    "
-"XXXX "
-"XX   "
-"XXX  "
-"X    "
-"     "
-"XXX  "
-"XXX  "
-"XXXXX"
-"XX   "
-```
-
-
-## Indexing plotting characters with flags
-
-```q
-q)3 6 5 7 2>=/:1+til 7
-11111b
-11111b
-11110b
-01110b
-01110b
-01010b
-00010b
-q)show x:reverse 3 6 5 7 2>=/:1+til 7
-00010b
-01010b
-01110b
-01110b
-11110b
-11111b
-11111b
-q)" X" x
-"   X "
-" X X "
-" XXX "
-" XXX "
-"XXXX "
-"XXXXX"
-"XXXXX"
-```
-
-
-## Horizontal barchart of integers
+### Horizontal barchart of integers
 
 Compare `bh` here with `xl` in #172.
 
@@ -290,49 +325,35 @@ q)" X" x>/:\:til max x
 ```
 
 
-## Number of decimals in x, maximum y
+### Horizontal barchart of x, normalized to length y
 
 ```q
-q)x:1.4321 1.21 10
-q)y:3
-q)sum each maxs each "0"<>reverse each string floor(10 xexp y)*x mod 1
-3 2 0i
-```
-
-
-## Number of digits in nonnegative integer x
-
-```q
-q)np:{1+floor log10 x+0=x}
-q)x:0 13 523 16008
-q)np x
-1 2 3 5
-```
-
-
-## Number of positions in integer x
-
-```q
-q)dp:{1+(x<0)+floor 10 xlog abs x+0=x}
-q)dp 1234
-4
-q)dp -1234
-5
-q)dp 0
-1
-q)dp 7
-1
-q)dp 12345678
-8
-```
-
-Or.
-
-```q
-q)nd:{1+floor 10 xlog(x=0)+x*1 -10[x<0]}
-q)x:4 678 -21 -10854
-q)nd x
-1 3 3 6
+q)x:2 8 5 6 3 1 7 7 10 4
+q)y:5
+q)floor x*y%max x
+1 4 2 3 1 0 3 3 5 2
+q)(floor x*y%max x)>\:til y
+10000b
+11110b
+11000b
+11100b
+10000b
+00000b
+11100b
+11100b
+11111b
+11000b
+q)" X" (floor x*y%max x)>\:til y
+"X    "
+"XXXX "
+"XX   "
+"XXX  "
+"X    "
+"     "
+"XXX  "
+"XXX  "
+"XXXXX"
+"XX   "
 ```
 
 

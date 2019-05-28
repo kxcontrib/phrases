@@ -42,7 +42,7 @@ q)2 sv 1 0 0 1 1 1 0 1
 ```
 
 
-### Hexadecimal from decimal
+### Hexadecimal from integer
 
 ```q
 q)HEX 16 vs 10
@@ -201,7 +201,7 @@ q)"I"$string[.z.d]except"."
 Numbers from text. 
 
 <i class="far fa-hand-point-right"></i>
-[Format](format.md),
+[Format](form.md),
 [Strings](string.md),
 [Text](text.md)
 
@@ -236,7 +236,7 @@ q)na["123";"-1"]
 ```
 
 
-## Numeric codes from string
+### Numeric codes from string
 
 ```q
 q)x:" aA0"
@@ -269,7 +269,7 @@ q)ar[x]
 ## Text
 
 <i class="far fa-hand-point-right"></i>
-[Format](format.md),
+[Format](form.md),
 [Strings](string.md),
 [Text](text.md)
 

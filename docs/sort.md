@@ -241,9 +241,47 @@ q)raze x,'y
 ```
 
 
+## Assign x to one of y classes of width h, starting with g
+
+```q
+q)f:{[x;y;g;h] value -1+ -1 _ count each group(1+til y),neg floor neg(x-g)%h}
+q)x:32 56 36 48 36 24 28 44 52 32
+q)y:4
+q)h:10
+q)g:10
+q)f[x;y;g;h]
+0 2 4 2
+```
+
+==FIXME==
+
+
+## Which class of y x belongs to
+
+```q
+q)cl:{-1+sum x>/:y}
+q)x:87 9 931 7 27 92 654 1416 7 911
+q)y:0 50 100 1000
+q)sum x>/:y
+2 1 3 1 1 2 3 4 1 3
+q)x>/:y
+1111111111b
+1010011101b
+0010001101b
+0000000100b
+q)-1 sum x>/:y
+'type
+q)-1+ sum x>/:y
+1 0 2 0 0 1 2 3 0 2
+q)cl[x;y]
+1 0 2 0 0 1 2 3 0 2
+```
+
+
+
 
 
 ## Sorting and grading sublists
 
 <i class="far fa-hand-point-right"></i>
-[Operations on sublists](sublists.md#apply-uniform-function-to-sublists)
+[Operations on sublists](sub.md#apply-uniform-function-to-sublists)

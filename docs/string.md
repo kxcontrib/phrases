@@ -4,7 +4,7 @@
 
 Character vectors are known informally in q as _strings_.
 
-For phrases relating to character matrixes and nested lists, see [Strings](strings.md).
+For phrases relating to character matrixes and nested lists, see [Text](text.md).
 
 
 
