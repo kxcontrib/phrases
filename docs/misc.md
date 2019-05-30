@@ -4,7 +4,7 @@
 
 
 ```q
-q)tc:('[til;count])     / {til count x}
+tc:('[til;count])     / {til count x}
 ```
 
 ## Amend
@@ -133,6 +133,66 @@ q)x:"ddaeecadbbcbedc"
 q)x[where x=y 0]:y 1
 q)x
 "  aeeca bbcbe c"
+```
+
+
+### Replace first item of x with y
+
+```q
+q)x:"abbccdefcdab"
+q)y:"t"
+q)@[x;0;:;y]
+"tbbccdefcdab"
+```
+
+Or.
+
+```q
+q)y,1_ x
+"tbbccdefcdab"
+```
+
+Or in place.
+
+```q
+q)@[`x;0;:;y]
+`x
+q)x
+"tbbccdefcdab"
+q)x:"abbccdefcdab"
+q)x[0]:y
+q)x
+"tbbccdefcdab"
+```
+
+
+### Replace last item of x with y
+
+```q
+q)x:"abbccdefcdab"
+q)y:"t"
+q)@[x;-1+count x;:;y]
+"abbccdefcdat"
+```
+
+Or.
+
+```q
+q)(-1_ x),y
+"abbccdefcdat"
+```
+
+Or in place.
+
+```q
+q)@[`x;count[x]-1;:;y]
+`x
+q)x
+"abbccdefcdat"
+q)x:"abbccdefcdab"
+q)x[count[x]-1]:y
+q)x
+"abbccdefcdat"
 ```
 
 
@@ -464,6 +524,19 @@ q)-6?8
 
 
 
+### Y-shaped array of numbers from x[0] to x[1]-1
+
+```q
+q)x:4 9
+q)y:3 4
+q)y#first[x]+prd[y]?(-). reverse x
+4 6 8 8
+5 8 7 7
+4 6 5 8
+```
+
+
+
 ### Randomize the random seed
 
 ```q
@@ -557,7 +630,7 @@ q)reverse(+\)reverse x
 15 14 12 9 5
 ```
 
-Generally,for any binary object y, `reverse(y\)reverse x`.
+Generally, for any binary object y, `reverse(y\)reverse x`.
 
 
 ## Select
@@ -734,6 +807,27 @@ Or.
 ```q
 q)(y _ x),y#0
 4 5 6 7 8 9 10 11 12 0 0 0
+```
+
+
+### Rotate rows left
+
+```q
+q)x:3 4#1+til 12
+q)1 rotate 'x
+2  3  4  1
+6  7  8  5
+10 11 12 9
+```
+
+### Rotate rows right
+
+```q
+q)x:3 4#1+til 12
+q)-1 rotate 'x
+4  1 2  3
+8  5 6  7
+12 9 10 11
 ```
 
 

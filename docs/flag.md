@@ -158,7 +158,7 @@ q){(count[x]#1 0)where x}raze x,'y
 Or.
 
 ```q
-q)(raze/)flip(x;y)#''1 0
+q)raze over flip(x;y)#''1 0
 1 0 0 1 1 1 0 0 0 0
 ```
 
@@ -279,6 +279,19 @@ q)x>1 _ x,0
 0010001001b
 q)1_(<)prior x,0
 0010001001b
+```
+
+
+### Select items of x according to flags in y
+
+```q
+q)show x:2 3 4#1+til 24
+1 2  3  4   5 6  7  8   9 10 11 12
+13 14 15 16 17 18 19 20 21 22 23 24
+q)y:1 0 0 1
+q)x[;;where y]
+1 4   5 8   9 12
+13 16 17 20 21 24
 ```
 
 

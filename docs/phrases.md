@@ -1,3 +1,11 @@
+# `phrases.q`
+
+
+
+
+Constants and functions referred to in the Q Phrasebook.
+
+```q
 DEC:"0123456789"
 HEX:"0123456789abcdef"
 PI:3.141592653589798238
@@ -12,3 +20,8 @@ shape:{$[0=d:depth x;
   d#{first raze over x}each(d{each[x;]}\count)@\:x]}  / FIXME correct for shape 0#0
 tc:('[til;count])
 zm:{(2#count x)#0}                  	/ zero matrix (square matrix)
+```
+
+
+<i class="fas fa-download"></i>
+[`phrases.q`](phrases.q)

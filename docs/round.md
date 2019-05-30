@@ -24,7 +24,7 @@ q)re x
 ```
 
 
-## Rounding, but to nearest even integer if fractional part is 0.5
+## Round, but to nearest even integer if fractional part is 0.5
 
 ```q
 q)rn:{floor x+0.5*not 0.5=x mod 2}

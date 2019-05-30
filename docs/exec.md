@@ -18,8 +18,6 @@ In the first case, if `c0` is nonzero, the result is `t0`; otherwise `f`.
 In all cases, the result is the `t` corresponding to the first non-zero `c`.
 If all the `c` are zero the result is `f`.
 
-==DROP Again, not an idiom, just how Cond works.==
-
 ==FIXME Example of dictionary as case structure. Also Case operator.==
 
 

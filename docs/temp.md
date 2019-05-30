@@ -8,7 +8,9 @@
 Leap year from 463.
 
 ```q
-q)ly:{sum[0=x mod/:4 100 400]mod 2}
+ly:{mod[;2] sum 0=x mod\:4 100 400}
+q)ly each 1900 1901 1904 1999 2000 2100
+0 0 1 0 1 0
 ```
 
 

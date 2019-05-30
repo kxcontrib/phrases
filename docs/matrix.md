@@ -3,7 +3,29 @@
 
 
 
-## Truth table of order x
+```q
+shape:{$[0=d:depth x; 
+  0#0j; 
+  d#{first raze over x}each(d{each[x;]}\count)@\:x]}
+```
+
+
+
+
+## Apply to dimension 1 function defined on dimension 0
+
+```q
+q)x:3 4#1+!12
+q)sum x
+15 18 21 24
+q)sum each x
+10 26 42
+```
+
+
+## Constructors 
+
+### Truth table of order x
 
 ```q
 q)tt:{2 vs til "j"$2 xexp x}
@@ -19,7 +41,7 @@ q)tt 3
 ```
 
 
-## Upper triangular matrix of order x
+### Upper triangular matrix of order x
 
 ```q
 q)x:5
@@ -32,7 +54,7 @@ q){x<=\:x}til x
 ```
 
 
-## Lower triangular matrix of order x
+### Lower triangular matrix of order x
 
 ```q
 q){x>=\:x}til 5
@@ -48,7 +70,7 @@ q){x>=\:x}til 5
 [Tests: Is x lower or upper triangular?](test.md#is-x-lower-triangular)
 
 
-## Identity matrix of order x
+### Identity matrix of order x
 
 ```q
 q)id:{(2#x)#1,x#0}
@@ -67,7 +89,7 @@ q){x=/:x}til 5
 ```
 
 
-## Hilbert matrix of order x
+### Hilbert matrix of order x
 
 ```q
 q)hm:{reciprocal 1+(til x)+/:til x}
@@ -78,6 +100,112 @@ q)hm 5
 0.25      0.2       0.1666667 0.1428571 0.125
 0.2       0.1666667 0.1428571 0.125     0.1111111
 ```
+
+
+### Empty row to start matrix of x columns
+
+Ancestor languages of q in which all arrays are rectangular, such as APL, use a zero-row matrix as a ‘template’ to which rows can be joined. In q this would look like 
+
+```q
+q)(0 4#" "),5 4#.Q.a
+'length
+  [0]  (0 4#" "),5 4#.Q.a
+           ^
+q)0 4#" "
+'length
+  [0]  0 4#" "
+          ^
+```
+
+but q does not require zero-row matrixes with a defined number of columns, nor allow their definition. 
+
+```q
+q)(),5 4#.Q.a
+"abcd"
+"efgh"
+"ijkl"
+"mnop"
+"qrst"
+```
+
+
+
+## Diagonals
+
+### Main diagonal
+
+```q
+q)show x:3 4#1+til 12
+1 2  3  4
+5 6  7  8
+9 10 11 12
+q)show y:2#'tc x
+0 0
+1 1
+2 2
+q)x ./:y
+1 6 11
+q)x ./:2#'tc x
+1 6 11
+```
+
+
+### Diagonals from columns
+
+```q
+q)show x:5 5 #1+til 25
+1  2  3  4  5
+6  7  8  9  10
+11 12 13 14 15
+16 17 18 19 20
+21 22 23 24 25
+q)(neg til 5)rotate'x
+1  2  3  4  5
+10 6  7  8  9
+14 15 11 12 13
+18 19 20 16 17
+22 23 24 25 21
+```
+
+
+### Columns from diagonals
+
+```q
+q)x:(1 2 3 4 5;10 6 7 8 9;14 15 11 12 13;18 19 20 16 17;22 23 24 25 21)
+q)(til 5)rotate'x
+1  2  3  4  5
+6  7  8  9  10
+11 12 13 14 15
+16 17 18 19 20
+21 22 23 24 25
+```
+
+
+### Add vector y to main diagonal of x
+
+```q
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)y:10 100 1000
+q)@'[x;tc x;+;y]
+10 1   2    3
+4  105 6    7
+8  9   1010 11
+```
+
+The `@'` above can be analysed as three Amends:
+
+```q
+q)(@[x 0;0;+;y 0];@[x 1;1;+;y 1];@[x 2;2;+;y 2])
+10 1   2    3
+4  105 6    7
+8  9   1010 11
+```
+
+<i class="far fa-hand-point-right"></i>
+Reference: [Each](https://code.kx.com/v2/ref/maps/#each)
 
 
 ## Extend distance table to next leg
@@ -124,6 +252,20 @@ q)x('[any;&])\:x        / x{any x&y}\:x
 ```
 
 
+### First column as a matrix
+
+```q
+q)show x:3 4#til 12
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)x[;enlist 0]
+0
+4
+8
+```
+
+
 ## Value of two-by-two determinant
 
 ```q
@@ -163,33 +305,5 @@ q)((last shape x)#x) * (first shape y)#'y
 1  4
 15 24
 ```
-
-
-## Add vector y to main diagonal of x
-
-```q
-q)show x:3 4#til 12
-0 1 2  3
-4 5 6  7
-8 9 10 11
-q)y:10 100 1000
-q)@'[x;tc x;+;y]
-10 1   2    3
-4  105 6    7
-8  9   1010 11
-```
-
-The `@'` above can be analysed as three Amends:
-
-```q
-q)(@[x 0;0;+;y 0];@[x 1;1;+;y 1];@[x 2;2;+;y 2])
-10 1   2    3
-4  105 6    7
-8  9   1010 11
-```
-
-<i class="far fa-hand-point-right"></i>
-Reference:[Each](https://code.kx.com/v2/ref/maps/#each)
-
 
 

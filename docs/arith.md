@@ -155,7 +155,6 @@ q)sum x*x
 55
 ```
 
-==DROP: trivial==
 
 
 ### Alternating sum
@@ -356,9 +355,9 @@ q)((1 rotate x)*-1 rotate y)-(-1 rotate x)*1 rotate y
 Or.
 
 ```q
-q)(-)over prd each(1 neg\1 -1)rotate''2 2#(x;y)
+q)(-). prd each(1 neg\1 -1)rotate''2 2#(x;y)
 4 28 46 -27 -41 39 45 3 -19 -58
-q)(-/)(*/')(1 neg\1 -1)rotate''2 2#(x;y)
+q)(-).(*/')(1 neg\1 -1)rotate''2 2#(x;y)
 4 28 46 -27 -41 39 45 3 -19 -58
 ```
 
@@ -405,7 +404,6 @@ q)x mmu y
 49 64
 ```
 
-==DROP: keyword not idiom==
 
 
 ### Dot product of vectors

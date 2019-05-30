@@ -31,7 +31,7 @@
 477 | [square x retaining sign](arith.md#square-x-retaining-sign) | `x*abs x`
 516 | [multiply each column of x by y](arith.md#multiply-each-column-of-x-by-y) | `x*y`
 611 | [multiply each row of x by vector y](arith.md#multiply-each-row-of-x-by-vector-y) | `x*\:y`
-528 | [vector (cross) product](arith.md#vector-cross-product) | `(-/)(*/')(1 neg\1 -1)rotate''2 2#(x;y)`
+528 | [vector (cross) product](arith.md#vector-cross-product) | `(-).(*/')(1 neg\1 -1)rotate''2 2#(x;y)`
 367 | [alternating product](arith.md#alternating-product) | `prd x xexp(count x)#1 -1`
 187 | [direct matrix product](arith.md#direct-matrix-product) | `flip each x*\:\:y`
 240 | [matrix product](arith.md#matrix-product) | `x mmu y`
@@ -161,6 +161,7 @@
 261 | [first group of 1s](flag.md#first-group-of-1s) | `x and(and)scan x=(or)scan x`
 440 | [first 1s in groups of 1s](flag.md#first-1s-in-groups-of-1s) | `1_(>)prior 0,x`
 439 | [last 1s in groups of 1s](flag.md#last-1s-in-groups-of-1s) | `1_(<)prior x,0`
+512 | [select items of x according to flags in y](flag.md#select-items-of-x-according-to-flags-in-y) | `x[;;where y`
 304 | [invert 0s after first 1](flag.md#invert-0s-after-first-1) | `maxs x`
 307 | [invert 1s after first 1](flag.md#invert-1s-after-first-1) | `(tc x)=x?1`
 308 | [invert 0s after first 0](flag.md#invert-0s-after-first-0) | `tc[x]<>x?0`
@@ -218,6 +219,21 @@
 
 
 
+## Indexes
+
+# | description | phrase
+--:|-------------|-------
+556 | [all indexes of vector x](indexes.md#all-indexes-of-vector-x) | `tc x`
+201 | [y-wide sublists of x](indexes.md#y-wide-sublists-of-x) | `y+til count[x]-y-1`
+202, 249, 268 | [sublists of length y, starting at x](indexes.md#sublists-of-length-y-starting-at-x) | `x+\:til y`
+58 | [all pairs of `til[x]` and `til[y]`](indexes.md#all-pairs-of-tilx-and-tily) | `ap:{x vs til prd x}x,y`
+51 | [indexes of an array](indexes.md#indexes-of-an-array) | `ap shape x`
+80, 522 | [scattered indexing](indexes.md#scattered-indexing) | `x ./: y`
+81 | [raveled index from general index](indexes.md#raveled-index-from-general-index) | `shape[x] sv y`
+100 | [index an arbitrary-rank array](indexes.md#index-an-arbitrary-rank-array)| `x . y`
+
+
+
 ## Mathematics
 
 # | description | phrase
@@ -258,17 +274,23 @@
 
 # | description | phrase
 --:|-------------|-------
+514 | [apply to dimension 1 function defined on dimension 0](matrix.md#apply-to-dimension-1-function-defined-on-dimension-0) | `f each x`
 52, 59, 60 | [truth table of order x](matrix.md#truth-table-of-order-x) | `2 vs til "j"$2 xexp x`
-188 | [Shur product](matrix.md#shur-product) | `((last shape x)#x) * (first shape y)#'y`
-191 | [Shur sum](matrix.md#shur-sum) | `((last shape x)#x) + (first shape y)#'y`
 195 | [upper triangular matrix of order x](matrix.md#upper-triangular-matrix-of-order-x) | `{x<=\:x}til x`
 196 | [lower triangular matrix of order x](matrix.md#lower-triangular-matrix-of-order-x) | `{x>=\:x}til x`
 197, 582 | [identity matrix of order x](matrix.md#identity-matrix-of-order-x) | `{x=/:x}til x`
 198 | [Hilbert matrix of order x](matrix.md#hilbert-matrix-of-order-x) | `reciprocal 1+{x+/:x}til x`
+408, 513 | [empty row to start matrix of x columns](matrixes.md#empty-row-to-start-matrix-of-x-columns) | `()`
+525, 526 | [main diagonal](matrix.md#main-diagonal) | `x ./:2#'tc x`
+398 | [diagonals from columns](matrix.md#diagonals-from-columns) | `(neg til 5)rotate'x`
+399 | [columns from diagonals](matrix.md#columns-from-diagonals) | `(til 5)rotate'x`
+–   | [add vector y to main diagonal of x](matrix.md#add-vector-y-to-main-diagonal-of-x) | `@'[x;tc x;+;y]`
 224 | [extend distance table to next leg](matrix.md#extend-distance-table-to-next-leg) | `x('[min;+])\:x`
 230 | [extend a transitive binary relation](matrix.md#extend-a-transitive-binary-relation) | `x('[any;&])\:x`
+587 | [first column as a matrix](matrix.md#first-column-as-a-matrix) | `x[;enlist 0]`
 313, 314 | [value of two-by-two determinant](matrix.md#value-of-two-by-two-determinant) | `(-)over(x 0)*reverse x 1`
-–   | [add vector y to main diagonal of x](matrix.md#add-vector-y-to-main-diagonal-of-x) | `@'[x;tc x;+;y]`
+188 | [Shur product](matrix.md#shur-product) | `((last shape x)#x) * (first shape y)#'y`
+191 | [Shur sum](matrix.md#shur-sum) | `((last shape x)#x) + (first shape y)#'y`
 
 
 ## Miscellaneous
@@ -281,6 +303,8 @@
 569 | [replace items of y flagged by x with 1](misc.md#replace-items-of-y-flagged-by-x-with-1) | `y xexp not x`
 504 | [replace items of y flagged by x with g](misc.md#replace-items-of-y-flagged-by-x-with-g) | `@[y;where x;:;g]`
 380, 425 | [replace items of x with value y\[0\] with y\[1\]](misc.md#replace-items-of-x-with-value-y0-with-y1) | `@[x;where x=y 0;:;y 1]`
+432 | [replace first item of x with y](shape.md#replace-first-item-of-x-with-y) | `@[x;0;:;y]`
+433 | [replace last item of x with y](shape.md#replace-last-item-of-x-with-y) | `@[x;-1+count x;:;y]`
 449 | [limiting x between l and h, inclusive](misc.md#limiting-x-between-l-and-h-inclusive) | `l|h&x`
 623 | [change sign of y where x is 1](misc.md#change-sign-of-y-where-x-is-1) | `x*1 -1 y`
 511 | [apply f over all of x](misc.md#apply-f-over-all-of-x) | `(f//)x`
@@ -295,6 +319,7 @@
 88 | [name variable according to x](misc.md#name-variable-according-to-x) | ``(`$x)set y``
 122 | [y items selected with replacement from til x](misc.md#y-items-selected-with-replacement-from-til-x) | `y?x`
 123 | [y objects selected without replacement from til x](misc.md#y-objects-selected-without-replacement-from-til-x) | `neg[y]?x`
+121 | [y-shaped array of numbers from x\[0\] to x\[1\]-1](misc.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
 245 | [randomize the random seed](misc.md#randomize-the-random-seed) | `\S x`
 509 | [remove y from x](misc.md#remove-y-from-x) | `x except y`
 466 | [remove every y-th item of x](misc.md#remove-every-y-th-item-of-x) | `x where 0<(1+tc x)mod 3`
@@ -313,6 +338,8 @@
 385 | [drop last, prefix 0](misc.md#drop-last-prefix-0) | `-1_0,x`
 386 | [shift x right y, fill 0](misc.md#shift-x-right-y-fill-0) | `(y#0),neg[y]_x`
 387 | [shift x left y, fill 0](misc.md#shift-x-left-y-fill-0) | `(y _ x),y#0`
+536 | [rotate rows left](misc.md#rotate-rows-left) | `y rotate x`
+537 | [rotate rows right](misc.md#rotate-rows-right) | `neg[y]rotate x`
 1016 | [streak of numbers with same sign](misc.md#streak-of-numbers-with-same-sign) | `{1+(x;0)y}\[1;]differ signum x`
 152 | [sum items of y by ordered codes g in x](misc.md#sum-items-of-y-by-ordered-codes-g-in-x) | `sum each((count[g]#0),y)value group g,x`
 
@@ -325,17 +352,39 @@
 # | description | phrase
 --:|-------------|-------
 47 | [polynomial with roots x](poly.md#polynomial-with-roots-x) | `{(x,0)-y*0,x} over 1,x`
-67 | [extrapolated value of abscissa x and ordinate y at g](poly.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) | `g sv raze(enlist y) lsq x xexp/: reverse tc x`
-69, 227 | [value of ascending polynomial coefficients y at points x](poly.md#value-of-ascending-polynomial-coefficients-y-at-points-x) |`x sv\:y`
-124 | [predicted values of exponential fit](poly.md#predicted-values-of-exponential-fit) | `a:x xexp/:0 1`<br/>`exp flip[a]mmu first(enlist log y)lsq a`
-125 | [predicted values of best linear fit (least squares)](poly.md#predicted-values-of-best-linear-fit-least-squares) | `a:x xexp/:0 1`<br/>`(flip a)mmu first(enlist y)lsq a`
-126 | [G-degree polynomial fit of points (x,y)](poly.md#g-degree-polynomial-fit-of-points-xy) | `a:x xexp/:til g+1`<br/>`reverse first (enlist y)lsq a`
-127 | [coefficients of exponential fit of points (x,y)](poly.md#coefficients-of-exponential-fit-of-points-xy) | ==FIXME==
-128 | [coefficients of best linear fit of points (x,y) (least squares)](poly.md#coefficients-of-best-linear-fit-of-points-xy-least-squares) | `(enlist y)lsq x xexp/:0 1`
 163 | [polynomial product](poly.md#polynomial-product) | `sum(tc x)rotate'(1_'zm x),'y*/:x`
 430 | [polynomial derivative](poly.md#polynomial-derivative) | `-1 _ x*reverse tc x`
+69, 227 | [value of ascending polynomial coefficients y at points x](poly.md#value-of-ascending-polynomial-coefficients-y-at-points-x) |`x sv\:y`
+128 | [coefficients of best linear fit of points (x,y) (least squares)](poly.md#coefficients-of-best-linear-fit-of-points-xy-least-squares) | `(enlist y)lsq x xexp/:0 1`
+125 | [predicted values of best linear fit (least squares)](poly.md#predicted-values-of-best-linear-fit-least-squares) | `a:x xexp/:0 1`<br/>`(flip a)mmu first(enlist y)lsq a`
+127 | [coefficients of exponential fit of points (x,y)](poly.md#coefficients-of-exponential-fit-of-points-xy) | ==FIXME==
+124 | [predicted values of exponential fit](poly.md#predicted-values-of-exponential-fit) | `a:x xexp/:0 1`<br/>`exp flip[a]mmu first(enlist log y)lsq a`
+126 | [G-degree polynomial fit of points (x,y)](poly.md#g-degree-polynomial-fit-of-points-xy) | `a:x xexp/:til g+1`<br/>`reverse first (enlist y)lsq a`
+67 | [extrapolated value of abscissa x and ordinate y at g](poly.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) | `g sv raze(enlist y) lsq x xexp/: reverse tc x`
 321 | [y-th moment of x](poly.md#y-th-moment-of-x) | `(sum(x-(sum x)%c)xexp y)%c:count x`
 
+
+
+
+## Rank
+
+# | description | phrase
+--:|-------------|-------
+612 | [rank of an array (number of dimensions)](rank.md#rank-of-an-array) | `depth x`
+51b | shape of an array | `shape:{$[0=d:depth x; 0#0j; d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}`
+371, 616 | [atom from 1-item vector](rank.md#atom-from-1-item-vector) | `first x`
+592 | [vector from array](rank.md#vector-from-array) | `(raze/)x`
+607 | [vector from column y of matrix](rank.md#vector-from-column-y-of-matrix) | `x[;y]`
+595 | [1-row matrix from vector](rank.md#1-row-matrix-from-vector) | `enlist x`
+392, 402 | [1-row matrix from atom or vector](rank.md#1-row-matrix-from-atom-or-vector) | `{$[0<type x;(1,count x)#x;1 1#x]}`
+588 | [2-row matrix from two vectors](rank.md#2-row-matrix-from-two-vectors) | `(x;y)`
+593 | [y-row matrix from vector x](rank.md#y-row-matrix-from-vector-x) | `y#enlist x`
+203, 534, 594 | [1-column matrix from vector](rank.md#1-column-matrix-from-vector) | `1#'x`
+589 | [2-column matrix from two vectors](rank.md#2-column-matrix-from-two-vectors) | `x,'y`
+591 | [2-column matrix from vector](rank.md#2-column-matrix-from-vector) | `2 cut x,(count[x]mod 2)#" "`
+521 | [x-column matrix from vector y](rank.md#x-column-matrix-from-vector-y) | `x#'y`
+429 | [matrix with diagonal x](rank.md#matrix-with-diagonal-x) | `x*{x=/:\:x}tc x`
+590 | [increase rank of y to rank of x](rank.md#increase-rank-of-y-to-rank-of-x) | `(depth[x]-depth y)enlist/y`
 
 
 
@@ -347,83 +396,46 @@
 461 | [round to two decimal places](round.md#round-to-two-decimal-places) | `0.01*floor 0.5+x*100`
 460 | [round y to x decimals](round.md#round-y-to-x-decimals) | `(10 xexp neg x)*`long$y*10 xexp x`
 453 | [round to nearest even integer](round.md#round-to-nearest-even-integer) | `floor x+not 1>x mod 2`
-454 | [rounding, but to nearest even integer if fractional part is 0.5](round.md#rounding-but-to-nearest-even-integer-if-fractional-part-is-05) | `floor x+0.5*not 0.5=x mod 2`
+454 | [round, but to nearest even integer if fractional part is 0.5](round.md#round-but-to-nearest-even-integer-if-fractional-part-is-05) | `floor x+0.5*not 0.5=x mod 2`
 – | [round x to nearest multiple of y](round.md#round-x-to-nearest-multiple-of-y) | `y*floor 0.5+x%y`
 474 | [round x to zero if magnitude less than y](round.md#round-x-to-zero-if-magnitude-less-than-y) | `@[x;where y>abs x;:;0.0]`
 
 
 
-## Shapes and indexes
+## Shape
 
 # | description | phrase
 --:|-------------|-------
-58 | [all pairs of `til[x]` and `til[y]`](shape.md#all-pairs-of-tilx-and-tily) | `ap:{x vs til prd x}x,y`
-51 | [indices of an array](shape.md#indices-of-an-array) | `ap shape x`
-10, 51a | depth of an array | `depth:{$[type[x]<0; 0; "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}`
-51b | shape of an array | `shape:{$[0=d:depth x; 0#0j; d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}`
-80, 522 | [scattered indexing](shape.md#scattered-indexing) | `x ./: y`
-81 | [raveled index from general index](shape.md#raveled-index-from-general-index) | `shape[x] sv y`
-100 | [indexing arbitrary rank array](misc.md#indexing-arbitrary rank-array)| `x . y`
-200 | [replicating a dimension of rank-3 array x y-fold](shape.md#replicating-a-dimension-of-rank-3-array-x-y-fold) | `x[;raze(y#1)*\:til(shape x)1;]`
-201 | [moving index y-wide for x](shape.md#moving-index-y-wide-for-x) | `y+til count[x]-y-1`
-202 | [indexes of infixes of length y](shape.md#indexes-of-infixes-of-length-y) | `x+\:til y`
-203, 534, 594 | [one-column matrix from numeric vector](shape.md#one-column-matrix-from-numeric-vector) | `1#'x`
+390 | [conform table x rows to list y](shape.md#conform-table-x-rows-to-list-y)| `s:(count y),count first x`<br/>`s#(raze x),(prd s)#0`
+391 | [conform table x columns to list y](shape.md#conform-table-x-columns-to-list-y) | `a:(count each(x;y))#0`<br/>`a[;til count first x]:x`
+563 | [empty vector](shape.md#empty-vector) | `()`
+610 | [y cyclic repetitions of vector x](shape.md#y-cyclic-repetitions-of-vector-x) | `(y*count x)#x`
+614 | [array with shape of y and x as its rows](shape.md#array-with-shape-of-y-and-x-as-its-rows) | `count[y]#enlist x`
+200 | [replicate a dimension of `rank`-3 array x y-fold](shape.md#replicate-a-dimension-of-rank-3-array-x-y-fold) | `x[;raze(y#1)*\:til(shape x)1;]`
 250, 251, 253 | [replicate y x times](shape.md#replicate-y-x-times) | `x#y`
-273, 274 | [join scalar to each list item](shape.md#join-scalar-to-each-list-item) | `x,'y`
-328 | [number of items](shape.md#number of items) ` count x`
-371 | [scalar from 1-item list](shape.md#scalar-from-1-item-list) | `first x`
+273, 274 | [join atom to each list item](shape.md#join-atom-to-each-list-item) | `x,'y`
 376 | [append y at the bottom of matrix x](shape.md#append-y-at-the-bottom-of-matrix-x) | `x,enlist y`
 377 | [fill x to length y with x’s last item](shape.md#fill-x-to-length-y-with-xs-last-item) | `y#x,y#last x`
+–   | [append empty row on matrix](shape.md#append-empty-row-on-matrix) | `flip(flip x),'" "`
+328 | [count items](shape.md#count-items) ` count x`
+366 | [count atoms](shape.md#count-atoms) | `count raze over x`
+615 | [first atom in x](shape.md#first-atom-in-x) | `(first/)x`
+411, 446 | [count rows in matrix x](shape.md#411.-count-rows-in-matrix-x) | `count x`
+410, 445, 600 |[count columns in matrix x](shape.md#count-columns-in-matrix-x) | `count first x`
+599 | [count columns in array x](shape.md#count-columns-in-array-x) | `last shape x`
+10, 51 | rank of an array | [`phrases.q`](phrases.q)
+51 | shape of an array | [`phrases.q`](phrases.q)
+555 | [all axes of rectangular array x](shape.md#all-axes-of-rectangular-array-x) | `til depth x`
 388, 444 | [drop first y rows from top of matrix x](shape.md#drop-first-y-rows-from-top-of-matrix-x) | `y _ x`
 443 | [drop first y columns from matrix x](shape.md#drop-first-y-columns-from-matrix-x) | `y _'x`
 447 | [conditional drop of y items from list x](shape.md#conditional-drop-of-y-items-from-list-x) | `(y*g)_ x`
 448| [conditional drop of last item of list x](shape.md#conditional-drop-of-last-item-of-list-x) | `(neg g)_x`
-390 | [conform table x rows to list y](shape.md#conform-table-x-rows-to-list-y)| `s:(count y),count first x`<br/>`s#(raze x),(prd s)#0`
-391 | [conform table x columns to list y](shape.md#conform-table-x-columns-to-list-y) | `a:(count each(x;y))#0`<br/>`a[;til count first x]:x`
-392, 402 | [matrix from scalar or vector](shape.md#matrix-from-scalar-or-vector) | `{$[0<type x;(1,count x)#x;1 1#x]}`
 396 | [remove columns y from x](shape.md#remove-columns-y-from-x) | `s:til each shape x`<br/>`x . (-1_s),enlist(last s)except y`
-398 | [diagonals from columns](shape.md#diagonals-from-columns) | `(neg til 5)rotate'x`
-399 | [columns from diagonals](shape.md#columns-from-diagonals) | `(til 5)rotate'x`
-408 | [initial empty row to start matrix of x columns](shape.md#initial-empty-row-to-start-matrix-of-x-columns) | `()`
-410, 445 |[number of columns in matrix x](shape.md#number-of-columns-in-matrix-x) | `count first x`
-411, 446 | [number of rows in matrix x](shape.md#411.-Number-of-rows-in-matrix-x) | `count x`
-429 | [matrix with diagonal x](shape.md#matrix-with-diagonal-x) | `x*{x=/:\:x}tc x`
-432 | [replace first item of x with y](shape.md#replace-first-item-of-x-with-y) | `@[x;0;:;y]`
-433 | [replace last item of x with y](shape.md#replace-last-item-of-x-with-y) | `@[x;-1+count x;:;y]`
-512 | [select items of x according to flags in y](shape.md#select-items-of-x-according-to-flags-in-y) | `x[;;where y`
-513 | [empty matrix](shape.md#empty-matrix) | `()`
-514 | [apply to dimension 1 function defined on dimension 0](shape.md#apply-to-dimension-1-function-defined-on-dimension-0) | `f each x`
 518 | [transpose matrix x on condition y](shape.md#transpose-matrix-x-on-condition-y) | `y flip/x`
-521 | [matrix with x columns from list y](shape.md#matrix-with-x-columns-from-list-y) | `x#'y`
-525, 526 | [main diagonal](shape.md#main-diagonal) | `x ./:2#'tc x`
 527 | [transpose planes of three-dimensional x](shape.md#transpose-planes-of-three-dimensional-x) | `flip each x`
-536 | [rotate rows left](shape.md#rotate-rows-left) | `y rotate x`
-537 | [rotate rows right](shape.md#rotate-rows-right) | `neg[y]rotate x`
-555 | [all axes of rectangular array x](shape.md#all-axes-of-rectangular-array-x) | `til depth x`
-556 | [all indices of vector x](shape.md#all-indices-of-vector-x) | `tc x`
-563 | [empty vector](shape.md#empty-vector) | `()`
-587 | [first column as a matrix](shape.md#first-column-as-a-matrix) | `x[;enlist 0]`
-588 | [2-row matrix from two vectors](shape.md#2-row-matrix-from-two-vectors) | `(x;y)`
-589 | [2-column matrix from two vectors](shape.md#2-column-matrix-from-two-vectors) | `x,'y`
-590 | [increasing rank of y to rank of x](shape.md#increasing-rank-of-y-to-rank-of-x) | `(depth[x]-depth y)enlist/y`
-591 | [reshape vector x into 2-column matrix](shape.md#reshape-vector-x-into-2-column-matrix) | `2 cut x,(count[x]mod 2)#" "`
-592 | [vector from array](shape.md#vector-from-array) | `(raze/)x`
-593 | [matrix of y rows, each x](shape.md#matrix-of-y-rows-each-x) | `y#enlist x`
-595 | [one-row matrix from vector](shape.md#one-row-matrix-from-vector) | `enlist x`
-600 | [number of columns in matrix x](shape.md#number-of-columns-in-matrix-x) | `count first x`
-599 | [number of columns in array x](shape.md#number-of-columns-in-array-x) | `last shape x`
-607 | [vector from column y of matrix](shape.md#vector-from-column-y-of-matrix) | `x[;y]`
-610 | [y cyclic repetitions of vector x](shape.md#y-cyclic-repetitions-of-vector-x) | `(y*count x)#x`
-612 | [rank of array y (number of dimensions)](shape.md#rank-of-array-y-number-of-dimensions) | `depth x`
-614 | [array with shape of y and x as its rows](shape.md#array-with-shape-of-y-and-x-as-its-rows) | `count[y]#enlist x`
-615 | [first atom in x](shape.md#first-atom-in-x) | `(first/)x`
-616 | [scalar from one-item vector](shape.md#scalar-from-one-item-vector) | `first x`
-366 | [count atoms](shape.md#count-atoms) | `count raze over x`
 1013 | [tree from depth;value](shape.md#tree-from-depth-value) | `tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}`
 1014 | [depth from tree](shape.md#depth-from-tree) | `dt:{0,/1+dt'[1_ x]}`
 1015 | [value from tree](shape.md#value-from-tree) | `vt:{(1#x),/vt each 1_ x}`
-121 | [y-shaped array of numbers from x\[0\] to x\[1\]-1](shape.md#y-shaped-array-of-numbers-from-x0-to-x1-1) | `y#x[0]+prd[y]?x[1]-x[0]`
-249, 268 | [offset indexes](shape.md#offset-indexes) | `x+til y`
 
 
 
@@ -627,23 +639,6 @@
 
 ## Utilities and constants
 
-<i class="fas fa-download"></i>
-[`phrases.q`](phrases.q)
+<i class="far fa-hand-point-right"></i>
+[`phrases.q`](phrases.md)
 
-
-```q
-DEC:"0123456789"
-HEX:"0123456789abcdef"
-PI:3.141592653589798238
-PUN:",;:.!?"
-depth:{$[type[x]<0; 
-  0; 
-  "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}
-fac:{prd 1+til x}                   / factorial
-ly:{sum[0=x mod\:4 100 400]mod 2}   / is x a leap year
-shape:{$[0=d:depth x; 
-  0#0j; 
-  d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}
-tc:('[til;count])
-zm:{(2#count x)#0}                  / zero matrix (square matrix)
-```
