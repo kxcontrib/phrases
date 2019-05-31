@@ -65,6 +65,22 @@ q)
 ```
 
 
+### Invert permutation 
+
+The inverse of a permutation puts it in ascending order.
+
+<big>`iasc x`</big>
+
+```q
+q)show x:-7?7
+5 3 2 0 6 4 1
+q)iasc x
+3 6 2 1 5 0 4
+q)x iasc x      / check
+0 1 2 3 4 5 6
+```
+
+
 ## Connectivity 
 
 ### Connectivity list from connectivity matrix

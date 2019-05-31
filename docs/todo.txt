@@ -1,3 +1,8 @@
 Todo
+====
 
-rank for depth
+
+replace | with
+--------|-----
+rank    | depth
+indexes | indices

@@ -1,16 +1,39 @@
 ---
 keywords: ascending, idiom, phrase, rank, ranking, shareable, sort, sorted
 ---
-# Sorts
+# Sort and merge
 
 
 <i class="far fa-hand-point-right"></i>
 Reference:
 [`asc`, `iasc`, `xasc`](https://code.kx.com/v2/ref/asc/),
-[`desc`, `idesc`, `xdesc`](https://code.kx.com/v2/ref/desc/)
+[`desc`, `idesc`, `xdesc`](https://code.kx.com/v2/ref/desc/), 
+[`rank`](https://code.kx.com/v2/ref/rank/), 
+[`xrank`](https://code.kx.com/v2/ref/xrank/)
 
 
-## Ordinals: ranking, shareable
+
+
+## Grade
+
+### Ordinals: ranking, all different
+
+<big>`iasc iasc x`</big>  
+<big>`idesc idesc x`</big> 
+
+```q
+q)x:15 16 13 18 15 12 13
+q)x:15 16 13 18 15 12 13
+q)iasc iasc x
+3 5 1 6 4 0 2
+q)rank x
+3 5 1 6 4 0 2
+q)idesc idesc x
+5 6 3 0 4 1 2
+```
+
+
+### Ordinals: ranking, shareable
 
 <big>`asc[x]?x`</big>  
 <big>`desc[x]?x`</big>
@@ -31,40 +54,105 @@ Similarly for `desc`.
 The result is a **ranking** in which the positions are **shareable**: for example, the fourth to seventh items of `x` share the ranking of 2.
 
 
-## Ordinals: ranking, all different
+### Choose grading direction
+
+<big>`x iasc x*y`</big>
 
 ```q
-q)x:15 16 13 18 15 12 13
-q)iasc iasc x
-3 5 1 6 4 0 2
-q)idesc idesc x
-5 6 3 0 4 1 2
+q)show x:10?100
+66 36 37 44 28 20 30 34 77 61
+q)x iasc x
+20 28 30 34 36 37 44 61 66 77
+q)x iasc x*-1
+77 66 61 44 37 36 34 30 28 20
+q)x iasc each x*/:1 -1
+20 28 30 34 36 37 44 61 66 77
+77 66 61 44 37 36 34 30 28 20
 ```
 
 
-## Sort 
+### Grade up x according to key y
+
+<big>`x iasc y?x`</big>
 
 ```q
-q)asc "quick brown fox"     / sort list ascending
+q)x:"fig lime"
+q)y:" abcdefghijklmn"
+q)y?x
+6 9 7 0 12 9 13 5
+q)iasc y?x
+3 7 0 2 1 5 4 6
+q)x iasc y?x
+" efgiilm"
+```
+
+
+### Playing order of x ranked players
+
+<big>`y?x#asc y`</big>
+
+```q
+q)show y:-10?.Q.a    / 10 players with alphabetic rankings
+"agtdepxrmb"   
+q)x:6                / # of players required
+q)x#asc y            / best first
+"abdegm"   
+q)y?x#asc y          / team playing order
+0 9 3 4 1 8
+```
+
+
+
+## Sort
+
+### Sort x
+
+<big>`asc x`</big>  
+<big>`desc x`</big>
+
+```q
+q)asc "quick brown fox"         / sort list ascending
 `s#"  bcfiknooqruwx"
-q)desc "quick brown fox"    / sort list descending
+q)desc "quick brown fox"        / sort list descending
 "xwurqoonkifcb  "
 q)show x:(6 3 3 9 7;9 4 7 8 9;9 4 4 7 9)
 6 3 3 9 7
 9 4 7 8 9
 9 4 4 7 9
-q)asc x                     / sort rows ascending
+q)asc x                         / sort rows ascending
 6 3 3 9 7
 9 4 4 7 9
 9 4 7 8 9
-q)desc x                    / sort rows descending
+q)desc x                        / sort rows descending
 9 4 7 8 9
 9 4 4 7 9
 6 3 3 9 7
+
+q)asc("scion";"icons";"coins")  / sort on internal alphabet
+"coins"
+"icons"
+"scion"
 ```
 
 
-## Sort rows on column
+### Sort y on x
+
+<big>`y iasc x`</big>
+
+```q
+q)show x:6?10
+q)x
+9 2 3 1 9 3
+q)show y:6?20
+7 8 17 11 16 6
+q)y iasc x
+11 8 17 6 7 16
+```
+
+
+### Sort rows of x on column y
+
+<big>`x iasc x[;y]`</big>
 
 ```q
 q)show x:5 6#30?100
@@ -87,7 +175,9 @@ q)x iasc x[;y]
 ```
 
 
-## Sort ascending indices x according to data y
+### Sort ascending indices x according to data y
+
+<big>`x iasc y x`</big>
 
 ```q
 q)x:2 3 4 5 0 1 8 7 6
@@ -97,36 +187,9 @@ q)x iasc y x
 ```
 
 
+### Move flagged items to one end
 
-## Choose grading direction
-
-```q
-q)show x:10?100
-66 36 37 44 28 20 30 34 77 61
-q)x iasc x
-20 28 30 34 36 37 44 61 66 77
-q)x iasc x*-1
-77 66 61 44 37 36 34 30 28 20
-q)x iasc each x*/:1 -1
-20 28 30 34 36 37 44 61 66 77
-77 66 61 44 37 36 34 30 28 20
-```
-
-
-## Sort y on x
-
-```q
-q)show x:6?10
-q)x
-9 2 3 1 9 3
-q)show y:6?20
-7 8 17 11 16 6
-q)y iasc x
-11 8 17 6 7 16
-```
-
-
-## Move flagged items to one end
+<big>`x iasc y`</big>
 
 ```q
 q)x:"mjinase"
@@ -138,25 +201,13 @@ q)x iasc x=" "              / move blanks to end of text
 ```
 
 
+## Classify
 
-## Invert permutation 
+### Sort y by value into x classes 
 
-The inverse of a permutation puts it in ascending order.
+Between `min y` and `max y`.
 
-```q
-q)show x:-7?7
-q)x
-5 3 2 0 6 4 1
-q)iasc x
-3 6 2 1 5 0 4
-q)x iasc x      / check
-0 1 2 3 4 5 6
-```
-
-
-## Sort y b y value into x classes 
-
-Between min and max y.
+<big>`y group x xrank y`</big>
 
 ```q
 q)show y:20?100
@@ -181,10 +232,70 @@ q)value asc y group 4 xrank y
 ```
 
 
-## Mesh
+### Which class of y x belongs to
+
+<big>`-1+sum x>/:y`</big>
+
+```q
+q)cl:{-1+sum x>/:y}
+q)x:87 9 931 7 27 92 654 1416 7 911
+q)y:0 50 100 1000
+q)sum x>/:y
+2 1 3 1 1 2 3 4 1 3
+q)x>/:y
+1111111111b
+1010011101b
+0010001101b
+0000000100b
+q)-1 sum x>/:y
+'type
+q)-1+ sum x>/:y
+1 0 2 0 0 1 2 3 0 2
+q)cl[x;y]
+1 0 2 0 0 1 2 3 0 2
+```
 
 
-_Merge `x`, `y`, and `z` under control of `g`_
+### Assign x to one of y classes of width h, starting with g
+
+```q
+q)x:32 56 36 48 36 24 28 44 52 32
+q)y:4
+q)g:10
+q)h:10
+q)
+q)show a:x where (x>=g)&x<g+y*h                 / classifiable items
+32 36 48 36 24 28 44 32
+q)group floor(g,a)%h                            / group indexes
+1| ,0
+3| 1 2 4 8
+4| 3 7
+2| 5 6
+q){x asc key x}group floor(g,a)%h               / sort classes
+,0
+5 6
+1 2 4 8
+3 7
+q)(g,a){x asc key x}group floor(g,a)%h          / items from indexes
+,10
+24 28
+32 36 36 32
+48 44
+q)@[;0;1_](g,a){x asc key x}group floor(g,a)%h  / remove placeholder
+`long$()
+24 28
+32 36 36 32
+48 44
+```
+
+
+
+
+## Merge
+
+### Mesh
+
+Merge `x`, `y`, and `z` under control of `g`.
 
 <big>`(x,y,z…)rank g`</big> 
 
@@ -220,18 +331,7 @@ Reference:
 [Case](https://code.kx.com/v2/ref/maps/#case)
 
 
-## Playing order of x ranked players
-
-```q
-q)x:6
-q)show f:1+2 sv reverse tt neg floor neg 2 xlog x
-1 5 3 7 2 6 4 8
-q)f*f<=x
-1 5 3 0 2 6 4 0
-```
-
-
-## Merge items from x and y alternately
+### Merge items from x and y alternately
 
 ```q
 q)x:1 3 5 7
@@ -241,47 +341,10 @@ q)raze x,'y
 ```
 
 
-## Assign x to one of y classes of width h, starting with g
-
-```q
-q)f:{[x;y;g;h] value -1+ -1 _ count each group(1+til y),neg floor neg(x-g)%h}
-q)x:32 56 36 48 36 24 28 44 52 32
-q)y:4
-q)h:10
-q)g:10
-q)f[x;y;g;h]
-0 2 4 2
-```
-
-==FIXME==
-
-
-## Which class of y x belongs to
-
-```q
-q)cl:{-1+sum x>/:y}
-q)x:87 9 931 7 27 92 654 1416 7 911
-q)y:0 50 100 1000
-q)sum x>/:y
-2 1 3 1 1 2 3 4 1 3
-q)x>/:y
-1111111111b
-1010011101b
-0010001101b
-0000000100b
-q)-1 sum x>/:y
-'type
-q)-1+ sum x>/:y
-1 0 2 0 0 1 2 3 0 2
-q)cl[x;y]
-1 0 2 0 0 1 2 3 0 2
-```
 
 
 
-
-
-## Sorting and grading sublists
+## Sublists
 
 <i class="far fa-hand-point-right"></i>
 [Operations on sublists](sub.md#apply-uniform-function-to-sublists)

@@ -1,8 +1,8 @@
 # Shape
 
 
-The _rank_ of an array is the depth of nesting to which it remains rectangular. 
-It corresponds to the dimensions of a rectangular array.
+The _depth_ of an array is the depth of nesting to which it remains rectangular. 
+It corresponds to the dimensions of a rectangular array, thus the array’s _rank_: the number of indexes to which it can be applied. 
 (Q arrays are not required to be rectangular.)
 
 The _shape_ of an array is its count in each dimension. 
@@ -11,11 +11,11 @@ For example, the shape of a 3-by-4 matrix is `3 4`.
 The shape itself is always a vector. 
 E.g. the shape of `"abcdef"` is `1#6`. 
 
-The rank of an array is the count of its shape. 
+The depth of an array is the count of its shape. 
 
-An atom has no dimensions, so its rank is 0 (it has no indexes) and its shape is an empty vector. 
+An atom has no dimensions, so its depth is 0 (it has no indexes) and its shape is an empty vector. 
 
-An empty list has 1 dimension, so its rank is 1. Its shape is `1#0`. 
+An empty list has 1 dimension, so its depth is 1. Its shape is `1#0`. 
 
 
 ## Conform

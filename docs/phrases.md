@@ -19,6 +19,7 @@ shape:{$[0=d:depth x;
   0#0j; 
   d#{first raze over x}each(d{each[x;]}\count)@\:x]}  / FIXME correct for shape 0#0
 tc:('[til;count])
+tt:{2 vs til "j"$2 xexp x}              / truth table of order x
 zm:{(2#count x)#0}                  	/ zero matrix (square matrix)
 ```
 

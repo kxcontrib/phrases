@@ -242,6 +242,7 @@
 142 | [number of combinations of n objects taken k at a time](math.md#number-of-combinations-of-n-objects-taken-k-at-a-time) | `fac[n]%fac[n-k]*fac[k]`
 135 | [number of permutations of n objects taken k at a time](math.md#number-of-permutations-of-n-objects-taken-k-at-a-time) | `prd(n-k-1)+til k`
 1017 | [permutations](math.md#permutations) | `(1 0#x){raze(1 rotate)scan'x,'y}/x`
+37, 550, 553 | [invert permutation](math.md#invert-permutation) | `iasc x`
 50 | [connectivity list from connectivity matrix](math.md#connectivity-list-from-connectivity-matrix) | `rc[x;]where raze x`
 71 | [connectivity matrix from connectivity list](math.md#connectivity-matrix-from-connectivity-list)| ==FIXME==
 148 | [node matrix from connection matrix](math.md#node-matrix-from-connection-matrix)| `b:flip each x=/:1 -1`<br/>`(mmu\:) . "f"$(b;tc x)`
@@ -420,10 +421,10 @@
 328 | [count items](shape.md#count-items) ` count x`
 366 | [count atoms](shape.md#count-atoms) | `count raze over x`
 615 | [first atom in x](shape.md#first-atom-in-x) | `(first/)x`
-411, 446 | [count rows in matrix x](shape.md#411.-count-rows-in-matrix-x) | `count x`
+411, 446 | [count rows in matrix x](shape.md#count-rows-in-matrix-x) | `count x`
 410, 445, 600 |[count columns in matrix x](shape.md#count-columns-in-matrix-x) | `count first x`
 599 | [count columns in array x](shape.md#count-columns-in-array-x) | `last shape x`
-10, 51 | rank of an array | [`phrases.q`](phrases.q)
+10, 51 | depth (rank) of an array | [`phrases.q`](phrases.q)
 51 | shape of an array | [`phrases.q`](phrases.q)
 555 | [all axes of rectangular array x](shape.md#all-axes-of-rectangular-array-x) | `til depth x`
 388, 444 | [drop first y rows from top of matrix x](shape.md#drop-first-y-rows-from-top-of-matrix-x) | `y _ x`
@@ -433,7 +434,7 @@
 396 | [remove columns y from x](shape.md#remove-columns-y-from-x) | `s:til each shape x`<br/>`x . (-1_s),enlist(last s)except y`
 518 | [transpose matrix x on condition y](shape.md#transpose-matrix-x-on-condition-y) | `y flip/x`
 527 | [transpose planes of three-dimensional x](shape.md#transpose-planes-of-three-dimensional-x) | `flip each x`
-1013 | [tree from depth;value](shape.md#tree-from-depth-value) | `tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}`
+1013 | [tree from depth;value](shape.md#tree-from-depthvalue) | `tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}`
 1014 | [depth from tree](shape.md#depth-from-tree) | `dt:{0,/1+dt'[1_ x]}`
 1015 | [value from tree](shape.md#value-from-tree) | `vt:{(1#x),/vt each 1_ x}`
 
@@ -443,25 +444,23 @@
 
 # | description | phrase
 --:|-------------|-------
-1  | [ascending ordinals (ranking, shareable)](sort.md#ordinals-ranking-shareable) | `asc[x]?x`
-8, 9, 35, 38, 44 | [sort (rows) ](sort.md#sort-rows) | `asc x`, `desc x`
-16 | [merge x y by g](sort.md#mesh) | `(x,y)[iasc idesc g]`
-11, 12, 31, 482 | [mesh: merge x y z under control of g](sort.md#mesh) | `(x,y,z)rank g`
-13 | [ascending ordinals (ranking, all different)](sort.md#ordinals-ranking-all-different) | `iasc iasc x`
-17 | [descending ordinals (ranking, all different)](sort.md#ordinals-ranking-all-different) | `idesc idesc x`
-18, 19 | [sort char matrix x ascending by internal alphabet](sort.md) | `x[iasc x]`, ``x[iasc`$x]``
+13, 17 | [ordinals (ranking, all different)](sort.md#ordinals-ranking-all-different) | `idesc idesc x`
+1  | [ordinals (ranking, shareable)](sort.md#ordinals-ranking-shareable) | `asc[x]?x`
+34 | [choose grading direction](sort.md#choose-grading-direction) | `x iasc x*1 -1[y]`
 30 | grade up x according to key y | `x iasc y?x`
-32 | [sort ascending indices x according to data y](sort.md#sort-ascending-indices-x-according-to-data-y) | `x iasc y x`
-33 | [sort rows on column](sort.md#sort-rows-on-column) | `x iasc x[;y]`
-34 | [choose grading direction](sort.md#Choose-grading-direction) | `x iasc x*1 -1[y]`
+389 | [playing order of x ranked players](sort.md#playing-order-of-x-ranked-players) | `f:1+2 sv reverse tt neg floor neg 2 xlog x`<br/>`f*f<=x`
+8, 9, 18, 19, 35, 38, 44 | [sort x](sort.md#sort-x) | `asc x`, `desc x`
 36 | [sort y on x](sort.md#sort-y-on-x) | `y iasc x`
-37, 550, 553 | [invert permutation](sort.md#invert-permutation) | `iasc x`
+33 | [sort rows of x on column y](sort.md#sort-rows-of-x-on-column-y) | `x iasc x[;y]`
+32 | [sort ascending indices x according to data y](sort.md#sort-ascending-indices-x-according-to-data-y) | `x iasc y x`
 42, 43 | [move flagged items to one end](sort.md#move-flagged-items-to-one-end) | `x idesc y`
 156 | [sort y by value into x classes](sort.md#sort-y-by-value-into-x-classes) | `value asc y group x xrank y`
-389 | [playing order of x ranked players](sort.md#playing-order-of-x-ranked-players) | `f:1+2 sv reverse tt neg floor neg 2 xlog x`<br/>`f*f<=x`
+181 | [which class of y x belongs to](sort.md#which-class-of-y-x-belongs-to) | `-1+sum x>/:y`
+173 | [assign x to one of y classes of width h, starting with g](sort.md#assign-x-to-one-of-y-classes-of-width-h-starting-with-g) | `a:x where (x>=g)&x<g+y*h`<br/>`@[;0;1_](g,a){x asc key x}group floor(g,a)%h`
+16 | [merge x y by g](sort.md#mesh) | `(x,y)[iasc idesc g]`
+11, 12, 31, 482 | [mesh: merge x y z under control of g](sort.md#mesh) | `(x,y,z)rank g`
 578 | [merge items from x and y alternately](sort.md#merge-items-from-x-and-y-alternately) | `raze x,'y`
-173 | [assign x to one of y classes of width h, starting with g](sort.md#assign-x-to-one-of-y-classes-of-width-h-starting-with-g) | ==FIXME==
-181 | [which class of y x belongs to](misc.md#which-class-of-y-x-belongs-to) | `-1+sum x>/:y`
+
 
 
 
@@ -469,19 +468,19 @@
 
 # | description | phrase
 --:|-------------|-------
-24 | median of x | `t:.5*1-count x`<br>`.5*sum over x[(iasc x) (neg floor t;floor neg t)]`
-123.1 | [normal deviates from interval (0,1)](stat.md##normal-deviates-from-interval-01) | `x?1.`
-222 | [maximum of x with weights y](stat.md#maximum-of-x-with-weights-y) | `max x*y`
-223 | [minimum of x with weights y](stat.md#minimum-of-x-with-weights-y) | `min x*y`
-237 | [average (mean) of x weighted by y](stat.md#average-mean-of-x-weighted-by-y) | `(sum x*y)%count x`
-285 | [moving sum](stat.md#moving-sum) | `y msum x`
-310 | [running sum](stat.md#running-sum) | `sums x`
-319 | [standard deviation](stat.md#standard-deviation) | `sqrt sum{x*x}[x-(sum x)%c]%c:count x`
-320 | [variance (dispersion)](stat.md#variance-dispersion) | `sum {x*x}[x-(sum x)%c]%c:count x`
-325, 326, 332, 364, 365 | [average (mean)](stat.md#average-mean) | `(sum x)%count x`
 335 | [maximum](stat.md#maximum) | `max x`
 334 | [non-negative maximum](stat.md#non-negative-maximum) `max 0,x`
+222 | [maximum of x with weights y](stat.md#maximum-of-x-with-weights-y) | `max x*y`
 339 | minimum | `min x`
+223 | [minimum of x with weights y](stat.md#minimum-of-x-with-weights-y) | `min x*y`
+325, 326, 332, 364, 365 | [average (mean)](stat.md#average-mean) | `(sum x)%count x`
+237 | [average (mean) of x weighted by y](stat.md#average-mean-of-x-weighted-by-y) | `(sum x*y)%count x`
+24 | median of x | `t:.5*1-count x`<br>`.5*sum over x[(iasc x) (neg floor t;floor neg t)]`
+319 | [standard deviation](stat.md#standard-deviation) | `sqrt sum{x*x}[x-(sum x)%c]%c:count x`
+320 | [variance (dispersion)](stat.md#variance-dispersion) | `sum {x*x}[x-(sum x)%c]%c:count x`
+123.1 | [normal deviates from interval (0,1)](stat.md##normal-deviates-from-interval-01) | `x?1.`
+310 | [running sum](stat.md#running-sum) | `sums x`
+285 | [moving sum](stat.md#moving-sum) | `y msum x`
 
 
 
@@ -489,30 +488,30 @@
 
 # | description | phrase
 --:|-------------|-------
-25 | doubling quotes | `ssr[x;"\"";"\"\""]`
+549 | [alphabetic comparison](string.md#alphabetic-comparison) | `x<y`
 510 | [remove blanks](string.md#remove-blanks) | `x except " "`
 73, 266, 272, 298, 397, 428 | [remove trailing blanks](string.md#remove-trailing-blanks) | `(neg reverse[x=" "]?0b)_ x`
 267, 299 | [remove leading blanks](string.md#remove-leading-blanks) | `x where maxs x<>" "`
 259 | [remove leading and trailing blanks](string.md#remove-leading-and-trailing-blanks) | `x{y _ x}/1 -1*(" "=1 reverse\x)?'0b`
 424 | [collapse multiple blanks](string.md#collapse-multiple-blanks) | `x where 1 rotate(or)prior a:x<>" "`
+160 | [justify left](string.md#justify-left) | `x iasc x=" "`
 76, 275 | [justify right](string.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
-160 | [move blanks to end of string](string.md#move blanks-to-end-of-string) | `x iasc x=" "`
+248, 323, 393 | [center text x in line of width y](string.md#center-text-x-in-line-of-width-y) | `neg[floor(y-count x)%2]rotate y#x,y#" "`
+490, 580 | [insert spaces in text](string.md#insert-spaces-in-text) | `-1_raze x,'" "`
+508 | [conditional text](string.md#conditional-text) | `$[x;"true";"false"]`
+25 | double quotes | `ssr[x;"\"";"\"\""]`
+437 | [remove leading zeros](string.md#remove-leading-zeros) | `((x="0")?0b) _ x`
+496 | [remove punctuation characters](string.md#remove-punctuation-characters) | `x except PUN`
 177 | [ordinal of word in x pointed at by y](string.md#ordinal-of-word-in-x-pointed-at-by-y) | `sum not y<1+where x=" "`
 177 | [find start of string x in string y](string.md#find-start-of-string-x-in-string-y) | `y ss x`
 178 | [find first occurrence of string x in string y](string.md#find-first-occurrence-of-string-x-in-string-y) | `first y ss x`
-248, 323, 393 | [center text x in line of width y](string.md#center-text-x-in-line-of-width-y) | `neg[floor(y-count x)%2]rotate y#x,y#" "`
-507 [insert blank in y after flag in x](string.md#insert-blank-in-y-after-flag-in-x) | `raze y,'x#'" "`
-264, 271 | [insert x\[i\] blanks after y\[g\[i\]\]](string.md#insert-xi-blanks-after-ygi) | `raze((0,1+g)_y),'(x,0)#'" "`
 293 | [locate quotes and text between them](string.md#locate-quotes-and-text-between-them) | `(or)prior(<>)scan x="\""`
 294 | [locate text between quotes](string.md#locate-text-between-quotes) | `(and)prior(<>)scan x="\""`
 295 | [depth of parentheses](string.md#depth-of-parentheses) | `sums({x-0b,-1_y}/)"()"=\:x`
-297 | [spread flagged field heads right](string.md#spread-flagged-field-heads-right) | `x raze(count each a _ x)#'a:where y`
 401 | [first word in string x](string.md#first-word-in-string-x) | 
-437 | [remove leading zeros](string.md#remove-leading-zeros) | `((x="0")?0b) _ x`
-490, 580 | [insert spaces in text](string.md#insert-spaces-in-text) | `-1_raze x,'" "`
-496 | [remove punctuation characters](string.md#remove-punctuation-characters) | `x except PUN`
-508 | [conditional text](string.md#conditional-text) | `$[x;"true";"false"]`
-549 | [alphabetic comparison](string.md#alphabetic-comparison) | `x<y`
+507 | [insert blank in y after flag in x](string.md#insert-blank-in-y-after-flag-in-x) | `raze y,'x#'" "`
+264, 271 | [insert x\[i\] blanks after y\[g\[i\]\]](string.md#insert-xi-blanks-after-ygi) | `raze((0,1+g)_y),'(x,0)#'" "`
+297 | [spread flagged field heads right](string.md#spread-flagged-field-heads-right) | `x raze(count each a _ x)#'a:where y`
 
 
 
@@ -534,8 +533,8 @@
 213 | [maxima of sublists of x specified by boolean list y](sub.md#maxima-of-sublists-of-x-specified-by-boolean-list-y) | `max each where[y]_x`
 254 | [running parity of sublists of y indicated by x](sub.md#running-parity-of-sublists-of-y-indicated-by-x) | `raze(sums each where[x] _ y)mod 2`
 255 | [running sum of sublists of y indicated by x](sub.md#running-sum-of-sublists-of-y-indicated-by-x) | `raze sums each where[x] _ y` 
-256 | [groups of 1s in y pointed at by x](sub.md#groups-of-1s-in-y-pointed-at-by-x) | ==FIXME==
-257 | [sums of sublists of x determined by lengths y](sub.md#sums of sublists-of-x-determined-by-lengths-y) | `deltas sums[x] sums[y]-1`
+256 | [groups of 1s in y flagged by x](sub.md#groups-of-1s-in-y-flagged-by-x) | ==FIXME==
+257 | [sums of sublists of x with lengths y](sub.md#sums of sublists-of-x-with-lengths-y) | `deltas sums[x] sums[y]-1`
 265, 279 | [insert x\[i\] zeroes after i-th infix of y](sub.md#insert-xi-zeroes-after-i-th-infix-of-y) | `raze((0,where y)_y),'(0,x)#'0`
 277 | [end flags from lengths](sub.md#end-flags-from-lengths) | `(1+til sum x)in sums x`
 278 | [start flags from lengths](sub.md#start-flags-from-lengths) | `(til sum x)in sums 0,x` 
