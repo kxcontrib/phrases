@@ -6,161 +6,6 @@ keywords: ascending sort, iasc, kdb+, q, sort
 
 
 
-### Insert y "*" after "=" in x
-
-```q
-q)x:"abc=,d=,fgh="
-q)y:5
-q)show g:where x="="
-3 6 11
-q)(x,"*")[(count x)&iasc (til count x),(y*count g)#g]
-"abc=*****,d=*****,fgh=*****"
-
-q)raze ((0,1+-1_ g)_ x),\:y#"*"
-"abc=*****,d=*****,fgh=*****"
-
-q)a:where 0b,x="="
-q)(x,(y*count a)#"*")rank raze (deltas[a]#'0),\:y#1
-"abc=*****,d=*****,fgh=*****"
-```
-
-
-### Maxima of sublists of x specified by boolean list y
-
-```q
-q)x:-17 7 30 12 5 2 -5 6 -3 -19
-q)show y:10#1 1 0
-1 1 0 1 1 0 1 1 0 1
-q)where[y]_x
-,-17
-7 30
-,12
-5 2
-,-5
-6 -3
-,-19
-q)max each where[y]_x
--17 30 12 5 -5 6 -19
-```
-
-
-### Running parity of sublists of y indicated by x
-
-```q
-q)x:1 0 0 0 0 1 0 0 0 0 1 0 0 0
-q)y:1 0 0 1 1 1 0 0 1 0 1 1 0 0
-q)where x
-0 5 10
-q)where[x] _ y
-1 0 0 1 1
-1 0 0 1 0
-1 1 0 0
-q)sums each where[x] _ y
-1 1 1 2 3
-1 1 1 2 2
-1 2 2 2
-q)(sums each where[x] _ y)mod 2
-1 1 1 0 1
-1 1 1 0 0
-1 0 0 0
-q)raze(sums each where[x] _ y)mod 2
-1 1 1 0 1 1 1 1 0 0 1 0 0 0
-```
-
-
-### Running sum of sublists of y indicated by x
-
-```q
-q)x:1 0 0 0 1 0 0 0 1
-q)y:1 2 3 4 5 6 7 8 9
-q)where x
-0 4 8
-q)where[x] _ y
-1 2 3 4
-5 6 7 8
-,9
-q)sums each where[x] _ y
-1 3 6 10
-5 11 18 26
-,9
-q)raze sums each where[x] _ y
-1 3 6 10 5 11 18 26 9
-```
-
-
-### Groups of 1s in y flagged by x
-
-```q
-q)y:0 0 0 1 1 1 0 1 1 1 0 1 1 1 1 1
-q)x:0 0 0 1 0 1 0 0 0 0 0 1 0 0 0 1
-q)x:0 0 0 1 0 0 0 0 1 0 0 1 0 0 0 1
-q)a:sums >':[y]
-q)a
-1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
-q)a:sums >':[0,y]
-q)a
-1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
-q)a:+\>':[0,y]
-'\
-q)a:sums >':[0,y]
-q)a:sums >':[y]
-q)a
-1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
-q)a-1
-0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2
-q)a:a-1
-q)y&a=maxs x*a
-0 0 0 1 1 1 1 1 1 0 0 1 1 1 1 1
-```
-
-==FIXME What is this about? How are the groups in `y` ‘pointed at’ by `x`?==
-
-
-### Sums of sublists of x with lengths y
-
-```q
-q)x:1+til 10
-q)y:2 3 2 3
-q)a:sums 0,-1 _ y
-q)a
-0 2 5 7
-q)a _ x
-1 2
-3 4 5
-6 7
-8 9 10
-q)sum each a _ x
-3 12 13 27
-q)sum each sums[0,-1_ y] _ x
-3 12 13 27
-```
-
-Or.
-
-```q
-q)deltas sums[x] sums[y]-1
-3 12 13 27
-```
-
-
-### Insert x[i] zeroes after i-th infix of y
-
-```q
-q)y:0 0 1 0 1 0 1 1
-q)x:1 2 2 1
-q)(0,where y)_y
-0 0
-1 0
-1 0
-,1
-,1
-q)raze((0,where y)_y),'(0,x)#'0
-0 0 1 0 0 1 0 0 0 1 0 0 1 0
-```
-
-See also 264.
-
-
 ### Find field y of fields beginning with first of x
 
 ```q
@@ -648,6 +493,167 @@ q)raze asc each where[x]_y
 3 2 4 5 8 6 4 5 9 4
 q)raze iasc each where[x]_y     / grade up sublists
 0 2 0 3 1 0 1 2 0 0
+```
+
+
+## Arithmetic
+
+### Maxima of sublists of x specified by boolean list y
+
+```q
+q)x:-17 7 30 12 5 2 -5 6 -3 -19
+q)show y:10#1 1 0
+1 1 0 1 1 0 1 1 0 1
+q)where[y]_x
+,-17
+7 30
+,12
+5 2
+,-5
+6 -3
+,-19
+q)max each where[y]_x
+-17 30 12 5 -5 6 -19
+```
+
+
+### Running sum of sublists of y indicated by x
+
+```q
+q)x:1 0 0 0 1 0 0 0 1
+q)y:1 2 3 4 5 6 7 8 9
+q)where x
+0 4 8
+q)where[x] _ y
+1 2 3 4
+5 6 7 8
+,9
+q)sums each where[x] _ y
+1 3 6 10
+5 11 18 26
+,9
+q)raze sums each where[x] _ y
+1 3 6 10 5 11 18 26 9
+```
+
+
+### Sums of sublists of x with lengths y
+
+```q
+q)x:1+til 10
+q)y:2 3 2 3
+q)a:sums 0,-1 _ y
+q)a
+0 2 5 7
+q)a _ x
+1 2
+3 4 5
+6 7
+8 9 10
+q)sum each a _ x
+3 12 13 27
+q)sum each sums[0,-1_ y] _ x
+3 12 13 27
+```
+
+Or.
+
+```q
+q)deltas sums[x] sums[y]-1
+3 12 13 27
+```
+
+
+## Flags
+
+### Running parity of sublists of y indicated by x
+
+```q
+q)x:1 0 0 0 0 1 0 0 0 0 1 0 0 0
+q)y:1 0 0 1 1 1 0 0 1 0 1 1 0 0
+q)where x
+0 5 10
+q)where[x] _ y
+1 0 0 1 1
+1 0 0 1 0
+1 1 0 0
+q)sums each where[x] _ y
+1 1 1 2 3
+1 1 1 2 2
+1 2 2 2
+q)(sums each where[x] _ y)mod 2
+1 1 1 0 1
+1 1 1 0 0
+1 0 0 0
+q)raze(sums each where[x] _ y)mod 2
+1 1 1 0 1 1 1 1 0 0 1 0 0 0
+```
+
+
+### Groups of 1s in y flagged by x
+
+```q
+q)y:0 0 0 1 1 1 0 1 1 1 0 1 1 1 1 1
+q)x:0 0 0 1 0 1 0 0 0 0 0 1 0 0 0 1
+q)x:0 0 0 1 0 0 0 0 1 0 0 1 0 0 0 1
+q)a:sums >':[y]
+q)a
+1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
+q)a:sums >':[0,y]
+q)a
+1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
+q)a:+\>':[0,y]
+'\
+q)a:sums >':[0,y]
+q)a:sums >':[y]
+q)a
+1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3
+q)a-1
+0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2
+q)a:a-1
+q)y&a=maxs x*a
+0 0 0 1 1 1 1 1 1 0 0 1 1 1 1 1
+```
+
+==FIXME What is this about? How are the groups in `y` ‘pointed at’ by `x`?==
+
+
+### Insert x[i] zeroes after i-th infix of y
+
+```q
+q)y:0 0 1 0 1 0 1 1
+q)x:1 2 2 1
+q)(0,where y)_y
+0 0
+1 0
+1 0
+,1
+,1
+q)raze((0,where y)_y),'(0,x)#'0
+0 0 1 0 0 1 0 0 0 1 0 0 1 0
+```
+
+See also 264.
+
+
+## Text
+
+### Insert y "*" after "=" in x
+
+```q
+q)x:"abc=,d=,fgh="
+q)y:5
+q)show g:where x="="
+3 6 11
+q)(x,"*")[(count x)&iasc (til count x),(y*count g)#g]
+"abc=*****,d=*****,fgh=*****"
+
+q)raze ((0,1+-1_ g)_ x),\:y#"*"
+"abc=*****,d=*****,fgh=*****"
+
+q)a:where 0b,x="="
+q)(x,(y*count a)#"*")rank raze (deltas[a]#'0),\:y#1
+"abc=*****,d=*****,fgh=*****"
 ```
 
 
