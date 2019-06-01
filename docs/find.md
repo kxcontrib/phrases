@@ -74,7 +74,7 @@ q)where x in y
 
 ## First
 
-### First occurrence in x of y
+### First occurrence of y
 
 ```q
 q)x:"banana dream"
@@ -115,7 +115,7 @@ q)x?min x
 ```
 
 
-### First occurrence of g in x (circularly) after y
+### First occurrence of g (circularly) after y
 
 ```q
 q)x:6 6 0 0 8 9 8 1 0 2 9 4 6 3 5
@@ -128,7 +128,7 @@ q)(y+(y rotate x)?g)mod count x
 
 ## Last
 
-### Last occurrence of y in x
+### Last occurrence of y
 
 ```q
 q)x:3 0 4 3 1 4 4 3 3 1
@@ -155,7 +155,7 @@ q)count[x]-1+(reverse x)?y
 
 
 
-### Last occurrence of y in x, counted from the rear
+### Last occurrence of y, counted from the rear
 
 ```q
 q)x:8 4 9 1 5 7
@@ -209,7 +209,7 @@ q)first where x<>y
 ```
 
 
-### Items of x not in y
+### Items not in y
 
 ```q
 q)x:2 3 4 5 6 7 8 9 10 11
@@ -359,7 +359,7 @@ q)all flip x=" "
 ```
 
 
-### Rows of x starting with item of y
+### Rows starting with item of y
 
 ```q
 q)show x:("abcd";"efgh";"ijkl";"mnop")

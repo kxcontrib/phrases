@@ -87,27 +87,6 @@ q){("i"$string x)-48} 1234567890
 ```
 
 
-### Integer y in base x
-
-```q
-q)16 vs 256
-1 0 0
-q)2 vs 36
-1 0 0 1 0 0
-q)10 vs 123
-1 2 3
-```
-
-```q
-q)0x0 vs 256
-0x00000100
-q)0b vs 36
-00000000000000000000000000100100b
-q)0b vs 36h
-0000000000100100b
-```
-
-
 ### Hexadecimal from decimal characters
 
 ```q
@@ -132,13 +111,34 @@ q)raze" ",'flip HEX 16 vs"i"$"GOLDEN"
 ```
 
 
-### Integer x in base 10 100 1000
+### Integer in base 10 100 1000
 
 ```q
 q)10 100 1000 vs 123456
 1 23 456
 q) 10 100 1000 vs 123456789
 4 56 789
+```
+
+
+### Integer in base y
+
+```q
+q)16 vs 256
+1 0 0
+q)2 vs 36
+1 0 0 1 0 0
+q)10 vs 123
+1 2 3
+```
+
+```q
+q)0x0 vs 256
+0x00000100
+q)0b vs 36
+00000000000000000000000000100100b
+q)0b vs 36h
+0000000000100100b
 ```
 
 
@@ -225,7 +225,7 @@ q)parse each  " "vs x
 ```
 
 
-### Number from string x, default y
+### Number from string, default y
 
 ```q
 q)na:{[x;y]$[x~"";parse y;parse x]}

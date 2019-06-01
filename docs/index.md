@@ -11,13 +11,13 @@
 374 | [sum a vector](arith.md#sum-a-vector) | `sum x`
 372 | [sum columns of matrix](arith.md#sum-columns-of-matrix) | `sum x`
 373 | [sum rows of matrix](arith.md#sum-rows-of-matrix) | `sum each x`
-150 | [sum items of x given by y](arith.md#sum-items-of-x-given-by-y) | `sum each x value group y`
-189, 190 | [add x to each row of y](arith.md#add-x-to-each-row-of-y) | `x+/:y`
-192, 193 | [add x to each column of y](arith.md#add-x-to-each-column-of-y) | `x+'y`
+150 | [sum items grouped by y](arith.md#sum-items-grouped-by-y) | `sum each x value group y`
+189, 190 | [add vector to each row of matrix](arith.md#add-x-to-each-row-of-y) | `x+/:y`
+192, 193 | [add vector to each column of matrix](arith.md#add-x-to-each-column-of-y) | `x+'y`
 406 | [add x to last item of y](arith.md#add-x-to-last-item-of-y) | `@[y;count[y]-1;+;x]`
 239 | [sum reciprocal series](arith.md#sum-reciprocal-series) | `sum y%x`
-241 | [sum over subsets of x specified by y](arith.md#sum-over-subsets-of-x-specified-by-y) | ==FIXME==
-242, 246 | [sum squares of x](arith.md#sum-squares-of-x) | `sum x*x`
+241 | [sum over subsets of x specified by y](arith.md#sum-over-subsets-of-x-specified-by-y) | `x mmu y`
+242, 246 | [sum squares](arith.md#sum-squares) | `sum x*x`
 369 | [alternating sum](arith.md#alternating-sum) | `sum x*(count x)#1 -1`
 301 | [alternating sum series](arith.md#alternating-sum-series) | `sums x*(count x)#1 -1`
 475 | [increase absolute value without sign change](arith.md#increase-absolute-value-without-sign-change) | `x+y*(x=0)+signum x`
@@ -29,8 +29,8 @@
 368 | [product](arith.md#product) | `prd x`
 199 | [multiplication table of order x](arith.md#multiplication-table-of-order-x) | `{x*\:x}1+til x`
 477 | [square x retaining sign](arith.md#square-x-retaining-sign) | `x*abs x`
-516 | [multiply each column of x by y](arith.md#multiply-each-column-of-x-by-y) | `x*y`
-611 | [multiply each row of x by vector y](arith.md#multiply-each-row-of-x-by-vector-y) | `x*\:y`
+516 | [multiply each column by vector](arith.md#multiply-each-column-by-vector) | `x*y`
+611 | [multiply each row by vector](arith.md#multiply-each-row-by-vector) | `x*\:y`
 528 | [vector (cross) product](arith.md#vector-cross-product) | `(-).(*/')(1 neg\1 -1)rotate''2 2#(x;y)`
 367 | [alternating product](arith.md#alternating-product) | `prd x xexp(count x)#1 -1`
 187 | [direct matrix product](arith.md#direct-matrix-product) | `flip each x*\:\:y`
@@ -69,13 +69,13 @@
 49 | [hexadecimals from integers](cast.md#hexadecimal-from-integer) | `HEX 16 vs x`
 56 | [hexadecimals from decimal characters](cast.md#hexadecimal-from-decimal-characters) | `HEX 16 vs "i"$x`
 53 | [decimal digits from integer](cast.md#decimal-digits-from-integer) | `10 vs x`
-54 | [integer y in base x](cast.md#integer-y-in-base-x) | `x vs y`
-63 | [integer x in base 10 100 1000](cast.md#integer-x-in-base-10-100-1000) | `10 100 1000 vs x`
+54 | [integer in base y](cast.md#integer-in-base-y) | `y vs x`
+63 | [integer in base 10 100 1000](cast.md#integer-x-in-base-10-100-1000) | `10 100 1000 vs x`
 75 | [integer from hexadecimal](cast.md#integer-from-hexadecimal) | `16 sv HEX?x`
 57 | [vector from date](cast.md#vector-from-date) | `100000 100 100 vs x`
 72 | [integer from date](cast.md#integer-from-date) |`"I"$ string[x] except "."`
 78, 95 | [number from string](cast.md#number-from-string)| `parse x`
-94 | [number from string x, default y](cast.md#number-from-string-x-default-y) | `parse $[x~"";y;x]`
+94 | [number from string, default y](cast.md#number-from-string-x-default-y) | `parse $[x~"";y;x]`
 561 | [numeric codes from string](cast.md#numeric-codes-from-string) | `"i"$x`
 342 | [integer from Roman](cast.md#integer-from-roman) | `a:0,1000 500 100 50 10 5 1 "MDCLXVI"?x`<br/>`sum floor a*-1 xexp a<1 rotate a`
 93 | [numbers from text matrix](cast.md#numbers-from-text-matrix) | `parse each x`
@@ -89,7 +89,7 @@
 --:|-------------|-------
 96, 115, 116, 117 | [case structure](exec.md#case-structure) | `$[c0;t0;c1;t1;c2;t2;f]`
 493 | [choose x or y depending on flag g](exec.md#choose-x-or-y-depending-on-flag-g) | `$[g;x;y]`
-533 | [reverse x on condition y](exec.md#reverse-x-on-condition-y) | `y reverse/x`
+533 | [reverse on condition y](exec.md#reverse-on-condition-y) | `y reverse/x`
 603 | [conditional change of sign](exec.md#conditional-change-of-sign) | `y*1 -1 x`
 151 | [efficient execution of f x where x has repeated values](exec.md#efficient-execution-of-f-x-where-x-has-repeated-values) | `u:distinct x`<br/>`(f u)u?x`
 629 | [error to stop execution](exec.md#error-to-stop-execution) | ``'`stop``
@@ -119,15 +119,15 @@
 562 | [y in x](find.md#y-in-x) | `x?y`
 41, 280, 506 | [flags](find.md#flags) | `where x`
 495, 503 | [all occurrences of y in x](find.md#all-occurrences-of-y-in-x)| `where x in y`
-338 | [first occurrence in x of y](find.md#first-occurrence-in-x-of-y) | `x?y`
+338 | [first occurrence of y](find.md#first-occurrence-of-y) | `x?y`
 23, 330 | [first occurrence of maximum](find.md#first-occurrence-of-maximum) | `x?max x`
 22, 336 | [first occurrence of minimum](find.md#first-occurrence-of-minimum) | `x?min x`
-471 | [first occurrence of g in x (circularly) after y](find.md#first-occurrence-of-g-in-x-circularly-after-y) | `q)mod[;count x] y+(y rotate x)?g`
-530, 531 | [last occurrence of y in x](find.md#last-occurrence-of-y-in-x) | `count[x]-1+reverse[x]?y`
-532 | [last occurrence of y in x, counted from the rear](find.md#last-occurrence-of-y-in-x-counted-from-the-rear) | `reverse[x]?y`
+471 | [first occurrence of g (circularly) after y](find.md#first-occurrence-of-g-circularly-after-y) | `q)mod[;count x] y+(y rotate x)?g`
+530, 531 | [last occurrence of y](find.md#last-occurrence-of-y) | `count[x]-1+reverse[x]?y`
+532 | [last occurrence of y, counted from the rear](find.md#last-occurrence-of-y-counted-from-the-rear) | `reverse[x]?y`
 143 | [distinct items](find.md#distinct-items) | `value group x`
 551 | [first differing item of x and y](find.md#first-differing-item-of-x-and-y) | `first where x<>y`
-552 | [items of x not in y](find.md#items-of-x-not-in-y) | `not x in y`
+552 | [items not in y](find.md#items-not-in-y) | `not x in y`
 182 | [consecutive repeated elements](find.md#consecutive-repeated-elements) | `where differ x`
 207 | [rows of matrix y in matrix x](find.md#rows-of-matrix-y-in-matrix-x) | `x?y`
 55 | [items of y in array x](find.md#items-of-y-in-array-x) | `shape[x] vs where raze[x] in raze y`
@@ -136,32 +136,13 @@
 79, 217 | [last non-blank](find.md#last-non-blank) | `(" "=reverse x)?0b`
 147, 219 | [string x in string y](find.md#string-x-in-string-y) | `z:where y=first x`<br/>`z where x~/:y z+\:tc x`
 359 | [blank rows](find.md#blank-rows) | `all flip x=" "`
-499 | [rows of x starting with item of y](find.md#rows-of-x-starting-with-item-of-y) | `x where x[;0]in y`
+499 | [rows starting with item of y](find.md#rows-starting-with-item-of-y) | `x where x[;0]in y`
 
 
 ## Flags
 
 # | description | phrase
 --:|-------------|-------
-370 | [count of 1s](flag.md#count-of-1s) | `sum x`
-566, 624 | [zero all items](flag.md#zero-all-items) | ` x&0`
-529 | [flags at y for vector x](flag.md#flags-at-y-for-vector-x) | `(tc x) in y`
-165, 540, 543 | [vector length x with 1s at y](flag.md#vector-length-x-with-1s-at-y) | `(til x) in y`
-539 | [vector length y with 0s at x](flag.md#vector-length-y-with-0s-at-x) | `@[y#1;x;:;0]`
-169, 172, 407 | [x 1s followed by (y-x) 0s](flag.md#x-1s-followed-by-y-x-0s) | `x>til y`
-168 | [x 0s followed by (y-x) 1s](flag.md#x-0s-followed-by-y-x-1s) | `x<=til y`
-167 | [x 1s preceded by (y-x) 0s](flag.md#x-1s-preceded-by-y-x-0s) | `(til y)>=y-x`
-–   | [x 0s preceded by (y-x) 1s](flag.md#x-0s-preceded-by-y-x-1s) | `(til y)<y-x`
-247 | [interlace x\[i\]#1 and y\[i\]#0](flag.md#interlace-xi-1s-and-yi-0s) | `(raze/)flip(x;y)#''1 0`
-252 | [x alternate takes of 1s and 0s](flag.md#x-alternate-takes-of-1s-and-0s) | `(count[x]#1 0)where x`
-329 | [flags for positive integers in x](flag.md#flags-for-positive-integers-in-x) | `x in til 1+max x`
-559 | [first 1 in x](flag.md#first-1-in-x) | `x?1`
-438 | [first 1 in x after position y](flag.md#first-1-in-x-after-position-y) | `first a where y<a:where x`
-–   | [yth 1 in x](flag.md#yth-1-in-x) | `(sums x)?1`
-261 | [first group of 1s](flag.md#first-group-of-1s) | `x and(and)scan x=(or)scan x`
-440 | [first 1s in groups of 1s](flag.md#first-1s-in-groups-of-1s) | `1_(>)prior 0,x`
-439 | [last 1s in groups of 1s](flag.md#last-1s-in-groups-of-1s) | `1_(<)prior x,0`
-512 | [select items of x according to flags in y](flag.md#select-items-of-x-according-to-flags-in-y) | `x[;;where y`
 304 | [invert 0s after first 1](flag.md#invert-0s-after-first-1) | `maxs x`
 307 | [invert 1s after first 1](flag.md#invert-1s-after-first-1) | `(tc x)=x?1`
 308 | [invert 0s after first 0](flag.md#invert-0s-after-first-0) | `tc[x]<>x?0`
@@ -170,15 +151,35 @@
 305 | [invert fields marked by pairs of 1s](flag.md#invert-fields-marked-by-pairs-of-1s) | `(not x)&(sums x)mod 2`
 381 | [invert all but first 1 in group of 1s](flag.md#invert-all-but-first-1-in-group-of-1s) | `x>-1 _ 0,x`
 538 | [insert 0 in list of 1s x after indexes y](flag.md#insert-0-in-list-of-1s-x-after-indexes-y) | `raze @[x,\:();y;,;0]`
-361 | [simple parity](flag.md#simple-parity) | `(sum x) mod 2`
-309 | [running parity](flag.md#running-parity) | `(sums x) mod 2`
+566, 624 | [zero all items](flag.md#zero-all-items) | ` x&0`
+529 | [flags at y for vector x](flag.md#flags-at-y-for-vector-x) | `(tc x) in y`
+165, 540, 543 | [vector length x with 1s at y](flag.md#vector-length-x-with-1s-at-y) | `(til x) in y`
+539 | [vector length y with 0s at x](flag.md#vector-length-y-with-0s-at-x) | `@[y#1;x;:;0]`
+169, 172, 407 | [1s followed by 0s](flag.md#1s-followed-by-0s) | `x>til y`
+168 | [0s followed by 1s](flag.md#0s-followed-by-1s) | `x<=til y`
+167 | [1s preceded by 0s](flag.md#1s-preceded-by-0s) | `(til y)>=y-x`
+–   | [0s preceded by 1s](flag.md#0s-preceded-by-1s) | `(til y)<y-x`
+247 | [interlace 1s and 0s](flag.md#interlace-1s-and-0s) | `(raze/)flip(x;y)#''1 0`
+252 | [alternate takes of 1s and 0s](flag.md#alternate-takes-of-1s-and-0s) | `(count[x]#1 0)where x`
+329 | [flag positive integers](flag.md#flag-positive-integers) | `x in til 1+max x`
+370 | [count 1s](flag.md#count-1s) | `sum x`
+415 | [lengths of groups of 1](flag.md#lengths-of-groups-of-1) | `deltas sums[x]where 1_(<)prior x,0`
+559 | [first 1 in x](flag.md#first-1-in-x) | `x?1`
+438 | [first 1 after index y](flag.md#first-1-after-index-y) | `first a where y<a:where x`
+–   | [yth 1](flag.md#yth-1) | `(sums x)?1`
+360 | [all](flag.md#all) | `all x`
+356 | [any](flag.md#any) | `any x`
+355 | [none](flag.md#none) | `not any x`
 570 | [x implies y](flag.md#x-implies-y) | `x<=y`
 571 | [x but not y](flag.md#x-but-not-y) | `x>y`
 573 | [exclusive or](flag.md#exclusive-or) | `x<>y`
-575 | [Kronecker delta of x and y](flag.md#kronecker-delta-of-x-and-y)` x=y`
-355 | [none](flag.md#none) | `not any x`
-356 | any | `any x`
-360 | [all](flag.md#all) | `all x`
+575 | [Kronecker delta](flag.md#kronecker-delta)` x=y`
+361 | [simple parity](flag.md#simple-parity) | `(sum x) mod 2`
+309 | [running parity](flag.md#running-parity) | `(sums x) mod 2`
+261 | [first group of 1s](flag.md#first-group-of-1s) | `x and(and)scan x=(or)scan x`
+440 | [first 1s in groups of 1s](flag.md#first-1s-in-groups-of-1s) | `1_(>)prior 0,x`
+439 | [last 1s in groups of 1s](flag.md#last-1s-in-groups-of-1s) | `1_(<)prior x,0`
+512 | [select items flagged by y](flag.md#select-items-flagged-by-y) | `x[;;where y]`
 
 
 ## Format
@@ -186,19 +187,19 @@
 # | description | phrase
 --:|-------------|-------
 46 | [formatted integers](form.md#formatted-integers) | `flip DEC 10 vs x`
-111 | [count of format of x](form.md#count-of-format-of-x) | `('[count;string])`
-106 | [leading zeros for positive integers x in field width y](form.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
+111 | [count of format](form.md#count-of-format) | `('[count;string])`
+106 | [leading zeros for positive integers in field width y](form.md#leading-zeros-for-positive-integers-x-in-field-width-y) | `1_'string x+10 xexp y`
 87 | [number of decimals](form.md#number-of-decimals) | `count each 2_'string x mod 1`
-149 | [number of decimals in x, maximum y](form.md#number-of-decimals-in-x-maximum-y) | `y&count each 2_'string x mod 1`
-456 | [number of positions in nonnegative integer x](form.md#number-of-positions-in-non-negative-integer-x) | `1+floor log10 x+0=x`
-452, 455 | [number of positions in integer x](form.md#number-of-positions-in-integer-x) | `1+(x<0)+floor 10 xlog abs x+0=x`
+149 | [number of decimals, maximum y](form.md#number-of-decimals-maximum-y) | `y&count each 2_'string x mod 1`
+456 | [number of positions in nonnegative integer](form.md#number-of-positions-in-non-negative-integer) | `1+floor log10 x+0=x`
+452, 455 | [number of positions in integer](form.md#number-of-positions-in-integer) | `1+(x<0)+floor 10 xlog abs x+0=x`
 64 | [time hh:mm:ss from integer hhmmss](form.md#time-hhmmss-from-integer-hhmmss) | `":"sv 0 2 4_ string x`
 65 | [date yyyy/mm/dd from integer yyyymmdd](form.md#date-yyyymmdd-from-integer-yyyymmdd) | `"/"sv 0 4 6_ string x`
 605 | [indexing plotting characters with flags](form.md#indexing-plotting-characters-with-flags) | " X" x
 144 | [histogram](form.md#histogram) | `" *"(1+ til max x)<=/:x`
-166 | [barchart of integer list x](form.md#barchart-of-integer-list-x)| `" X" reverse til[max x]<\:x`
+166 | [barchart of integer list](form.md#barchart-of-integer-list)| `" X" reverse til[max x]<\:x`
 171 | [horizontal barchart of integers](form.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
-170 | [horizontal barchart of x, normalized to length y](form.md#horizontal-barchart-of-x-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
+170 | [horizontal barchart, normalized to length y](form.md#horizontal-barchart-normalized-to-length-y) | `" X" (floor x*y%max x)>\:til y`
 
 
 
@@ -281,7 +282,7 @@
 196 | [lower triangular matrix of order x](matrix.md#lower-triangular-matrix-of-order-x) | `{x>=\:x}til x`
 197, 582 | [identity matrix of order x](matrix.md#identity-matrix-of-order-x) | `{x=/:x}til x`
 198 | [Hilbert matrix of order x](matrix.md#hilbert-matrix-of-order-x) | `reciprocal 1+{x+/:x}til x`
-408, 513 | [empty row to start matrix of x columns](matrixes.md#empty-row-to-start-matrix-of-x-columns) | `()`
+408, 513 | [empty row to start matrix of x columns](matrix.md#empty-row-to-start-matrix-of-x-columns) | `()`
 525, 526 | [main diagonal](matrix.md#main-diagonal) | `x ./:2#'tc x`
 398 | [diagonals from columns](matrix.md#diagonals-from-columns) | `(neg til 5)rotate'x`
 399 | [columns from diagonals](matrix.md#columns-from-diagonals) | `(til 5)rotate'x`
@@ -343,6 +344,49 @@
 537 | [rotate rows right](misc.md#rotate-rows-right) | `neg[y]rotate x`
 1016 | [streak of numbers with same sign](misc.md#streak-of-numbers-with-same-sign) | `{1+(x;0)y}\[1;]differ signum x`
 152 | [sum items of y by ordered codes g in x](misc.md#sum-items-of-y-by-ordered-codes-g-in-x) | `sum each((count[g]#0),y)value group g,x`
+
+
+
+
+## Parts and items
+
+# | description | phrase
+--:|-------------|-------
+– | [vector from items](part.md#vector-from-items) | `raze over x`
+– | [items from parts](part.md#items-from-parts) | `y _ x`
+278 | [start flags from lengths](part.md#start-flags-from-lengths) | `(til sum x)in sums 0,x` 
+277 | [end flags from lengths](part.md#end-flags-from-lengths) | `(1+til sum x)in sums x`
+– | [start indexes from flags](part.md#start-indexes-from-flags) | `where x`
+5b, 296 | [start indexes from lengths](part.md#start-indexes-from-lengths) | `sums -1_0,x`
+414 | [end indexes from lengths](part.md#end-indexes-from-lengths) | `sums[x]-1`
+405 | [start indexes for x fields of length y](part.md#start-indexes-for-x-fields-of-length-y) | `where 0=(til x*y)mod 3`
+404 | [end indexes for x fields of length y](part.md#end-indexes-for-x-fields-of-length-y) | `-1+sums x#y`
+423 | [lengths from start indexes](part.md#lengths-from-start-indexes) | `1_deltas where x,1`
+39, 40 | [reverse each part](part.md#reverse-each-part) | `x reverse idesc sums tc[x] in y`
+21| [rotate each part](part.md#rotate-each-part) | `x iasc y+sums y`
+2, 3, 5, 7, 15  | [apply uniform function to each part](part.md#apply-uniform-function-to-each-part) | `raze x each(…)_y` 
+6, 14, 491, 492 | [aggregate each part](part.md#aggregate-each-part) | `x each(…)_y` 
+213 | [maximums of parts flagged by y](part.md#maximums-of-parts-flagged-by-y) | `max each where[y]_x`
+257 | [sums of parts with lengths y](part.md#sums-of-parts-with-lengths-y) | `deltas sums[x] sums[y]-1`
+284 | [sums of parts grouped by y](part.md#sums-of-parts-grouped-by-y) | `value sum each x group y`
+291 | [sums of parts flagged by y](part.md#sums-of-parts-flagged-by-y) | `sum each where[y]_x`
+255 | [running sums of parts flagged by y](part.md#running-sums-of-parts-flagged-by-y) | `raze sums each where[y] _ x` 
+1003 | [maximum sum of parts](part.md#maximum-sum-of-parts) | `max 0 (0|+)\x`
+283 | [find part y of parts beginning with first of x](part.md#find-part-y-of-parts-beginning-with-first-of-x) | `x where y=sums x=first x`
+418 | [start indexes of equal-item parts](part.md#start-indexes-of-equal-item-parts) | `where differ x`
+417 | [end indexes of equal-item parts](part.md#end-indexes-of-equal-item-parts) | `where(1_(<>)prior x),1b`
+254 | [running parity of parts flagged by y](part.md#running-parity-of-parts-flagged-by-y) | `raze(sums each where[x] _ y)mod 2`
+256, 292 | [groups of 1s flagged by y](part.md#groups-of-1s-flagged-by-y) | `x&a|(<)prior a:(<>)scan y`
+265, 279 | [insert 0s after each part](part.md#insert-0s-after-each-part) | `raze((0,where y)_y),'(0,x)#'0`
+289 | [or-scan of parts flagged by y](part.md#or-scan-of-parts-flagged-by-y) | `raze maxs each where[y]_ x`
+290 | [and-scan of parts flagged by y](part.md#and-scan-of-parts-flagged-by-y) | `raze mins each where[y]_ x`
+300 | [gth part flagged by y](part.md#gth-part-flagged-by-y) | `(where[y]_x) g`
+581 | [insert y after each item of x](part.md#insert-y-after-each-item-of-x) | `raze x,'y`
+577 | [append y items g to each item of x](part.md#append-y-items-g-to-each-item-of-x) | `raze x,\:y#g`
+576 | [prepend y items of g to each item of x](part.md#prepend-y-items-of-g-to-each-item-of-x) | `raze(y#g),/:x`
+27 | [insert 0 after indexes y](part.md#insert-0-after-indexes-y) | `count[x]>iasc(tc x),y`
+28 | [insert g copies of h after indexes y](part.md#insert-g-copies-of-h-after-indexes-y) | `a:g*count y`<br>`(x,a#h)iasc(tc x),a#count y`
+29 | [insert g copies of h before indexes y](part.md#insert-g-copies-of-h-before-indexes-y) | `a:g*count y`<br>`((a#h),x)iasc(a#y),tc x`
 
 
 
@@ -494,7 +538,7 @@
 267, 299 | [remove leading blanks](string.md#remove-leading-blanks) | `x where maxs x<>" "`
 259 | [remove leading and trailing blanks](string.md#remove-leading-and-trailing-blanks) | `x{y _ x}/1 -1*(" "=1 reverse\x)?'0b`
 424 | [collapse multiple blanks](string.md#collapse-multiple-blanks) | `x where 1 rotate(or)prior a:x<>" "`
-160 | [justify left](string.md#justify-left) | `x iasc x=" "`
+160 | [move blanks to end](string.md#move-blanks-to-end) | `x iasc x=" "`
 76, 275 | [justify right](string.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
 248, 323, 393 | [center text x in line of width y](string.md#center-text-x-in-line-of-width-y) | `neg[floor(y-count x)%2]rotate y#x,y#" "`
 490, 580 | [insert spaces in text](string.md#insert-spaces-in-text) | `-1_raze x,'" "`
@@ -515,98 +559,52 @@
 
 
 
-## Sublists
-
-# | description | phrase
---:|-------------|-------
-– | [indices from flags x](sub.md#partition-a-list) | `where x`
-5b | [indices from lengths x](sub.md#partition-a-list) | `0,sums -1_x`
-– | [partition list y into sublists](sub.md#partition-a-list) | `(…)_y`
-6, 14, 491, 492 | [aggregate function x on sublists of y](sub.md#apply-aggregate-function-to-sublists) | `x each(…)_y` 
-2, 3, 5, 7, 15  | [uniform function x on sublists of y](sub.md#apply-uniform-function-to-sublists) | `raze x each(…)_y` 
-21| rotate to the left 1 place each sublist of y determined by flags x | `y[iasc x+sums x]`
-26 | [insert y "*" after "=" in x](sub.md#insert-y-after-in-x) |`g:where x="="`<br>`raze((0,1+-1_ g)_x),\:y#"*"`
-27 | insert 0 after indices of y of x | `count[x]>iasc(tc x),y`
-28 | insert g items h after indices y of x | `a:g*count y`<br>`(x,a#h)iasc(tc x),a#count y`
-29 | insert g items h before indices y of x | `a:g*count y`<br>`((a#h),x)iasc(a#y),tc x`
-39, 40 | [reverse each sublist](sub.md#reverse-each-sublist) | `x reverse idesc sums tc[x] in y`
-213 | [maxima of sublists of x specified by boolean list y](sub.md#maxima-of-sublists-of-x-specified-by-boolean-list-y) | `max each where[y]_x`
-254 | [running parity of sublists of y indicated by x](sub.md#running-parity-of-sublists-of-y-indicated-by-x) | `raze(sums each where[x] _ y)mod 2`
-255 | [running sum of sublists of y indicated by x](sub.md#running-sum-of-sublists-of-y-indicated-by-x) | `raze sums each where[x] _ y` 
-256 | [groups of 1s in y flagged by x](sub.md#groups-of-1s-in-y-flagged-by-x) | ==FIXME==
-257 | [sums of sublists of x with lengths y](sub.md#sums of sublists-of-x-with-lengths-y) | `deltas sums[x] sums[y]-1`
-265, 279 | [insert x\[i\] zeroes after i-th infix of y](sub.md#insert-xi-zeroes-after-i-th-infix-of-y) | `raze((0,where y)_y),'(0,x)#'0`
-277 | [end flags from lengths](sub.md#end-flags-from-lengths) | `(1+til sum x)in sums x`
-278 | [start flags from lengths](sub.md#start-flags-from-lengths) | `(til sum x)in sums 0,x` 
-283 | [find field y of fields beginning with first of x](sub.md#find-field-y-of-fields-beginning-with-first-of-x) | `x where y=sums x=first x`
-284 | [sum items of x marked by y](sub.md#sum-items-of-x-marked-by-y) | `value sum each x group y`
-289 | [or-scan of sublists of y flagged by x](sub.md#or-scan-of-sublists-of-y-flagged-by-x) | `raze maxs each where[x]_ y`
-290 | [and-scan of sublists of y flagged by x](sub.md#and-scan-of-sublists-of-y-flagged-by-x) | `raze mins each where[x]_ y`
-291 | [sums of sublists of y flagged by x](sub.md#sums-of-sublists-of-y-flagged-by-x) | `sum each where[x]_y`
-292 | [groups of 1s in y flagged by x](sub.md#groups-of-1s-in-y-flagged-by-x) | `a:sums(>)prior y`<br/>`y and a in a where x&y`
-296 | [starting positions of sublists from lengths x](sub.md#starting-positions-of-sublists-from-lengths-x) | `sums -1_0,x`
-404 | [end points for x fields of length y](sub.md#end-points-for-x-fields-of-length-y) | `-1+sums x#y`
-405 | [start points for x fields of length y](sub.md#start-points-for-x-fields-of-length-y) | `where 0=(til x*y)mod 3`
-414 | [ending indices from field lengths](sub.md#ending-indices-from-field-lengths) | `sums[x]-1`
-300 | [gth sublist of y flagged by x](sub.md#gth-sublist-of-y-flagged-by-x) | `((where x)_ y)g`
-415 | [lengths of sublists of 1 in x](sub.md#lengths-of-infixes-of-1-in-x) | `deltas sums[x]where 1_(<)prior x,0`
-418 | [starting indices of equal-item sublists](sub.md#starting-indices-of-equal-item-sublists) | `differ x`
-417 | [end indices of equal-item sublists](sub.md#end-indices-of-equal-item-sublists) | `(1_(<>)prior x),1b`
-423 | [lengths from start indexes](sub.md#lengths-from-start-indexes) | `1_deltas where x,1`
-426 | [change all multiple sublists of y in x to single](sub.md#change-all-multiple-sublists-of-y-in-x-to-single) | `x where 1 rotate(or)prior a:x<>y`
-1003 | [maximum sum of sublists](sub.md#maximum-sum-of-sublists) | `max 0 (0|+)\x`
-577 | [append y items g to each item of x](sub.md#append-y-items-g-to-each-item-of-x) | `raze x,\:y#g`
-576 | [prepend y items of g to each item of x](sub.md#prepend-y-items-of-g-to-each-item-of-x) | `raze(y#g),/:x`
-581 | [insert y after each item of x](sub.md#insert-y-after-each-item-of-x) | `raze x,'y`
-
-
-
 ## Temporal
 
 # | description | phrase
 --:|-------------|-------
 463 | [is year x a leap year?](temp.md#is-year-x-a-leap-year) | `ly:{sum[0=x mod\:4 100 400]mod 2}`
-74 | [number of days in month x of Gregorian year y](temp.md#number-of-days-in-month-x-of-Gregorian-year-y) | `$[x=2;28+ly y;(0,12#7#31 30)x]`
+74 | [days in month x of Gregorian year y](temp.md#days-in-month-x-of-gregorian-year-y) | `$[x=2;28+ly y;(0,12#7#31 30)x]`
 104| [date in ascending format](temp.md#date-in-ascending-format) | `"/"sv reverse 0 4 6_ x`
 105 | [current time of 12-hour clock](temp.md#current-time-of-12-hour-clock) |`p:x>11:59:59`<br/>`string[x-43200*p]," ","AP"[p],"M"`
-107 | [current date, American format](temp.md#current-date-American-format) | `"/"sv string 1 rotate parse ssr[;".";" "] string x`
+107 | [current date, American format](temp.md#current-date-american-format) | `"/"sv string 1 rotate parse ssr[;".";" "] string x`
 
 
 ## Tests
 
 # | description | phrase
 --:|-------------|-------
-4  | are x and y permutations of each other? | `(asc x)~asc y`
-20, 346 | is x a permutation? | `x~iasc iasc x`
-85, 519 | [is matrix x antisymmetric?](test.md#is-matrix-x-antisymmetric) | `x~neg flip x`
+345 | [do ranges of x and y match?](test.md#do-ranges-of-x-and-y-match) | `(~)over('[asc;distinct])each(x;y)`
+333 | [quick membership for non-negative integers](test.md#quick-membership-for-non-negative-integers) | `@[(1+max x,y)#0;y;:;1]x`
+348 | [do x and y have items in common?](test.md#do-x-and-y-have-items-in-common) | `any x in y`
+351 | [is x a subset of y?](test.md#is-x-a-subset-of-y) | `all x in y`
+357 | [does x match y?](test.md#does-x-match-y) | `x~y`
+544 | [do x and y match?](test.md#do-x-and-y-match) | `x~y`
+344 | [pairwise match](test.md#pairwise-match) | `1 rotate(~)prior x`
+4  | [are x and y permutations of each other?](test.md#are-x-and-y-permutations-of-each-other) | `(asc x)~asc y`
 86, 520 | [is matrix x symmetric?](test.md#is-matrix-x-symmetric) | `x~flip x`
-159, 214, 215, 311, 315, 316, 317, 324, 340, 341, 343, 347, 349, 352, 354, 358 | [is range of x 1?](test.md#is-range-of-x-1) | `1=count distinct x`
+85, 519 | [is matrix x antisymmetric?](test.md#is-matrix-x-antisymmetric) | `x~neg flip x`
 161 | [is x upper triangular?](test.md#is-x-upper-triangular) | `zm[x]~x*{x>\:x}tc x`
 162 | [is x lower triangular?](test.md#is-x-lower-triangular) | `zm[x]~x*{x<\:x}tc x`
-180 | [is x in range \[y\)?](test.md#is-x-in-range-y) | `(</')x<\:y`
-221 | [is x an integer in interval [g,h)?](test.md#is-x-an-integer-in-interval-gh) | `(x=floor x)&(</)x<g,h`
 228, 229, 232 | [is y a row of x?](test.md#is-y-a-row-of-x) | `y in x`
-233 | [is x within range \[ y \)?](test.md#is-x-within-range-y) | `(<)over x<y`
-234, 235 | [is x within range \( y \]?](test.md#is-x-within-range-y) | `(<)over x<=y`
-268, 270 | [is x in ascending order?](sort.md#is-x-in-ascending-order) | `all(>=)prior x`
-333 | [quick membership for non-negative integers](test.md#quick-membership-for-non-negative-integers) | `@[(1+max x,y)#0;y;:;1]x`
-345 | [do ranges of x and y match?](test.md#doranges-of-x-and-y-match) | `(~)over('[asc;distinct])each(x;y)`
-348 | [do x and y have items in common?](test.md#do-x-and-y-have-items-in-common) | `any x in y`
-350 | [is x 1s and 0s only (boolean)?](test.md#is-x-1s-and 0s only) | `{t:abs type x; $[t~1;1b;t in 5 6 7 9h;all x in t$0 1;0b]}`
-351 | [is x a subset of y?](test.md#is-x-a-subset-of-y) | `all x in y`
+457 | [are items integral?](test.md#are-items-integral) | `x=floor x`
+473 | [are items even?](test.md#are-items-even) | `not x mod 2`
+159, 214, 215, 311, 315, 316, 317, 324, 340, 341, 343, 347, 349, 352, 354, 358 | [is range of x 1?](test.md#is-range-of-x-1) | `1=count distinct x`
+350 | [are items 1s and 0s only (boolean)?](test.md#are-items-1s-and-0s-only) | `{t:abs type x; $[t~1;1b;t in 5 6 7 9h;all x in t$0 1;0b]}`
+180 | [are items in interval \[y\)?](test.md#are-items-in-interval-y) | `(</')x<\:y`
+221 | [are items integers in interval \[g,h)?](test.md#are-items-integers-in-interval-gh) | `(x=floor x)&(</)x<g,h`
+233 | [are items in interval \[ y \)?](test.md#are-items-in-interval-y) | `(<)over x<y`
+234, 235 | [are items in interval \( y \]?](test.md#are-items-in-interval-y) | `(<)over x<=y`
+564 | [are items in interval ( y\[0\],y\[1\] )](test.md#are-items-in-interval-y0y1) | `(<)over x<y+0 1`
+565 | [are items in interval \[ y\[0\],y\[1\]](test.md#are-items-in-interval-y0y1_1) | `(<)over x<y+1 0`
+268, 270 | [are items in ascending order?](test.md#are-items-in-ascending-order) | `all(>=)prior x`
 353 | [are items unique?](test.md#are-items-unique) | `x~distinct x`
-357 | [does x match y?](test.md#does-x-match-y) | `x~y`
 432 | [does item differ from previous one?](test.md#does-item-differ-from-previous-one)
 431 | [does item differ from next one?](test.md#does-item-differ-from-next-one) | `1_ differ x`
-457 | [is x integral?](test.md#is-x-integral) | `x=floor x`
-473 | [is x even?](test.md#is-x-even) | `not x mod 2`
-544 | [do x and y match?](test.md#do-x-and-y-match) | `x~y`
+20, 346 | [is x a permutation?](test.md#is-x-a-permutation) | `x~rank x`
 546 | [is count of atoms 1?](test.md#is-count-of-atoms-1) | `1=count raze over x`
-547 | [is x vector?](test.md#is-x-vector) | `0<type x`
+547 | [is x a vector?](test.md#is-x-a-vector) | `0<type x`
 548 | [is x empty?](test.md#is-x-empty) | `0=count raze over x`
-564 | [is x within range ( y\[0\],y\[1\] )](test.md#is-x-within-range-y0y1) | `(<)over x<y+0 1`
-565 | [is x within range \[ y\[0\],y\[1\] \](test.md#is-x-within-range-y0y1-1) | `(<)over x<y+1 0`
-344 | [pairwise match](misc.md#pairwise-match) | `1 rotate(~)prior x`
 
 
 
@@ -614,25 +612,26 @@
 
 # | description | phrase
 --:|-------------|-------
-184, 412 | [right-justify fields x of length y to length g](text.md#right-justify-fields-x-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
-185, 276 | [left-justify fields x of length y to length g](text.md#left-justify-fields-x-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
-205 | [remove trailing blank rows](text.md#remove-trailing-blank-rows) | `(neg sum mins reverse(and/)each x=" ")_ x`
-209 | [remove trailing blank columns](text.md#remove-trailing-blank-columns) | `neg[sum mins reverse min x=" "]_'x`
-210 | [remove leading blank columns](text.md#remove-leading-blank-columns) | `sum[mins min x=" "]_'x`
-211 | [remove leading blank rows](text.md#remove-leading-blank-rows) | `((min each x=" ")?0b)_ x`
+185, 276 | [left-justify fields of length y to length g](text.md#left-justify-fields-of-length-y-to-length-g) | `raze g#/:((sums 0,-1_y)_x),\:g#" "`
+184, 412 | [right-justify fields of length y to length g](text.md#right-justify-fields-of-length-y-to-length-g) | `raze(neg g)#/:(g#" "),/:(sums 0,-1_y) _ x`
+426 | [collapse multiple occurrences](text.md#collapse-multiple-occurrences) | `x where 1 rotate(or)prior a:x<>y`
+441, 613 | [comma-separated list from matrix](text.md#comma-separated-list-from-matrix) | `","sv x`
+216 | [rows starting with y](text.md#rows-starting-with-y) | `x where x[;tc y]~\:y`
+231 | [rows with items different from y](text.md#rows-with-items-different-from-y) | `max y<>flip x`
+464 | [frame character matrix](text.md#frame-character-matrix) | `flip"-",'(flip"|",'x,'"|"),'"-"`
+26 | [insert y "*" after "="](text.md#insert-y-after) |`g:where x="="`<br>`raze((0,1+-1_ g)_x),\:y#"*"`
+489 | [matrix from string at parts flagged by x](text.md#matrix-from-string-at-parts-flagged-by-x) | `a:(where y)_x`<br/>`a,'#'[;" "]max[b]-b:count each a` 
 70, 206, 327 | [remove duplicate rows](text.md#remove-duplicate-rows) | `distinct x`
-216 | [rows of matrix x starting with y](text.md#rows-of-matrix-x-starting-with-y) | `x where x[;tc y]~\:y`
-218 | [single blank row from multiple](text.md#single-blank-row-from-multiple) | `x where{x|1_x,1b}max" "<>flip x`
-220 | [remove duplicate blank columns](text.md#remove-duplicate-blank-columns) | `x where{x|1_x,1b}max" "<>x`
-225 | [remove blank rows](text.md#remove-blank-rows) | `x where max" "<>flip x`
-226 | [remove blank columns](text.md#remove-blank-columns) | `x where max" "<>x`
-231 | [which rows of x contain elements different from y?](text.md#which rows-of-x-contain-elements-different-from-y) | `max y<>flip x`
-441, 613 | [comma-separated list from table](text.md#comma-separated-list-from-table) | `","sv x`
-464 | [framing character matrix x](text.md#framing-character-matrix-x) | `flip"-",'(flip"|",'x,'"|"),'"-"`
-485 | [append empty row on matrix](text.md#append-empty-row-on-matrix) | `flip(flip x),'" "`
-487 | [insert empty row in x after row y](text.md#insert-empty-row-in-x-after-row-y) | `a:flip(flip x),'" "`<br/>`a rank@[count[a]#1;y+1;+;1]`
-489 | [table from string y at partitions flagged by x](text.md#table-from-string-y-at-partitions-flagged-by-x) | `(where x)_y` 
 579 | [variable length lines](text.md#variable-length-lines) | `(x;y;z)`
+218, 220 | [collapse whitespace](text.md#collapse-whitespace) | `x where{x|1_x,1b}max" "<>flip x`
+225 | [remove blank rows](text.md#remove-blank-rows) | `x where max" "<>flip x`
+211 | [remove leading blank rows](text.md#remove-leading-blank-rows) | `((min each x=" ")?0b)_ x`
+205 | [remove trailing blank rows](text.md#remove-trailing-blank-rows) | `(neg sum mins reverse(and/)each x=" ")_ x`
+226 | [remove blank columns](text.md#remove-blank-columns) | `x where max" "<>x`
+210 | [remove leading blank columns](text.md#remove-leading-blank-columns) | `sum[mins min x=" "]_'x`
+209 | [remove trailing blank columns](text.md#remove-trailing-blank-columns) | `neg[sum mins reverse min x=" "]_'x`
+485 | [append empty row](text.md#append-empty-row) | `flip(flip x),'" "`
+487 | [insert empty row after row y](text.md#insert-empty-row-after-row-y) | `a:flip(flip x),'" "`<br/>`a rank@[count[a]#1;y+1;+;1]`
 
 
 

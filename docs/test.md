@@ -3,19 +3,132 @@
 
 
 
-## Is matrix x antisymmetric?
+## Comparison 
+
+### Do ranges of x and y match?
 
 ```q
-q)show x:(0 -7 1; 7 0 -4; -1 4 0)
-0  -7 1
-7  0  -4
--1 4  0
-q)x~neg flip x
+q)x:1 2 3
+q)y:3 1 2 1
+q)(~)over('[asc;distinct])each(x;y)
+1b
+q)y:3 1 2 1 4
+q)(~)over('[asc;distinct])each(x;y)
+0b
+```
+
+
+### Quick membership for non-negative integers
+
+```q
+q)x:5 3 7 2
+q)y:8 5 2 6 1 9
+q)max x,y
+9
+q)(1+max x,y)#0
+0 0 0 0 0 0 0 0 0 0
+q)a:(1+max x,y)#0
+q)a
+0 0 0 0 0 0 0 0 0 0
+q)@[a;y;:;1]
+0 1 1 0 0 1 1 0 1 1
+q)(@[a;y;:;1])[x]
+1 0 0 1
+q)@[(1+max x,y)#0;y;:;1][x]
+1 0 0 1
+```
+
+Instructive to study, but not actually faster than `x in y` (V3.6).
+
+
+
+### Do x and y have items in common?
+
+```q
+q)x:"abc"
+q)y:"cdeac"
+q)any x in y
 1b
 ```
 
 
-## Is matrix x symmetric?
+### Is x a subset of y?
+
+```q
+q)x:"abgk"
+q)y:"abcdefghijkl"
+q)all x in y
+1b
+```
+
+
+### Does x match y?
+
+```q
+q)x:("abc";`sy;1 3 -7)
+q)y:("abc";`sy;1 3 -7)
+q)x~y
+1b
+q)x:1 2 3
+q)y:1 4 3
+q)x~y
+0b
+```
+
+
+### Do x and y match?
+
+```q
+q)show q:10?2
+0 0 0 1 0 1 0 1 0 1
+q)x:enlist each q
+q)y:x,\:()
+q)x~y
+1b
+```
+
+
+### Pairwise match
+
+```q
+q)x:("123";"123";"45";"45")
+q)x
+"123"
+"123"
+"45"
+"45"
+q)~':[x]
+0101b
+q)~':[x],0b
+01010b
+q)(~':[x]),0b
+01010b
+q)pm:{1 _ (~':[x]),0b}
+q)pm 1 1 1 1 2 2 3 4 4 4
+1110100110b
+q)1 rotate(~)prior x
+1010b
+q)1 rotate(~)prior 1 1 1 1 2 2 3 4 4 4
+1110100110b
+```
+
+
+### Are x and y permutations of each other?
+
+```q
+q)x:15 16 13 18 14 11 12
+q)y:15 16 13 19 14 11 12
+q)(asc x)~asc y
+0b
+q)y:15 16 13 14 18 12 11
+q)(asc x)~asc y
+1b
+```
+
+
+## Matrixes
+
+### Is matrix x symmetric?
 
 ```q
 q)show x:(0 4 7 1; 4 8 6 4; 7 6 2 0; 1 4 0 6)
@@ -36,43 +149,19 @@ q)x~flip x
 ```
 
 
-## Is range of x 1?
-
-Are all items of x the same?
+### Is matrix x antisymmetric?
 
 ```q
-q)x:1 1 1 1 1
-q)1=count distinct x
+q)show x:(0 -7 1; 7 0 -4; -1 4 0)
+0  -7 1
+7  0  -4
+-1 4  0
+q)x~neg flip x
 1b
-q)y:1 1 0 1 1
-q)1=count distinct y
-0b
 ```
 
 
-## Is x in range [y)
-
-```q
-q)x:19 20 21 39 40 41
-q)y:20 40
-q)x<\:y
-11b
-01b
-01b
-01b
-00b
-00b
-q)01b~/:x<\:y
-011100b
-q)((<)over)each x<\:y
-011100b
-q)(</')x<\:y            / elide keywords when composing iterators
-011100b
-```
-
-
-
-## Is x upper triangular?
+### Is x upper triangular?
 
 
 See 195, 196.
@@ -107,7 +196,7 @@ q){zm[x]~x*{x>\:x}tc x}flip x
 ```
 
 
-## Is x lower triangular?
+### Is x lower triangular?
 
 See 195, 196.
 
@@ -129,7 +218,88 @@ q){zm[x]~x*{x<\:x}tc x}flip x
 ```
 
 
-## Is x an integer in interval [g,h)?
+### Is y a row of x?
+
+```q
+q)show x:("aaa";"bbb";"ooo";"ppp";"kkk")
+q)y:"ooo"
+q)y in x
+1b
+```
+
+==DROP: keyword not idiom==
+
+
+## Numbers
+
+### Are items integral?
+
+```q
+q)ii:{x=floor x}
+q)x:67 -120 3.83 -5.5
+q)ii x
+1100b
+```
+
+
+### Are items even?
+
+```q
+q)x:1 2 3 4 5
+q)not x mod 2
+01010b
+```
+
+
+## Range
+
+### Is range of x 1?
+
+Are all items of x the same?
+
+```q
+q)x:1 1 1 1 1
+q)1=count distinct x
+1b
+q)y:1 1 0 1 1
+q)1=count distinct y
+0b
+```
+
+
+### Are items 1s and 0s only?
+
+```q
+q)ib:{t:abs type x; $[t~1;1b;t in 5 6 7 9h;all x in t$0 1;0b]}
+q)ib each (101b;1 0 1h;1 0 1i;1 0 1j;1 0 1 2;1 0 1f)
+011101b
+q)ib each (101b;1 0 1h;1 0 1i;1 0 1j;1 0 1 2;1 0 1f;1 1.2 0)
+0111010b
+```
+
+
+### Are items in interval [y)
+
+```q
+q)x:19 20 21 39 40 41
+q)y:20 40
+q)x<\:y
+11b
+01b
+01b
+01b
+00b
+00b
+q)01b~/:x<\:y
+011100b
+q)((<)over)each x<\:y
+011100b
+q)(</')x<\:y            / elide keywords when composing iterators
+011100b
+```
+
+
+### Are items integers in interval [g,h)?
 
 ```q
 q)g:6;h:12
@@ -151,7 +321,7 @@ q)(x=floor x)&(</)each x<\:g,h
 ```
 
 
-## Is x within range [ y )?
+### Are items in interval [ y )?
 
 ```q
 q)x:9
@@ -172,7 +342,7 @@ q)(</)each x<y
 ```
 
 
-## Is x within range ( y ]?
+### Are items in interval ( y ]?
 
 ```q
 q)show y:(1 9;9 16;5 7;10 20;6 10)
@@ -192,19 +362,35 @@ q)(</)each x<=y
 ```
 
 
-## Is y a row of x?
+### Are items in interval ( y[0],y[1] )?
 
 ```q
-q)show x:("aaa";"bbb";"ooo";"ppp";"kkk")
-q)y:"ooo"
-q)y in x
-1b
+q)2 3 5 8 9<\:y+0 1
+11b
+01b
+01b
+01b
+00b
+q)(</')2 3 5 8 9<\:y+0 1
+01110b
+q)2 3 5 8 9{(<)over x<y+0 1}\:y
+01110b
 ```
 
-==DROP: keyword not idiom==
+
+### Are items in interval [ y[0],y[1] ]?
+
+```q
+q)(</')2 3 5 8 9<\:y+ 1 0
+00100b
+q)2 3 5 8 9{(<)over x<y+1 0}y
+00100b
+```
 
 
-## Is x in ascending order?
+## Sequence
+
+### Are items in ascending order?
 
 ```q
 q)all(>=)prior 0 1 1 1 7 8 9
@@ -223,75 +409,7 @@ q)x~asc x:0 1 1 1 7 8 9
 ```
 
 
-## Quick membership for non-negative integers
-
-```q
-q)x:5 3 7 2
-q)y:8 5 2 6 1 9
-q)max x,y
-9
-q)(1+max x,y)#0
-0 0 0 0 0 0 0 0 0 0
-q)a:(1+max x,y)#0
-q)a
-0 0 0 0 0 0 0 0 0 0
-q)@[a;y;:;1]
-0 1 1 0 0 1 1 0 1 1
-q)(@[a;y;:;1])[x]
-1 0 0 1
-q)@[(1+max x,y)#0;y;:;1][x]
-1 0 0 1
-```
-
-Instructive to study, but not actually faster than `x in y` (V3.6).
-
-
-
-## Do ranges of x and y match?
-
-```q
-q)x:1 2 3
-q)y:3 1 2 1
-q)(~)over('[asc;distinct])each(x;y)
-1b
-q)y:3 1 2 1 4
-q)(~)over('[asc;distinct])each(x;y)
-0b
-```
-
-
-## Do x and y have items in common?
-
-```q
-q)x:"abc"
-q)y:"cdeac"
-q)any x in y
-1b
-```
-
-
-## Is x 1s and 0s only?
-
-```q
-q)ib:{t:abs type x; $[t~1;1b;t in 5 6 7 9h;all x in t$0 1;0b]}
-q)ib each (101b;1 0 1h;1 0 1i;1 0 1j;1 0 1 2;1 0 1f)
-011101b
-q)ib each (101b;1 0 1h;1 0 1i;1 0 1j;1 0 1 2;1 0 1f;1 1.2 0)
-0111010b
-```
-
-
-## Is x a subset of y?
-
-```q
-q)x:"abgk"
-q)y:"abcdefghijkl"
-q)all x in y
-1b
-```
-
-
-## Are items unique?
+### Are items unique?
 
 ```q
 q)x:"abcdefg"
@@ -303,21 +421,7 @@ q)x~distinct x
 ```
 
 
-## Does x match y?
-
-```q
-q)x:("abc";`sy;1 3 -7)
-q)y:("abc";`sy;1 3 -7)
-q)x~y
-1b
-q)x:1 2 3
-q)y:1 4 3
-q)x~y
-0b
-```
-
-
-## Does item differ from previous one?
+### Does item differ from previous one?
 
 ```q
 q)differ x
@@ -325,7 +429,7 @@ q)differ x
 ```
 
 
-## Does item differ from next one?
+### Does item differ from next one?
 
 ```q
 ```q
@@ -335,38 +439,22 @@ q)1_ differ x
 ```
 
 
-## Is x integral?
+### Is x a permutation?
 
 ```q
-q)ii:{x=floor x}
-q)x:67 -120 3.83 -5.5
-q)ii x
-1100b
-```
-
-
-## Is x even?
-
-```q
-q)x:1 2 3 4 5
-q)not x mod 2
-01010b
-```
-
-
-## Do x and y match?
-
-```q
-q)show q:10?2
-0 0 0 1 0 1 0 1 0 1
-q)x:enlist each q
-q)y:x,\:()
-q)x~y
+q)x:4 0 2 1 5 3 6
+q)x~rank x
 1b
+q)x:4 3 3 6 0 5 4
+q)x~rank x
+0b
 ```
 
 
-## Is count of atoms 1?
+
+## Shape
+
+### Is count of atoms 1?
 
 See 366.
 
@@ -386,7 +474,7 @@ q)co[til 0]
 ```
 
 
-## Is x vector?
+### Is x a vector?
 
 ```q
 q)iv:{0<type x}
@@ -397,62 +485,12 @@ q)iv (0;1 2;"abc";2 3#til 6)        / mixed list, not vector
 ```
 
 
-## Is x empty?
+### Is x empty?
 
 ```q
 q)ie:{0=count raze over x}
 q)ie each(0;0#0;enlist 0#0;"";first til[3]#'"x")
 01111b
-```
-
-
-## Is x within range ( y[0],y[1] )
-
-```q
-q)2 3 5 8 9<\:y+0 1
-11b
-01b
-01b
-01b
-00b
-q)(</')2 3 5 8 9<\:y+0 1
-01110b
-q)2 3 5 8 9{(<)over x<y+0 1}\:y
-01110b
-```
-
-
-## Is x within range [ y[0],y[1] ]
-
-```q
-q)(</')2 3 5 8 9<\:y+ 1 0
-00100b
-q)2 3 5 8 9{(<)over x<y+1 0}y
-00100b
-```
-
-## Pairwise match
-
-```q
-q)x:("123";"123";"45";"45")
-q)x
-"123"
-"123"
-"45"
-"45"
-q)~':[x]
-0101b
-q)~':[x],0b
-01010b
-q)(~':[x]),0b
-01010b
-q)pm:{1 _ (~':[x]),0b}
-q)pm 1 1 1 1 2 2 3 4 4 4
-1110100110b
-q)1 rotate(~)prior x
-1010b
-q)1 rotate(~)prior 1 1 1 1 2 2 3 4 4 4
-1110100110b
 ```
 
 

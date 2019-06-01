@@ -47,7 +47,7 @@ The first expression avoids forming the list `(x;y)`.
 
 
 
-### Reverse x on condition y
+### Reverse on condition y
 
 ```q
 q)x:1 2 3 4 5

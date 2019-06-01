@@ -40,7 +40,7 @@ q)sum each x
 ```
 
 
-### Sum items of x given by y
+### Sum items grouped by y
 
 ```q
 q)show x:log 1+til 5
@@ -60,7 +60,7 @@ q)sum each x value group y
 ```
 
 
-### Add x to each row of y
+### Add vector to each row of matrix
 
 ```q
 q)x:1+til 4
@@ -75,7 +75,7 @@ q)x+/:y
 ```
 
 
-### Add x to each column of y
+### Add vector to each column of matrix
 
 ```q
 q)x:1+til 2
@@ -144,10 +144,8 @@ q)x mmu y
 20 22 20
 ```
 
-==FIXME: how does y specify subsets of x?==
 
-
-### Sum squares of x
+### Sum squares
 
 ```q
 q)x:1 2 3 4 5
@@ -315,7 +313,7 @@ q)x*abs x
 ```
 
 
-### Multiply each column of x by y
+### Multiply each column be vector
 
 ```q
 q)show x:2 5#1+til 10
@@ -328,7 +326,7 @@ q)x*y
 ```
 
 
-### Multiply each row of x by vector y
+### Multiply each row by vector
 
 ```q
 q)show x:3 4#1+til 12

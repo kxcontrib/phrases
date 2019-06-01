@@ -14,7 +14,7 @@ q)ly each 1900 1901 1904 1999 2000 2100
 ```
 
 
-## Number of days in month x of Gregorian year y 
+## Days in month x of Gregorian year y 
 
 ```q
 q){$[x=2;28+ly y;(0,12#7#31 30)x]} . 7 1996

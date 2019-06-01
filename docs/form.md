@@ -37,7 +37,7 @@ Reference:
 [`vs`](/v2/ref/vs)
 
 
-### Count of format of x
+### Count of format
 
 ```q
 q)cf:{count string x}
@@ -52,7 +52,7 @@ q)string 1e-12
 ```
 
 
-### Leading zeros for positive integers x in field width y
+### Leading zeros for positive integers in field width y
 
 ```q
 q)y:3
@@ -88,7 +88,7 @@ q)count each 2_'string x mod 1
 ```
 
 
-### Number of decimals in x, maximum y
+### Number of decimals, maximum y
 
 ```q
 q)x:1.4321 1.21 10
@@ -102,7 +102,7 @@ q)y&count each 2_'string x mod 1
 ```
 
 
-### Number of positions in non-negative integer x
+### Number of positions in non-negative integer
 
 ```q
 q)x:0 13 523 16008
@@ -111,7 +111,7 @@ q)1+floor log10 x+0=x
 ```
 
 
-### Number of positions in integer x
+### Number of positions in integer
 
 ```q
 q)x:1234 -1234 0 7 12345678
@@ -253,7 +253,7 @@ q)x!" *"(1+ til max y)<=/:y
 ```
 
 
-### Barchart of integer list x
+### Barchart of integer list 
 
 ```q
 q)x:2 5 7 4 9 3 6
@@ -325,7 +325,7 @@ q)" X" x>/:\:til max x
 ```
 
 
-### Horizontal barchart of x, normalized to length y
+### Horizontal barchart, normalized to length y
 
 ```q
 q)x:2 8 5 6 3 1 7 7 10 4

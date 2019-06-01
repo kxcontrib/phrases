@@ -131,7 +131,7 @@ q)x where 1 rotate(or)prior a:x<>" "
 ```
 
 
-### Justify left
+### Move blanks to end
 
 ```q
 q)x:"sign if i cant"
