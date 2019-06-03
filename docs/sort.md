@@ -175,7 +175,7 @@ q)x iasc x[;y]
 ```
 
 
-### Sort ascending indices x according to data y
+### Sort ascending indexes x according to data y
 
 <big>`x iasc y x`</big>
 
@@ -347,4 +347,4 @@ q)raze x,'y
 ## Sublists
 
 <i class="far fa-hand-point-right"></i>
-[Operations on sublists](sub.md#apply-uniform-function-to-sublists)
+[Operations on sublists](part.md#apply-uniform-function-to-sublists)

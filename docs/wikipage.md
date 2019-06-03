@@ -65,7 +65,7 @@ q)sa"popfly"
 ```
 
 
-### 5b. Indices from lengths
+### 5b. Indexes from lengths
 
 ```q
 q)x:10 30 20 50 60 40 5
@@ -325,7 +325,7 @@ q)(x,"*")[(count x)&iasc (til count x),(y*count g)#g]
 "abc=*****,d=*****,fgh=*****"
 ```
 
-## 27. Insert 0 after indices y of x
+## 27. Insert 0 after indexes y of x
 
 ```q
 q)x:"abc,def,gh"
@@ -336,7 +336,7 @@ q)(count x)>(iasc (til count x),y)
 ```
 
 
-## 28. Insert g elements h after indices y of x
+## 28. Insert g elements h after indexes y of x
 
 ```q
 q)x:"abcd=,def=,gh="
@@ -351,7 +351,7 @@ q)(x,a#h)[iasc (til count x),a#y]
 ```
 
 
-## 29. Insert g elements h before indices y of x
+## 29. Insert g elements h before indexes y of x
 
 ```q
 q)x:"1234,234,34"
@@ -389,7 +389,7 @@ q)(x,y)[rank g]
 ```
 
 
-## 32. Sort ascending indices x according to data y
+## 32. Sort ascending indexes x according to data y
 
 ```q
 q)x:2 3 4 5 0 1 8 7 6
@@ -533,7 +533,7 @@ q)x[reverse idesc sums(til count x)in il y]
 ```
 
 
-## 40. Reverse infixes in x starting at indices y
+## 40. Reverse infixes in x starting at indexes y
 
 ```q
 q)x:1 0 1 0 0 1 0 0 0 1
@@ -549,7 +549,7 @@ q)y[reverse idesc sums x]
 ```
 
 
-## 41. Indices of 1s in boolean vector x
+## 41. Indexes of 1s in boolean vector x
 
 ```q
 q)x:0 0 1 0 1 0 0 0 1 0
@@ -2643,11 +2643,11 @@ q)ow[x;26]
 ```
 
 
-## 177. Indices of start of string x in string y
+## 177. Indexes of start of string x in string y
 
 ```q
 q)x:"st"
-q)y:"indices of start of string x in string y"
+q)y:"indexes of start of string x in string y"
 q)y ss x
 11 20 32
 ```
@@ -2725,7 +2725,7 @@ q)cl[x;y]
 ```
 
 
-## 182. Indices of consecutive repeated elements
+## 182. Indexes of consecutive repeated elements
 
 ```q
 q)x:"aaabccccdeee"
@@ -6773,7 +6773,7 @@ q)(count;first count each)@\:x
 
 ## 413. Omitted
 
-## 414. Ending indices from field lengths
+## 414. Ending indexes from field lengths
 
 ```q
 q)x:4 7 13 15 20
@@ -6849,7 +6849,7 @@ q)(not(1 _ x)=-1 _ x),1b
 10110011101b
 ```
 
-## 418. Starting indices of equal item infix
+## 418. Starting indexes of equal item infix
 
 ```q
 q)x:"baackkkegtt"
@@ -8220,7 +8220,7 @@ q)$[g;x;y]
 
 ## 494. See 424
 
-## 495. Indices of all occurrences of y in x
+## 495. Indexes of all occurrences of y in x
 
 ```q
 q)x:"abcdefgab"
@@ -8343,7 +8343,7 @@ q)x[where x in y]
 
 ## 502. Deferred
 
-## 503. Indices of all occurrences of y in x
+## 503. Indexes of all occurrences of y in x
 
 ```q
 q)x:"abcdeabc"
@@ -8868,7 +8868,7 @@ q)-1 rotate 'x
 12 9 10 11
 ```
 
-## 538. Insert 0 in list of ones x after indices y
+## 538. Insert 0 in list of ones x after indexes y
 
 ```q
 q)x:1 1 1 1 1 1 1 1 1 1
@@ -8949,7 +8949,7 @@ q)not @[y#0;x;:;1]
 1100011101b
 ```
 
-## 540. Markers in boolean vector of length x at indices y
+## 540. Markers in boolean vector of length x at indexes y
 
 ```q
 q)x:10
@@ -9164,7 +9164,7 @@ q)x:2 2 2 2# !16
 0 1 2 3
 ```
 
-## 556. All indices of vector x
+## 556. All indexes of vector x
 
 ```q
 q)x:2 2 2 2# !16

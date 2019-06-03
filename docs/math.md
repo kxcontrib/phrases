@@ -300,7 +300,7 @@ q){(q%x),z%q:0.5*y+signum[y]*sqrt(y*y)-4*x*z}[1;-8;15]
 
 ## Saddle points
 
-### Saddle-point indices
+### Saddle-point indexes
 
 ```q
 q)x
@@ -364,15 +364,15 @@ q)ones minmax x
 ```
 
 
-### Row-column indices 
+### Row-column indexes 
 
-Where `y` are indices into the ravel of matrix `x`, returns the `x` row-column indices of `y`.
+Where `y` are indexes into the ravel of matrix `x`, returns the `x` row-column indexes of `y`.
 
 ```q
 q)rc:{(div;mod).\:(y;count first x)}
 ```
 
-Find saddle-point indices.
+Find saddle-point indexes.
 
 ```q
 q)sp:{rc[x;ones minmax x]} 

@@ -273,7 +273,7 @@ q)ow[x;26]
 
 ```q
 q)x:"st"
-q)y:"indices of start of string x in string y"
+q)y:"indexes of start of string x in string y"
 q)y ss x
 11 20 32
 ```

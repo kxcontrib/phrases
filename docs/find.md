@@ -221,7 +221,7 @@ q)where not x in y
 ```
 
 
-### Consecutive repeated elements
+### Consecutive repeated items
 
 ```q
 q)x:"aaabccccdeee"

@@ -35,7 +35,10 @@ The k idiom list and its partial translation as the QIdioms page were exercises 
 
 The Q Phrasebook aims to fulfill their project of producing a q equivalent of the FinnAPL Idiom Library and the J Phrases. 
 
-
+Many of the original problems have the same solution in q. 
+The numbering inherited from the ancestor lists has not been preserved. 
+The phrases have been renumbered. 
+The [index to QIdioms](index2.md) maps old to new numbers. 
 
 
 ## Paint the town red
@@ -53,3 +56,8 @@ Some of the ‘phrases’ turn out to be just q operators or keywords.
 For example, [_Case structure_](exec.md#case-structure) is nothing but the [Cond operator](https://code.kx.com/v2/ref/cond "Reference"). 
 
 They are included here because, although they are elementary in q, readers coming from verbose languages might reasonably expect them to be at least a phrase. 
+
+
+## <i class="fas fa-download"></i> `phrases.q`
+
+Some forms, such as `til count` recur so frequently they have been included in the script [`phrases.q`](phrases.md) and used as parts of other phrases. 

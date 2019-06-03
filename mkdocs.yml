@@ -75,7 +75,7 @@ nav:
   - Finance: fin.md
   - Find: find.md
   - Flags: flag.md
-  - Formatting: form.md
+  - Format: form.md
   - Geometry: trig.md
   - Indexes: indexes.md
   - Math: math.md
@@ -84,7 +84,6 @@ nav:
   - Parts and items: part.md
   - Polynomials: poly.md
   - Rank: rank.md
-  - Rounding: round.md
   - Shape: shape.md
   - Sort: sort.md
   - Statistics: stat.md
@@ -93,4 +92,6 @@ nav:
   - Tests: test.md
   - Text: text.md
   - phrases.q: phrases.md
-  - Original wiki page: wikipage.md
+  - on style: style.md
+  - index to QIdioms: index2.md
+  - QIdioms: wikipage.md
