@@ -341,6 +341,16 @@ q)raze x,'y
 ```
 
 
+### Ripple shuffle
+
+<i class="fab fa-wikipedia-w"></i>
+[Riffle shuffle](http://en.wikipedia.org/wiki/Shuffling#Riffle)
+
+```q
+q)x:til 52      / deck of cards
+q)x iasc idesc count[x]#0 1
+26 0 27 1 28 2 29 3 30 4 31 5 32 6 33 7 34 8 35 9 36 10 37 11 38 12 39 13 40 ..
+```
 
 
 
