@@ -1,7 +1,28 @@
 # Index of phrases
 
 
+Constants and functions referred to in the Q Phrasebook. 
 
+<i class="fas fa-download"></i>
+[`phrases.q`](phrases.q)
+
+```q
+DEC:"0123456789"
+HEX:"0123456789abcdef"
+PI:3.141592653589798238
+PUN:",;:.!?"
+depth:{$[type[x]<0; 
+  0; 
+  "j"$sum(and)scan{1=count distinct count each x}each raze over x]}
+fac:{prd 1+til x}                       / factorial
+ly:{mod[;2] sum 0=x mod\:4 100 400}     / is x a leap year?
+shape:{$[0=d:depth x; 
+  0#0j; 
+  d#{first raze over x}each(d{each[x;]}\count)@\:x]}  / FIXME correct for shape 0#0
+tc:('[til;count])
+tt:{2 vs til "j"$2 xexp x}              / truth table of order x
+zm:{(2#count x)#0}                      / zero matrix (square matrix)
+```
 
 
 ## Arithmetic
@@ -111,7 +132,7 @@ new | description | phrase
 405 | [payback](fin.md#) | `C:prds(count W)#1+R`<br/>`C*B-sums W%(count W)#T _ 1,C`
 406 | [round to nearest integer](fin.md#round-to-nearest-integer) | `floor 0.5+x`
 407 | [round to two decimal places](fin.md#round-to-two-decimal-places) | `0.01*floor 0.5+x*100`
-408 | [round y to x decimals](fin.md#round-y-to-x-decimals) | `(10 xexp neg x)*`long$y*10 xexp x`
+408 | [round y to x decimals](fin.md#round-y-to-x-decimals) | ``(10 xexp neg x)*`long$y*10 xexp x``
 409 | [round to nearest even integer](fin.md#round-to-nearest-even-integer) | `floor x+not 1>x mod 2`
 410 | [round, but to nearest even integer if fractional part is 0.5](fin.md#round-but-to-nearest-even-integer-if-fractional-part-is-05) | `floor x+0.5*not 0.5=x mod 2`
 411 | [round x to nearest multiple of y](fin.md#round-x-to-nearest-multiple-of-y) | `y*floor 0.5+x%y`
@@ -181,7 +202,7 @@ new | description | phrase
 627 | [x implies y](flag.md#x-implies-y) | `x<=y`
 628 | [x but not y](flag.md#x-but-not-y) | `x>y`
 629 | [exclusive or](flag.md#exclusive-or) | `x<>y`
-630 | [Kronecker delta](flag.md#kronecker-delta)` x=y`
+630 | [Kronecker delta](flag.md#kronecker-delta) | `x=y`
 631 | [simple parity](flag.md#simple-parity) | `(sum x) mod 2`
 632 | [running parity](flag.md#running-parity) | `(sums x) mod 2`
 633 | [first group of 1s](flag.md#first-group-of-1s) | `x and(and)scan x=(or)scan x`
@@ -203,7 +224,7 @@ new | description | phrase
 706 | [number of positions in integer](form.md#number-of-positions-in-integer) | `1+(x<0)+floor 10 xlog abs x+0=x`
 707 | [time hh:mm:ss from integer hhmmss](form.md#time-hhmmss-from-integer-hhmmss) | `":"sv 0 2 4_ string x`
 708 | [date yyyy/mm/dd from integer yyyymmdd](form.md#date-yyyymmdd-from-integer-yyyymmdd) | `"/"sv 0 4 6_ string x`
-709 | [indexing plotting characters with flags](form.md#indexing-plotting-characters-with-flags) | " X" x
+709 | [indexing plotting characters with flags](form.md#indexing-plotting-characters-with-flags) | `" X" x`
 710 | [histogram](form.md#histogram) | `" *"(1+ til max x)<=/:x`
 711 | [barchart of integer list](form.md#barchart-of-integer-list)| `" X" reverse til[max x]<\:x`
 712 | [horizontal barchart of integers](form.md#horizontal-barchart-of-integers) | `" X" x>\:til max x`
@@ -457,7 +478,7 @@ new | description | phrase
 1608 | [append y at the bottom of matrix x](shape.md#append-y-at-the-bottom-of-matrix-x) | `x,enlist y`
 1609 | [fill x to length y with x’s last item](shape.md#fill-x-to-length-y-with-xs-last-item) | `y#x,y#last x`
 1610 | [append empty row on matrix](shape.md#append-empty-row-on-matrix) | `flip(flip x),'" "`
-1611 | [count items](shape.md#count-items) ` count x`
+1611 | [count items](shape.md#count-items) | `count x`
 1612 | [count atoms](shape.md#count-atoms) | `count raze over x`
 1613 | [first atom in x](shape.md#first-atom-in-x) | `(first/)x`
 1614 | [count rows in matrix x](shape.md#count-rows-in-matrix-x) | `count x`
@@ -499,6 +520,7 @@ new | description | phrase
 1713 | [merge x y by g](sort.md#mesh) | `(x,y)[iasc idesc g]`
 1714 | [mesh: merge x y z under control of g](sort.md#mesh) | `(x,y,z)rank g`
 1715 | [merge items from x and y alternately](sort.md#merge-items-from-x-and-y-alternately) | `raze x,'y`
+1716 | [ripple shuffle](sort.md#ripple-shuffle) | `x iasc idesc count[x]#0 1`
 
 
 
@@ -508,7 +530,7 @@ new | description | phrase
 new | description | phrase
 ---:|-------------|-------
 1800 | [maximum](stat.md#maximum) | `max x`
-1801 | [non-negative maximum](stat.md#non-negative-maximum) `max 0,x`
+1801 | [non-negative maximum](stat.md#non-negative-maximum) | `max 0,x`
 1802 | [maximum of x with weights y](stat.md#maximum-of-x-with-weights-y) | `max x*y`
 1803 | minimum | `min x`
 1804 | [minimum of x with weights y](stat.md#minimum-of-x-with-weights-y) | `min x*y`
@@ -629,9 +651,4 @@ new | description | phrase
 2219 | [insert empty row after row y](text.md#insert-empty-row-after-row-y) | `a:flip(flip x),'" "`<br/>`a rank@[count[a]#1;y+1;+;1]`
 
 
-
-## Utilities and constants
-
-<i class="far fa-hand-point-right"></i>
-[`phrases.q`](phrases.md)
 

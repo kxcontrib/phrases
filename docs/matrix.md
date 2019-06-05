@@ -2,6 +2,17 @@
 
 
 
+A matrix is a list in which all items are lists with the same count. 
+Matrix ‘cells’ can be indexed by row and column.
+
+```q
+q)show m:(0 1 2 3;4 5 6 7;8 9 10 11)
+0 1 2  3
+4 5 6  7
+8 9 10 11
+q)m[2;1]
+9
+```
 
 ```q
 shape:{$[0=d:depth x; 
