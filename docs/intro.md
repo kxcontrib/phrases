@@ -43,7 +43,7 @@ The [index to QIdioms](index2.md) maps old to new numbers.
 
 ## Paint the town red
 
-The meaning of an idiom is given by customary usage. It cannot be understood by analysing the words in it. 
+The meaning of an idiom is given by customary usage. It cannot be understood by analyzing the words in it. 
 
 For example, someone who _paints the town red_ might not use paint of any color; but just goes out for a good time.  
 
