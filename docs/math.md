@@ -5,11 +5,20 @@
 
 ### Beta function
 
-See gamma in appendix.
+<i class="fab fa-wikipedia-w"></i>
+[Beta function](https://en.wikipedia.org/wiki/Beta_function), 
+[gamma function](https://en.wikipedia.org/wiki/gamma_function)
 
-`Beta:{((gamma x)*gamma y)%gamma[x+y]}`
+```q
+q)gamma:prd"f"$1_til@                   / only for positive integers
+Beta:{((gamma x)*gamma y)%gamma[x+y]}
+q)Beta[1;3]
+0.3333333
+```
 
-==DROP – WTF?==
+Note in the definition of `gamma` the implicit composition of unary functions as the left argument of `@`:
+`prd"f"$1_til@` composes unary functions `prd`, `"f"$`, `1_`, and `til`.
+That is, it is equivalent to `{prd "f"$ 1_ til x}`
 
 
 ## Combinations & permutations
@@ -105,21 +114,21 @@ q)lm m
 
 ### Connectivity matrix from connectivity list
 
-<!-- FIXME: complete -->
-
 ```q
 q)y:(0 1;0 2;1 0;1 2;2 2)
 q)x:3
 q)x sv/:y
 1 2 3 5 8
-q)(til 9)in x sv/:y
-011101001b
+q)(2#x)#(til x*x)in x sv/:y
+011b
+101b
+001b
 ```
 
 
 ### Node matrix from connection matrix
 
-(Inverse to 157.)
+(Inverse to 1008.)
 
 ```q
 q)x
@@ -154,7 +163,7 @@ q)nc x
 
 ### Connection matrix from node matrix
 
-(Inverse to 148)
+(Inverse to 1007.)
 
 Node matrix top and bottom rows give from and to nodes.
 

@@ -9,6 +9,8 @@ depth:{$[type[x]<0;
   "j"$sum(and)scan{1=count distinct count each x}each raze over x]}
 fac:{prd 1+til x}                   	/ factorial
 ly:{mod[;2] sum 0=x mod\:4 100 400}   	/ is x a leap year?
+oa:{x xexp/:0 1}                       	/ ones and all Xs (float)
+oe:{x xexp\:0 1}                       	/ 1 and each X (float)
 shape:{$[0=d:depth x; 
   0#0j; 
   d#{first raze over x}each(d{each[x;]}\count)@\:x]}  / FIXME correct for shape 0#0

@@ -74,9 +74,17 @@ q)x sv\:y
 ```q
 q)x:64 70 77 82 92 107 125 143 165 189f
 q)y:56 60 66 70 78  88 102 118 136 155f
-q)(enlist y)lsq x xexp/:0 1
+q)x xexp/:0 1
+1  1  1  1  1  1   1   1   1   1
+64 70 77 82 92 107 125 143 165 189
+q)oa:{x xexp/:0 1}                              / ones and all Xs (float)
+q)first(enlist y)lsq oa x
 4.587803 0.7927486
+q)cbf:{first(enlist y)lsq oa x}                 / coefficients of best fit
 ```
+
+Note that `lsq` requires float arguments and `oa` returns floats. 
+Defining `cbf` as `{first(enlist"f"$y)lsq oa x}` would allow integer arguments.
 
 
 ## Predicted values of best linear fit (least squares)
@@ -84,10 +92,23 @@ q)(enlist y)lsq x xexp/:0 1
 ```q
 q)x:64 70 77 82 92 107 125 143 165 189f
 q)y:56 60 66 70 78  88 102 118 136 155f
-q)a:x xexp/:0 1
-q)(flip a)mmu first(enlist y)lsq a
+q)oe:{x xexp\:0 1}                              / 1 and each X
+q)oe x
+1 64
+1 70
+1 77
+1 82
+1 92
+1 107
+1 125
+1 143
+1 165
+1 189
+q)(oe x)mmu cbf[x;y]
 55.32371 60.08021 65.62945 69.59319 77.52068 89.41191 103.6814 117.9509 135.3913 154.4173
+q)pvbf:{(oe x)mmu cbf[x;y]}
 ```
+
 
 
 ## Coefficients of exponential fit of points (x,y)
@@ -95,19 +116,19 @@ q)(flip a)mmu first(enlist y)lsq a
 ```q
 q)x:64 70 77 82 92 107 125 143 165 189
 q)y:56 60 66 70 78 88 102 118 136 155
-q)a:lsq[enlist log y;x xexp/:0 1]
-q)a
+q)cbf[log y;x]
 3.563398 0.00817742
-q)a[0]:exp[a[0]]
-q)a
-35.2829 0.00817742
-q)a[0]*exp x*a[1]
+q)(1;x)*cbf[x;log y]
+3.563398
+0.5233549 0.5724194 0.6296613 0.6705484 0.7523226 0.8749839 1.022177 1.169371..
+q)exp(1;x)*cbf[x;log y]
+35.2829
+1.68768 1.77255 1.876975 1.955309 2.121923 2.398837 2.77924 3.219967 3.854627..
+q)(*). exp(1;x)*cbf[x;log y]
 59.54624 62.54071 66.22511 68.98898 74.86758 84.63791 98.05964 113.6098 136.0..
-q)y
-56 60 66 70 78 88 102 118 136 155
 ```
 
-==FIXME==
+`log` returns floats, so neither `x` nor `y` need be floats in this example.
 
 
 ## Predicted values of exponential fit
@@ -115,14 +136,9 @@ q)y
 ```q
 q)x:64 70 77 82 92
 q)y:56 60 66 70 78
-q)show a:x xexp/:0 1
-1  1  1  1  1
-64 70 77 82 92
-q)log y
-4.025352 4.094345 4.189655 4.248495 4.356709
-q)(enlist log y)lsq a
-3.261029 0.01197249
-q)exp (flip a)mmu first (enlist log y)lsq a
+q)exp (oe x)mmu cbf[x;log y]
+56.10745 60.28622 65.55641 69.60062 78.45289
+q)exp pvbf[x;log y]
 56.10745 60.28622 65.55641 69.60062 78.45289
 ```
 

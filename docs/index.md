@@ -16,6 +16,8 @@ depth:{$[type[x]<0;
   "j"$sum(and)scan{1=count distinct count each x}each raze over x]}
 fac:{prd 1+til x}                       / factorial
 ly:{mod[;2] sum 0=x mod\:4 100 400}     / is x a leap year?
+oa:{x xexp/:0 1}                        / ones and all Xs (float)
+oe:{x xexp\:0 1}                        / 1 and each X (float)
 shape:{$[0=d:depth x; 
   0#0j; 
   d#{first raze over x}each(d{each[x;]}\count)@\:x]}  / FIXME correct for shape 0#0
@@ -268,13 +270,13 @@ new | description | phrase
 
 new | description | phrase
 ---:|-------------|-------
-1000 | [Beta function](math.md#beta-function) | ==FIXME==
+1000 | [Beta function](math.md#beta-function) | `gamma:prd"f"$1_til@`<br/>`((gamma x)*gamma y)%gamma[x+y]`
 1001 | [number of combinations of n objects taken k at a time](math.md#number-of-combinations-of-n-objects-taken-k-at-a-time) | `fac[n]%fac[n-k]*fac[k]`
 1002 | [number of permutations of n objects taken k at a time](math.md#number-of-permutations-of-n-objects-taken-k-at-a-time) | `prd(n-k-1)+til k`
 1003 | [permutations](math.md#permutations) | `(1 0#x){raze(1 rotate)scan'x,'y}/x`
 1004 | [invert permutation](math.md#invert-permutation) | `iasc x`
 1005 | [connectivity list from connectivity matrix](math.md#connectivity-list-from-connectivity-matrix) | `rc[x;]where raze x`
-1006 | [connectivity matrix from connectivity list](math.md#connectivity-matrix-from-connectivity-list)| ==FIXME==
+1006 | [connectivity matrix from connectivity list](math.md#connectivity-matrix-from-connectivity-list)| `(2#x)#(til x*x)in x sv/:y`
 1007 | [node matrix from connection matrix](math.md#node-matrix-from-connection-matrix)| `b:flip each x=/:1 -1`<br/>`(mmu\:) . "f"$(b;tc x)`
 1008 | [connection matrix from node matrix](math.md#connection-matrix-from-node-matrix) | `(-/)flip x=/:tc distinct raze x`
 1009 | [first y Fibonacci numbers](math.md#fibonacci-numbers) | `y{x,sum -2#x}/0 1`
@@ -305,23 +307,23 @@ new | description | phrase
 
 new | description | phrase
 ---:|-------------|-------
-11000 | [apply to dimension 1 function defined on dimension 0](matrix.md#apply-to-dimension-1-function-defined-on-dimension-0) | `f each x`
-11001 | [truth table of order x](matrix.md#truth-table-of-order-x) | `2 vs til "j"$2 xexp x`
-11002 | [upper triangular matrix of order x](matrix.md#upper-triangular-matrix-of-order-x) | `{x<=\:x}til x`
-11003 | [lower triangular matrix of order x](matrix.md#lower-triangular-matrix-of-order-x) | `{x>=\:x}til x`
-11004 | [identity matrix of order x](matrix.md#identity-matrix-of-order-x) | `{x=/:x}til x`
-11005 | [Hilbert matrix of order x](matrix.md#hilbert-matrix-of-order-x) | `reciprocal 1+{x+/:x}til x`
-11006 | [empty row to start matrix of x columns](matrix.md#empty-row-to-start-matrix-of-x-columns) | `()`
-11007 | [main diagonal](matrix.md#main-diagonal) | `x ./:2#'tc x`
-11008 | [diagonals from columns](matrix.md#diagonals-from-columns) | `(neg til 5)rotate'x`
-11009 | [columns from diagonals](matrix.md#columns-from-diagonals) | `(til 5)rotate'x`
-11010 | [add vector y to main diagonal of x](matrix.md#add-vector-y-to-main-diagonal-of-x) | `@'[x;tc x;+;y]`
-11011 | [extend distance table to next leg](matrix.md#extend-distance-table-to-next-leg) | `x('[min;+])\:x`
-11012 | [extend a transitive binary relation](matrix.md#extend-a-transitive-binary-relation) | `x('[any;&])\:x`
-11013 | [first column as a matrix](matrix.md#first-column-as-a-matrix) | `x[;enlist 0]`
-11014 | [value of two-by-two determinant](matrix.md#value-of-two-by-two-determinant) | `(-)over(x 0)*reverse x 1`
-11015 | [Shur product](matrix.md#shur-product) | `((last shape x)#x) * (first shape y)#'y`
-11016 | [Shur sum](matrix.md#shur-sum) | `((last shape x)#x) + (first shape y)#'y`
+1100 | [apply to dimension 1 function defined on dimension 0](matrix.md#apply-to-dimension-1-function-defined-on-dimension-0) | `f each x`
+1101 | [truth table of order x](matrix.md#truth-table-of-order-x) | `2 vs til "j"$2 xexp x`
+1102 | [upper triangular matrix of order x](matrix.md#upper-triangular-matrix-of-order-x) | `{x<=\:x}til x`
+1103 | [lower triangular matrix of order x](matrix.md#lower-triangular-matrix-of-order-x) | `{x>=\:x}til x`
+1104 | [identity matrix of order x](matrix.md#identity-matrix-of-order-x) | `{x=/:x}til x`
+1105 | [Hilbert matrix of order x](matrix.md#hilbert-matrix-of-order-x) | `reciprocal 1+{x+/:x}til x`
+1106 | [empty row to start matrix of x columns](matrix.md#empty-row-to-start-matrix-of-x-columns) | `()`
+1107 | [main diagonal](matrix.md#main-diagonal) | `x ./:2#'tc x`
+1108 | [diagonals from columns](matrix.md#diagonals-from-columns) | `(neg til 5)rotate'x`
+1109 | [columns from diagonals](matrix.md#columns-from-diagonals) | `(til 5)rotate'x`
+1110 | [add vector y to main diagonal of x](matrix.md#add-vector-y-to-main-diagonal-of-x) | `@'[x;tc x;+;y]`
+1111 | [extend distance table to next leg](matrix.md#extend-distance-table-to-next-leg) | `x('[min;+])\:x`
+1112 | [extend a transitive binary relation](matrix.md#extend-a-transitive-binary-relation) | `x('[any;&])\:x`
+1113 | [first column as a matrix](matrix.md#first-column-as-a-matrix) | `x[;enlist 0]`
+1114 | [value of two-by-two determinant](matrix.md#value-of-two-by-two-determinant) | `(-)over(x 0)*reverse x 1`
+1115 | [Shur product](matrix.md#shur-product) | `((last shape x)#x) * (first shape y)#'y`
+1116 | [Shur sum](matrix.md#shur-sum) | `((last shape x)#x) + (first shape y)#'y`
 
 
 
@@ -430,13 +432,13 @@ new | description | phrase
 1401 | [polynomial product](poly.md#polynomial-product) | `sum(tc x)rotate'(1_'zm x),'y*/:x`
 1402 | [polynomial derivative](poly.md#polynomial-derivative) | `-1 _ x*reverse tc x`
 1403 | [value of ascending polynomial coefficients y at points x](poly.md#value-of-ascending-polynomial-coefficients-y-at-points-x) |`x sv\:y`
-1404 | [coefficients of best linear fit of points (x,y) (least squares)](poly.md#coefficients-of-best-linear-fit-of-points-xy-least-squares) | `(enlist y)lsq x xexp/:0 1`
-1405 | [predicted values of best linear fit (least squares)](poly.md#predicted-values-of-best-linear-fit-least-squares) | `a:x xexp/:0 1`<br/>`(flip a)mmu first(enlist y)lsq a`
-1406 | [coefficients of exponential fit of points (x,y)](poly.md#coefficients-of-exponential-fit-of-points-xy) | ==FIXME==
-1407 | [predicted values of exponential fit](poly.md#predicted-values-of-exponential-fit) | `a:x xexp/:0 1`<br/>`exp flip[a]mmu first(enlist log y)lsq a`
-1408 | [G-degree polynomial fit of points (x,y)](poly.md#g-degree-polynomial-fit-of-points-xy) | `a:x xexp/:til g+1`<br/>`reverse first (enlist y)lsq a`
-1409 | [extrapolated value of abscissa x and ordinate y at g](poly.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) | `g sv raze(enlist y) lsq x xexp/: reverse tc x`
-1410 | [y-th moment of x](poly.md#y-th-moment-of-x) | `(sum(x-(sum x)%c)xexp y)%c:count x`
+1404 | [coefficients of best linear fit of points (x,y) (least squares)](poly.md#coefficients-of-best-linear-fit-of-points-xy-least-squares) | `oa:{x xexp/:0 1}`<br/>`cbf:{first(enlist y)lsq oa x}`
+1405 | [predicted values of best linear fit (least squares)](poly.md#predicted-values-of-best-linear-fit-least-squares) | `oe:{x xexp\:0 1}`<br/>`pvbf:{(oe x)mmu cbf[x;y]}`
+1406 | [coefficients of exponential fit of points (x,y)](poly.md#coefficients-of-exponential-fit-of-points-xy) | `(*). exp(1;x)*cbf[x;log y]`
+1407 | [predicted values of exponential fit](poly.md#predicted-values-of-exponential-fit) | `exp pvbf[x;log y]`
+1408 | [G-degree polynomial fit of points (x,y)](poly.md#g-degree-polynomial-fit-of-points-xy) | `a:x xexp/:til g+1`<br/>`b:first(enlist y)lsq a`<br/>`reverse b`
+1409 | [extrapolated value of abscissa x and ordinate y at g](poly.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) | `a:x xexp/:reverse tc x`<br/>`b:(enlist y) lsq a`<br/>`g sv raze b`
+1410 | [y-th moment of x](poly.md#y-th-moment-of-x) | `c:count x`<br/>`(sum(x-(sum x)%c)xexp y)%c`
 
 
 
