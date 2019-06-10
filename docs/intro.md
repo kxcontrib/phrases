@@ -7,7 +7,7 @@ The phrasebook is a collection of q expressions used for common tasks.
 Q is a terse language. 
 Phrases in q are often equivalent to library functions in other languages. 
 They are useful tools for the programmer.
-They are also illuminating guides to skilled use of the language, and repay study.
+Studying them also leads to skilled use of the language: they repay study.
 
 
 ## Repository
