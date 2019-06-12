@@ -13,7 +13,8 @@ This is an open-source collection, and a repository of community programming kno
 
 You can contribute to the project at
 <i class="fab fa-github"></i>
-[kxcontrib/phrases](htpps://github.com/kxcontrib/phrases/).
+[kxcontrib/phrases](https://github.com/kxcontrib/phrases/).
+Or write to librarian@kx.com.
 
 
 ## Genealogy
