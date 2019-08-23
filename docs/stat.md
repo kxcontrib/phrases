@@ -131,3 +131,31 @@ q)y msum 1 2 3 5 7 11
 ```
 
 
+## Moving maximum/minimum
+
+```q
+q)y:3
+q)x:1 2 3 5 7 11
+q)y mmax x
+1 2 3 5 7 11
+q)y mmin x
+1 1 1 2 3 5
+```
+
+
+## Moving maximum/minimum index
+
+```q
+q)immax:{y x mmax iasc y:iasc y}
+q)immin:{y x mmin iasc y:iasc y}
+q)y:3
+q)x:1 2 3 5 7 11
+q)immax[y;x]
+0 1 2 3 4 5
+q)(y mmax x)~x immax[y;x]
+1b
+q)immin[y;x]
+0 0 0 1 2 3
+q)(y mmin x)~x immin[y;x]
+1b
+```
