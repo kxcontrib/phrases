@@ -33,8 +33,8 @@ q)string x
 
 <i class="far fa-hand-point-right"></i>
 Reference: 
-[`string`](/v2/ref/string), 
-[`vs`](/v2/ref/vs)
+[`string`](/v2/ref/string/), 
+[`vs`](/v2/ref/vs/)
 
 
 ### Count of format

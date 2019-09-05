@@ -1,3 +1,8 @@
+---
+title: Geometry & trigonometry – Q Phrasebook
+description: Geometrical and trigonometrical expressions in the q programming language
+keywords: angle, area, contour, degrees, geometry, kdb+, q, radians, rotation matrix, minutes, triangle, trigonometry
+---
 # Geometry & trigonometry
 
 
@@ -58,7 +63,6 @@ The great-circle distance in radians between two points on a sphere whose latitu
 
 Heron’s rule.
 
-```q
 ```q
 q)hr:{sqrt (prd (sum x%2)-0,x)}
 q)hr x

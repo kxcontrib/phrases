@@ -413,7 +413,6 @@ q)x[;y]
 41 5 28 45 23
 q)iasc x[;y]
 1 4 2 0 3
-```q
 q)x[iasc x[;y]]
 91 59 5  19 17 26
 85 11 23 61 64 44
@@ -765,8 +764,8 @@ q)lm m
 
 ## 51. Indexes
 
-The [depth](https://code.kx.com/v2/basics/glossary.md#depth) of a list is the number of nesting levels at which it is rectangular. 
-Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](../ref/take/).
+The [depth](https://code.kx.com/v2/basics/glossary/#depth) of a list is the number of nesting levels at which it is rectangular. 
+Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](/v2/ref/take/).
 
 ```q
 q)depth:{$[type[x]<0; 0; "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}
@@ -3141,7 +3140,6 @@ q)distinct x
 ## 207. Indexes in matrix x of rows of matrix y
 
 ```q
-```q
 q)show x:flip 3 8#"abcdefgh"
 "aaa"
 "bbb"
@@ -3344,7 +3342,6 @@ q)rb[x;y]
 
 ## 217. Index of last non-blank in string
 
-```q
 ```q
 q)show x:("love's not ";"time's fool ";"though rosy ")
 q)ln:{last where not " "=x}

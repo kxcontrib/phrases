@@ -432,7 +432,6 @@ q)differ x
 ### Does item differ from next one?
 
 ```q
-```q
 q)x:"ceefffmeksc"
 q)1_ differ x
 1010011111b

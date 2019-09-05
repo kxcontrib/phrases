@@ -51,7 +51,7 @@ The Q Phrases are not idioms. They can be understood by analysis, and reward stu
 ## That’s a phrase?
 
 Some of the ‘phrases’ turn out to be just q operators or keywords. 
-For example, [_Case structure_](exec.md#case-structure) is nothing but the [Cond operator](https://code.kx.com/v2/ref/cond "Reference"). 
+For example, [_Case structure_](exec.md#case-structure) is nothing but the [Cond operator](https://code.kx.com/v2/ref/cond/ "Reference"). 
 
 They are included here because, although they are elementary in q, readers coming from verbose languages might reasonably expect them to be at least a phrase. 
 

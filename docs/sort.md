@@ -326,7 +326,7 @@ q)(x,y)iasc idesc g
 
 <i class="far fa-hand-point-right"></i>
 Reference: 
-[`iasc`](https://code.kx.com/v2/ref/iasc/), 
+[`iasc`](https://code.kx.com/v2/ref/asc/#iasc), 
 [`rank`](https://code.kx.com/v2/ref/rank/), 
 [Case](https://code.kx.com/v2/ref/maps/#case)
 

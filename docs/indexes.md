@@ -77,7 +77,7 @@ q)flip til[x] cross til y
 
 ### Indexes of an array
 
-The [_depth_](/v2/basics/glossary.md#depth) of a list is the number of nesting levels at which it is rectangular. 
+The [_depth_](/v2/basics/glossary/#depth) of a list is the number of nesting levels at which it is rectangular. 
 Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](/v2/ref/take/).
 
 ```q

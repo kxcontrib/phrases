@@ -1,5 +1,4 @@
-copyright: 'This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br/>Kx and kdb+ are registered trademarks of <a href="https://kx.com">Kx Systems, Inc.</a>, a subsidiary of <a href="http://www.firstderivatives.com/">First Derivatives plc</a>.'
-# dev_addr: '159.65.88.218:8000'
+copyright: 'This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br/>Kx and kdb+ are registered trademarks of <a href="https://kx.com">Kx Systems, Inc.</a>, a subsidiary of <a href="https://www.firstderivatives.com/">First Derivatives plc</a>.'
 dev_addr: '0.0.0.0:9001'
 docs_dir: 'docs'
 extra_css: 
@@ -40,7 +39,7 @@ markdown_extensions:
   # - pymdownx.tasklist(custom_checkbox=true)
   - pymdownx.tilde
   - toc:
-      permalink: true
+      permalink: false
 plugins: 
   - search
   # - markdownextradata
@@ -51,7 +50,7 @@ site_dir: 'site'
 site_author: 'Kx Systems'
 site_description: "Q expressions for common tasks"
 site_name: "Q Phrasebook"
-site_url: 'http://code.kx.com/phrases'
+site_url: 'https://code.kx.com/phrases/'
 use_directory_urls: true
 theme: 
   custom_dir: theme/
@@ -66,7 +65,7 @@ theme:
   toc:
     title: "On this page"
 nav:
-  - Q Reference: 'https://code.kx.com/v2/ref'
+  - Q Reference: https://code.kx.com/v2/ref/
   - Introduction: intro.md
   - Index: index.md
   - Arithmetic: arith.md

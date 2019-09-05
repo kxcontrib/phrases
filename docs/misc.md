@@ -267,7 +267,7 @@ q)reverse[string 10 xlog 3]?"."
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [`\P`](https://code.kx.com/v2/ref/syscmds#p-precision)
+Reference: [`\P`](https://code.kx.com/v2/basics/syscmds/#p-precision)
 
 
 ## Avoid parentheses using reverse

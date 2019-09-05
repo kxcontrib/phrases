@@ -7,7 +7,7 @@
 
 <i class="fab fa-wikipedia-w"></i>
 [Beta function](https://en.wikipedia.org/wiki/Beta_function), 
-[gamma function](https://en.wikipedia.org/wiki/gamma_function)
+[gamma function](https://en.wikipedia.org/wiki/Gamma_function)
 
 ```q
 q)gamma:prd"f"$1_til@                   / only for positive integers
