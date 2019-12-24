@@ -65,6 +65,16 @@ q)0#" "     / character
 ```
 
 
+### List from atom or list
+
+```q
+q)(),42
+,42
+q)(),42 43
+42 43
+```
+
+
 ### Y cyclic repetitions of vector x
 
 ```q

@@ -125,8 +125,31 @@ q)x{y _ x}/1 -1*(" "=1 reverse\x)?'0b
 <i class="far fa-hand-point-right"></i> 379, 426
 
 ```q
+q)/ test cases
+q)show c:{(x;" ",x," ";"  ",x,"  ")}each("foo";"foo bar";"foo  bar") 
+"foo"      " foo "      "  foo  "
+"foo bar"  " foo bar "  "  foo bar  "
+"foo  bar" " foo  bar " "  foo  bar  "
+
+q)/ correct results
+q)show r:{(x 0;" ",x[1]," ";" ",x[2]," ")}each 3 3#("foo";"foo bar")where 3 6 
+"foo"     " foo "     " foo "
+"foo bar" " foo bar " " foo bar "
+"foo bar" " foo bar " " foo bar "
+
+q)cmb:{x where 1b,1_(or)prior" "<>x}
+
+q)r~''cmb''[c]
+111b
+111b
+111b
+```
+
+Alternative algorithm works on trimmed strings.
+
+```q
 q)x:"a    b       c    d"
-q)x where 1 rotate(or)prior a:x<>" "
+q)x where 1 rotate(or)prior" "<>x
 "a b c d"
 ```
 

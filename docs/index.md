@@ -499,7 +499,7 @@ new | description | phrase
 1627 | [tree from depth;value](shape.md#tree-from-depthvalue) | `tdv:{[d;v](1#v),(c _ d-1)tdv'(c:where 1=d)_ v}`
 1628 | [depth from tree](shape.md#depth-from-tree) | `dt:{0,/1+dt'[1_ x]}`
 1629 | [value from tree](shape.md#value-from-tree) | `vt:{(1#x),/vt each 1_ x}`
-
+1630 | [list from atom or list](shape.md#list-from-atom-or-list) | `(),x`
 
 
 ## Sort and merge
@@ -556,7 +556,7 @@ new | description | phrase
 1902 | [remove trailing blanks](string.md#remove-trailing-blanks) | `(neg reverse[x=" "]?0b)_ x`
 1903 | [remove leading blanks](string.md#remove-leading-blanks) | `x where maxs x<>" "`
 1904 | [remove leading and trailing blanks](string.md#remove-leading-and-trailing-blanks) | `x{y _ x}/1 -1*(" "=1 reverse\x)?'0b`
-1905 | [collapse multiple blanks](string.md#collapse-multiple-blanks) | `x where 1 rotate(or)prior a:x<>" "`
+1905 | [collapse multiple blanks](string.md#collapse-multiple-blanks) | `x where 1b,1_(or)prior" "<>x`
 1906 | [move blanks to end](string.md#move-blanks-to-end) | `x iasc x=" "`
 1907 | [justify right](string.md#justify-right) | `neg[(reverse[x]=" ")?0b]rotate x`
 1908 | [center text x in line of width y](string.md#center-text-x-in-line-of-width-y) | `neg[floor(y-count x)%2]rotate y#x,y#" "`
