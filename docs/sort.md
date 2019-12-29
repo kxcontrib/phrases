@@ -6,10 +6,10 @@ keywords: ascending, idiom, phrase, rank, ranking, shareable, sort, sorted
 
 <i class="far fa-hand-point-right"></i>
 Reference:
-[`asc`, `iasc`, `xasc`](https://code.kx.com/v2/ref/asc/),
-[`desc`, `idesc`, `xdesc`](https://code.kx.com/v2/ref/desc/), 
-[`rank`](https://code.kx.com/v2/ref/rank/), 
-[`xrank`](https://code.kx.com/v2/ref/xrank/)
+[`asc`, `iasc`, `xasc`](https://code.kx.com/q/ref/asc/),
+[`desc`, `idesc`, `xdesc`](https://code.kx.com/q/ref/desc/), 
+[`rank`](https://code.kx.com/q/ref/rank/), 
+[`xrank`](https://code.kx.com/q/ref/xrank/)
 
 
 
@@ -326,9 +326,9 @@ q)(x,y)iasc idesc g
 
 <i class="far fa-hand-point-right"></i>
 Reference: 
-[`iasc`](https://code.kx.com/v2/ref/asc/#iasc), 
-[`rank`](https://code.kx.com/v2/ref/rank/), 
-[Case](https://code.kx.com/v2/ref/maps/#case)
+[`iasc`](https://code.kx.com/q/ref/asc/#iasc), 
+[`rank`](https://code.kx.com/q/ref/rank/), 
+[Case](https://code.kx.com/q/ref/maps/#case)
 
 
 ### Merge items from x and y alternately

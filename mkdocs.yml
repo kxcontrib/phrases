@@ -65,7 +65,7 @@ theme:
   toc:
     title: "On this page"
 nav:
-  - Q Reference: https://code.kx.com/v2/ref/
+  - Q Reference: https://code.kx.com/q/ref/
   - Introduction: intro.md
   - Index: index.md
   - Arithmetic: arith.md

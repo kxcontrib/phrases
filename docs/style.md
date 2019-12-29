@@ -3,7 +3,7 @@
 
 
 
-Fluency with the [syntax of q](https://code.kx.com/v2/basics/syntax/) promotes clarity of expression and thought, and reduces maintenance costs. 
+Fluency with the [syntax of q](https://code.kx.com/q/basics/syntax/) promotes clarity of expression and thought, and reduces maintenance costs. 
 
 
 ## Apply a binary between two values
@@ -13,7 +13,7 @@ Where a list has just two items it can also be used to apply a binary to them.
 This is a form convenient in ancestor vector languages, redundant in q.
 
 Where a list is _known_ to have two items, use 
-[Apply](https://code.kx.com/v2/ref/apply/), which tells your reader to expect a 2-list. 
+[Apply](https://code.kx.com/q/ref/apply/), which tells your reader to expect a 2-list. 
 
 For example, not this: 
 
@@ -109,7 +109,7 @@ q){mod[;2] sum 0=x mod\:4 100 400}each y
 
 ## Compose to avoid multiple iterators
 
-[Compose](https://code.kx.com/v2/ref/compose/) a unary function with another function into a single iterable object. 
+[Compose](https://code.kx.com/q/ref/compose/) a unary function with another function into a single iterable object. 
 Composition makes `peach` more efficient. 
 
 rank of g | not this           | nor this               | but this
@@ -137,7 +137,7 @@ rank of g | not this                    | but this
 3         | `{d e f g[x;y;x]}'[x;yx;z]` | `foo'[x;y;z]`
 
 
-Operators and their projections can be [composed by juxtaposition](https://code.kx.com/v2/ref/compose/#implicit-composition).
+Operators and their projections can be [composed by juxtaposition](https://code.kx.com/q/ref/compose/#implicit-composition).
 
 ```q
 q)x:-100 2 3 4 -100 6 7 8 9 -100

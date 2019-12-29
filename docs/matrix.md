@@ -216,7 +216,7 @@ q)(@[x 0;0;+;y 0];@[x 1;1;+;y 1];@[x 2;2;+;y 2])
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [Each](https://code.kx.com/v2/ref/maps/#each)
+Reference: [Each](https://code.kx.com/q/ref/maps/#each)
 
 
 ## Extend distance table to next leg

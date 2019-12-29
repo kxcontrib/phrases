@@ -33,8 +33,8 @@ q)string x
 
 <i class="far fa-hand-point-right"></i>
 Reference: 
-[`string`](/v2/ref/string/), 
-[`vs`](/v2/ref/vs/)
+[`string`](/q/ref/string/), 
+[`vs`](/q/ref/vs/)
 
 
 ### Count of format
@@ -77,7 +77,7 @@ q)1_'string x+10 xexp y
 ### Number of decimals
 
 Limited by print precision: see Reference [`\P`](https:
-//code.kx.com/v2/basics/syscmds/##p-precision).
+//code.kx.com/q/basics/syscmds/##p-precision).
 
 ```q
 q)x:1.4321 1.21 10

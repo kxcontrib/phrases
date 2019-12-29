@@ -248,7 +248,7 @@ q)ao[+;neg m]
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [Over](https://code.kx.com/v2/ref/accumulators/)
+Reference: [Over](https://code.kx.com/q/ref/accumulators/)
 
 
 ## Arithmetic precision of system in decimals
@@ -267,7 +267,7 @@ q)reverse[string 10 xlog 3]?"."
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [`\P`](https://code.kx.com/v2/basics/syscmds/#p-precision)
+Reference: [`\P`](https://code.kx.com/q/basics/syscmds/#p-precision)
 
 
 ## Avoid parentheses using reverse
@@ -379,7 +379,7 @@ q)sum(<)over raze/[z]</:r+1 0
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [Over](https://code.kx.com/v2/ref/accumulators/)
+Reference: [Over](https://code.kx.com/q/ref/accumulators/)
 
 
 ## Cyclic counter 
@@ -548,7 +548,7 @@ q)\S
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [`\S`](https://code.kx.com/v2/basics/syscmds/#s-random-seed)
+Reference: [`\S`](https://code.kx.com/q/basics/syscmds/#s-random-seed)
 
 
 ## Remove 

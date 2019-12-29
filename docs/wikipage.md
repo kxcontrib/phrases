@@ -143,7 +143,7 @@ q)s
 "fff" "ggg" "hhh" "iii" "jjj"
 ```
 
-==Is application at depth not given by the syntax of [Apply](https://code.kx.com/v2/ref/apply/)?==
+==Is application at depth not given by the syntax of [Apply](https://code.kx.com/q/ref/apply/)?==
 
 ## 11. Mesh
 
@@ -764,8 +764,8 @@ q)lm m
 
 ## 51. Indexes
 
-The [depth](https://code.kx.com/v2/basics/glossary/#depth) of a list is the number of nesting levels at which it is rectangular. 
-Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](/v2/ref/take/).
+The [depth](https://code.kx.com/q/basics/glossary/#depth) of a list is the number of nesting levels at which it is rectangular. 
+Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](/q/ref/take/).
 
 ```q
 q)depth:{$[type[x]<0; 0; "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}

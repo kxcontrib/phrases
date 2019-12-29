@@ -70,7 +70,7 @@ q)$[y;reverse x;x]
 ```
 
 <i class="far fa-hand-point-right"></i>
-Reference: [Accumulators](https://code.kx.com/v2/ref/accumulators/)
+Reference: [Accumulators](https://code.kx.com/q/ref/accumulators/)
 
 
 ### Conditional change of sign
