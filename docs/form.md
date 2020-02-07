@@ -76,8 +76,7 @@ q)1_'string x+10 xexp y
 
 ### Number of decimals
 
-Limited by print precision: see Reference [`\P`](https:
-//code.kx.com/q/basics/syscmds/##p-precision).
+Limited by print precision: see Reference [`\P`](/q/basics/syscmds/#p-precision).
 
 ```q
 q)x:1.4321 1.21 10
