@@ -2,6 +2,13 @@
 
 
 
+Q keywords replace many phrases used in its ancestor languages.
+For example, `avg` rather than `{+/[x]% count x}`.
+The keywords are often faster than the phrases and should be preferred.
+
+<i class="fab fa-github"></i>
+[KxSystems/kdb/stat.q](https://github.com/KxSystems/kdb/blob/92edf94f8795b61caebee4e6151e5f892bdac2c7/stat.q)
+
 
 ## Maximum
 
@@ -26,16 +33,15 @@ q)max 0,x
 ```q
 q)x:1 2 3 4 5
 q)y:5 4 3 2 1
-q)max x*y
-9
+q)x{x?max x}x*y
+3
 ```
 
 
 ## Minimum
 
 ```q
-q)x:5 3 7 2
-q)min x
+q)min 5 3 7 2
 2
 ```
 
@@ -45,16 +51,15 @@ q)min x
 ```q
 q)x:1 2 3 4 5
 q)y:5 4 3 2 1
-q)min x*y
-5
+q)x{x?min x}x*y
+1
 ```
 
 
 ## Average (mean)
 
 ```q
-q)av:{(sum x)%count x}
-q)av[1 10 100]
+q)avg 1 10 100
 37f
 ```
 
@@ -64,21 +69,15 @@ q)av[1 10 100]
 ```q
 q)y:78 80 90 88 72
 q)x:20 15 20 22 19
-q)x*y
-1560 1200 1800 1936 1368
-q)sum x*y
-7864
-q)(sum x*y)%count x
-1572.8
+q)y wavg x
+19.27451
 ```
 
 
 ## Median
 
 ```q
-q)show x:10?100
-61 20 51 12 31 51 29 35 17 89
-q).5*sum over x[(iasc x) (neg floor t;floor neg t:.5*1-count x)]
+q)med 61 20 51 12 31 51 29 35 17 89
 33f
 ```
 
@@ -86,8 +85,7 @@ q).5*sum over x[(iasc x) (neg floor t;floor neg t:.5*1-count x)]
 ## Standard deviation
 
 ```q
-q)x:44 77 48 24 28 36 17 49 90 91
-q)sqrt sum{x*x}[x-(sum x)%c]%c:count x
+q)dev 44 77 48 24 28 36 17 49 90 91
 25.48411
 ```
 
@@ -95,8 +93,7 @@ q)sqrt sum{x*x}[x-(sum x)%c]%c:count x
 ## Variance (dispersion)
 
 ```q
-q)x:44 77 48 24 28 36 17 49 90 91.0
-q)sum {x*x}[x-(sum x)%c]%c:count x
+q)var 44 77 48 24 28 36 17 49 90 91.0
 649.44
 ```
 
