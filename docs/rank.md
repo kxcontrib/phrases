@@ -12,7 +12,7 @@ The rank of an array is the depth to which it is rectangular.
 ```q
 depth:{$[type[x]<0; 
   0; 
-  "j"$sum(and)scan{1=count distinct count each x}each raze over x]}
+  "j"$sum(and)scan{1=count distinct count each x}each raze scan x]}
 shape:{$[0=d:depth x; 
   0#0j; 
   d#{first raze over x}each(d{each[x;]}\count)@\:x]}
@@ -29,7 +29,7 @@ The number of dimensions: the depth of nesting to which the array is rectangular
 ```q
 depth:{$[type[x]<0; 
   0; 
-  "j"$sum(and)scan{1=count distinct count each x}each raze over x]}
+  "j"$sum(and)scan{1=count distinct count each x}each raze scan x]}
 ```
 
 ```q

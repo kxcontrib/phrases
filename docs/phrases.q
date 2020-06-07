@@ -6,7 +6,7 @@ PI:3.141592653589798238
 PUN:",;:.!?"
 depth:{$[type[x]<0; 
   0; 
-  "j"$sum(and)scan{1=count distinct count each x}each raze over x]}
+  "j"$sum(and)scan{1=count distinct count each x}each raze scan x]}
 fac:{prd 1+til x}                   	/ factorial
 ly:{mod[;2] sum 0=x mod\:4 100 400}   	/ is x a leap year?
 oa:{x xexp/:0 1}                       	/ ones and all Xs (float)
