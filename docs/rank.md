@@ -12,7 +12,7 @@ The rank of an array is the depth to which it is rectangular.
 ```q
 depth:{$[type[x]<0; 
   0; 
-  "j"$sum(and)scan{1=count distinct count each x}each raze scan x]}
+  "j"$sum(and)scan 1b,-1_{1=count distinct count each x}each raze scan x]}
 shape:{$[0=d:depth x; 
   0#0j; 
   d#{first raze over x}each(d{each[x;]}\count)@\:x]}
@@ -29,7 +29,7 @@ The number of dimensions: the depth of nesting to which the array is rectangular
 ```q
 depth:{$[type[x]<0; 
   0; 
-  "j"$sum(and)scan{1=count distinct count each x}each raze scan x]}
+  "j"$sum(and)scan 1b,-1_{1=count distinct count each x}each raze scan x]}
 ```
 
 ```q
@@ -39,8 +39,8 @@ q)depth enlist 0                            / 1-item vector
 1
 q)depth "the quick brown fox"               / vector
 1
-q)depth("the";"quick";"brown";"fox")        / list - not rectangular at any depth
-0
+q)depth("the";"quick";"brown";"fox")        / list - not rectangular at 2-nd depth
+1
 q)depth("the  ";"quick";"brown";"fox  ")    / matrix
 2
 q)depth 2 3 4#til 24
@@ -57,7 +57,7 @@ The shape of an array is its count in each dimension: each level of nesting at w
 ```q
 depth:{$[type[x]<0; 
   0; 
-  "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}
+  "j"$sum(and)scan 1b,-1_{1=count distinct count each x}each(raze\)x]}
 ```
 
 ```q
@@ -82,25 +82,14 @@ The shape of an atom is an empty vector.
 ```q
 q)shape 2 3 4#til 24                        / rank-3 array
 2 3 4
+q)shape("the";"quick";"brown";"fox")        / list - not rectangular at 2-nd depth
+,4
 q)shape("the  ";"quick";"brown";"fox  ")    / matrix
 4 5
 q)shape "the quick brown fox"               / vector
 ,19
 q)shape 3                                   / atom
 `long$()
-```
-
-==FIXME shape  and depth of a non-rectangular list==
-
-```q
-q)depth("the";"quick";"brown";"fox")        / wrong
-0
-q)depth("the";"quick";"brown";"fox")        / right
-1
-q)shape("the";"quick";"brown";"fox")        / wrong
-`long$()
-q)shape("the";"quick";"brown";"fox")        / right
-,4
 ```
 
 The shape of an empty list is `1#0 `.
