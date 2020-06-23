@@ -536,11 +536,11 @@ new | description | phrase
 1802 | [maximum of x with weights y](stat.md#maximum-of-x-with-weights-y) | `max x*y`
 1803 | minimum | `min x`
 1804 | [minimum of x with weights y](stat.md#minimum-of-x-with-weights-y) | `min x*y`
-1805 | [average (mean)](stat.md#average-mean) | `(sum x)%count x`
-1806 | [average (mean) of x weighted by y](stat.md#average-mean-of-x-weighted-by-y) | `(sum x*y)%count x`
-1807 | median of x | `t:.5*1-count x`<br>`.5*sum over x[(iasc x) (neg floor t;floor neg t)]`
-1808 | [standard deviation](stat.md#standard-deviation) | `sqrt sum{x*x}[x-(sum x)%c]%c:count x`
-1809 | [variance (dispersion)](stat.md#variance-dispersion) | `sum {x*x}[x-(sum x)%c]%c:count x`
+1805 | [average (mean)](stat.md#average-mean) | `avg x`
+1806 | [average (mean) of x weighted by y](stat.md#average-mean-of-x-weighted-by-y) | `y wavg x`
+1807 | median of x | `med x`
+1808 | [standard deviation](stat.md#standard-deviation) | `dev x`
+1809 | [variance (dispersion)](stat.md#variance-dispersion) | `var x`
 1810 | [normal deviates from interval (0,1)](stat.md##normal-deviates-from-interval-01) | `x?1.`
 1811 | [running sum](stat.md#running-sum) | `sums x`
 1812 | [moving sum](stat.md#moving-sum) | `y msum x`
