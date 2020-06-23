@@ -101,14 +101,9 @@ q)shape 2#"abcdef"
 ,2
 q)shape 1#"abcdef"
 ,1
-q)shape 0#"abcdef"      / wrong
-`long$()
-q)shape 0#"abcdef"      / right
+q)shape 0#"abcdef"
 ,0
 ```
-
-==FIXME correct shape function==
-
 
 ## Decrease rank
 
