@@ -81,7 +81,7 @@ The [_depth_](/q/basics/glossary/#depth) of a list is the number of nesting leve
 Its _shape_ is a vector of its count at each level at which it is rectangular, and corresponds to the left argument of [Take](/q/ref/take/).
 
 ```q
-q)depth:{$[type[x]<0; 0; "j"$sum(and)scan{1=count distinct count each x}each(raze\)x]}
+q)depth:{$[type[x]<0; 0; "j"$sum(and)scan 1b,-1_{1=count distinct count each x}each(raze\)x]}
 q)shape:{$[0=d:depth x; 0#0j; d#{first(raze/)x}each(d{each[x;]}\count)@\:x]}
 q)ix:('[{x vs til prd x};shape])
 q)ix til 6
