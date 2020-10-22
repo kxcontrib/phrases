@@ -23,7 +23,7 @@ An empty list has 1 dimension, so its depth is 1. Its shape is `1#0`.
 ### Conform table x rows to list y
 
 ```q
-q)x:3 3#1+!9
+q)x:3 3#1+til 9
 q)y:1 2 3 4
 q)s#(raze x),(prd s:(count y),count first x)#0
 1 2 3
