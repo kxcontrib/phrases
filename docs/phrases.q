@@ -2,7 +2,7 @@
 / URL: https://code.kx.com/phrases/phrases.q
 DEC:"0123456789"
 HEX:"0123456789abcdef"
-PI:3.141592653589798238
+PI:3.141592653589793238
 PUN:",;:.!?"
 depth:{$[type[x]<0; 
   0; 
