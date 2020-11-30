@@ -12,7 +12,7 @@ Because q is a terse language, the phrasebook is a particularly useful tool for 
 This is an open-source collection, and a repository of community programming knowledge. 
 
 You can contribute to the project at
-<i class="fab fa-github"></i>
+:fontawesome-brands-github:
 [kxcontrib/phrases](https://github.com/kxcontrib/phrases/).
 Or write to librarian@kx.com.
 
@@ -24,10 +24,10 @@ The q phrases derive originally from the [FinnAPL Idiom Library](https://aplwiki
 Iverson’s reboot of APL was the [J programming language](https://jsoftware.com/), where the idioms became [phrases](https://code.jsoftware.com/wiki/Phrases).
 
 [Eugene McDonnell](https://en.wikipedia.org/wiki/Eugene_McDonnell) 
-ported the FinnAPL Idiom Library to the k language. A partial translation of that into q was hosted – as an extraordinarily long page – on the old wiki.
+ported the FinnAPL Idiom Library to the [k language](https://code.kx.com/q/basics/exposed-infrastructure/#the-k-programming-language). A partial translation of that into q was hosted – as an extraordinarily long page – on the old wiki.
 
-<i class="far fa-hand-point-right"></i>
-Simon Garland on  “[Q idioms](https://kx.com/blog/q-idioms/)” 
+:fontawesome-solid-comment:
+[Kdb+ and the history of the Q Phrasebook](https://kx.com/blog/kdb-and-the-history-of-the-q-phrasebook/)
 
 The k idiom list and its partial translation as the QIdioms page were exercises by experienced programmers who at the time were getting to know the respective languages. 
 
@@ -56,6 +56,6 @@ For example, [_Case structure_](exec.md#case-structure) is nothing but the [Cond
 They are included here because, although they are elementary in q, readers coming from verbose languages might reasonably expect them to be at least a phrase. 
 
 
-## <i class="fas fa-download"></i> `phrases.q`
+## :fontawesome-solid-download: `phrases.q`
 
 Some forms, such as `til count` recur so frequently they have been included in the script [`phrases.q`](phrases.md) and used as parts of other phrases. 

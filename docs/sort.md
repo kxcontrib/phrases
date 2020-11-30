@@ -4,8 +4,7 @@ keywords: ascending, idiom, phrase, rank, ranking, shareable, sort, sorted
 # Sort and merge
 
 
-<i class="far fa-hand-point-right"></i>
-Reference:
+:fontawesome-solid-book:
 [`asc`, `iasc`, `xasc`](https://code.kx.com/q/ref/asc/),
 [`desc`, `idesc`, `xdesc`](https://code.kx.com/q/ref/desc/), 
 [`rank`](https://code.kx.com/q/ref/rank/), 
@@ -324,8 +323,7 @@ q)(x,y)iasc idesc g
 ```
 
 
-<i class="far fa-hand-point-right"></i>
-Reference: 
+:fontawesome-solid-book:
 [`iasc`](https://code.kx.com/q/ref/asc/#iasc), 
 [`rank`](https://code.kx.com/q/ref/rank/), 
 [Case](https://code.kx.com/q/ref/maps/#case)
@@ -343,8 +341,8 @@ q)raze x,'y
 
 ### Ripple shuffle
 
-<i class="fab fa-wikipedia-w"></i>
-[Riffle shuffle](http://en.wikipedia.org/wiki/Shuffling#Riffle)
+:fontawesome-brands-wikipedia-w:
+[Riffle shuffle](http://en.wikipedia.org/wiki/Shuffling#Riffle "Wikipedia")
 
 ```q
 q)x:til 52      / deck of cards
@@ -356,5 +354,5 @@ q)x iasc idesc count[x]#0 1
 
 ## Sublists
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [Operations on sublists](part.md#apply-uniform-function-to-sublists)

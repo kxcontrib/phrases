@@ -31,8 +31,7 @@ q)string x
 "55"
 ```
 
-<i class="far fa-hand-point-right"></i>
-Reference: 
+:fontawesome-solid-book:
 [`string`](/q/ref/string/), 
 [`vs`](/q/ref/vs/)
 

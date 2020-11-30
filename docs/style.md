@@ -90,7 +90,7 @@ q)(-). flip x=/:tc distinct raze x      / single subtraction
 0  0  -1 0  -1
 ```
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [Coefficients of exponential fit of points (x,y)](poly.md#coefficients-of-exponential-fit-of-points-xy)
 
 ## Project to avoid parens

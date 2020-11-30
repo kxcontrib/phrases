@@ -91,7 +91,7 @@ q)ff[x;y]
 
 Cumulative accumulation factors.
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-globe:
 [Zark APL Tutor](http://www.dyalog.com/dyalogue-newsletters.htm?nl=19&a=135) News 1998 Quarter 2
 
 ```txt

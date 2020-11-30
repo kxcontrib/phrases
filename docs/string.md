@@ -122,7 +122,8 @@ q)x{y _ x}/1 -1*(" "=1 reverse\x)?'0b
 
 ### Collapse multiple blanks
 
-<i class="far fa-hand-point-right"></i> 379, 426
+:fontawesome-solid-hand-point-right:
+379, 426
 
 ```q
 q)/ test cases

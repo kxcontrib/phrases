@@ -6,7 +6,7 @@ Q keywords replace many phrases used in its ancestor languages.
 For example, `avg` rather than `{+/[x]% count x}`.
 The keywords are often faster than the phrases and should be preferred.
 
-<i class="fab fa-github"></i>
+:fontawesome-brands-github:
 [KxSystems/kdb/stat.q](https://github.com/KxSystems/kdb/blob/92edf94f8795b61caebee4e6151e5f892bdac2c7/stat.q)
 
 
@@ -106,7 +106,7 @@ q)4?1.
 0.7418 0.007865 0.4953 0.1869
 ```
 
-<i class="fab fa-wikipedia-w"></i>
+:fontawesome-brands-wikipedia-w:
 [Standard normal deviate](https://en.wikipedia.org/wiki/Standard_normal_deviate)
 
 

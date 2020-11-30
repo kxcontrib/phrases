@@ -69,8 +69,8 @@ q)$[y;reverse x;x]
 4 3 2 1 0
 ```
 
-<i class="far fa-hand-point-right"></i>
-Reference: [Accumulators](https://code.kx.com/q/ref/accumulators/)
+:fontawesome-solid-book:
+[Accumulators](https://code.kx.com/q/ref/accumulators/)
 
 
 ### Conditional change of sign

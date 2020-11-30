@@ -143,8 +143,8 @@ q)raze over y
 
 Not quite. A vector has uniform type. If the array does not have uniform type, only casting can return a vector. 
 
-<i class="far fa-hand-point-right"></i>
-Reference: [Over](https://code.kx.com/q/ref/accumulators/)
+:fontawesome-solid-book:
+[Over](https://code.kx.com/q/ref/accumulators/)
 
 
 ### Vector from column y of matrix

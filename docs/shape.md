@@ -332,13 +332,13 @@ q)last shape x
 
 ### Depth of an array
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [`phrases.q`](phrases.md)
 
 
 ### Shape of an array
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [`phrases.q`](phrases.md)
 
 

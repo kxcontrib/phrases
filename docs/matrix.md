@@ -77,7 +77,7 @@ q){x>=\:x}til 5
 ```
 
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [Tests: Is x lower or upper triangular?](test.md#is-x-lower-triangular)
 
 
@@ -215,8 +215,8 @@ q)(@[x 0;0;+;y 0];@[x 1;1;+;y 1];@[x 2;2;+;y 2])
 8  9   1010 11
 ```
 
-<i class="far fa-hand-point-right"></i>
-Reference: [Each](https://code.kx.com/q/ref/maps/#each)
+:fontawesome-solid-book:
+[Each](https://code.kx.com/q/ref/maps/#each)
 
 
 ## Extend distance table to next leg

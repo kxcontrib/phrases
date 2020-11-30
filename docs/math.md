@@ -5,9 +5,9 @@
 
 ### Beta function
 
-<i class="fab fa-wikipedia-w"></i>
-[Beta function](https://en.wikipedia.org/wiki/Beta_function), 
-[gamma function](https://en.wikipedia.org/wiki/Gamma_function)
+:fontawesome-brands-wikipedia-w:
+[Beta function](https://en.wikipedia.org/wiki/Beta_function "Wikipedia"), 
+[gamma function](https://en.wikipedia.org/wiki/Gamma_function "Wikipedia")
 
 ```q
 q)gamma:prd"f"$1_til@                   / only for positive integers

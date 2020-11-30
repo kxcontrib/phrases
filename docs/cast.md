@@ -200,7 +200,7 @@ q)"I"$string[.z.d]except"."
 
 Numbers from text. 
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [Format](form.md),
 [Strings](string.md),
 [Text](text.md)
@@ -268,7 +268,7 @@ q)ar[x]
 
 ## Text
 
-<i class="far fa-hand-point-right"></i>
+:fontawesome-solid-hand-point-right:
 [Format](form.md),
 [Strings](string.md),
 [Text](text.md)
