@@ -32,12 +32,13 @@ markdown_extensions:
   - toc:
       permalink: true
 remote_branch: 'master'
-repo_name: 'kxcontrib/phrases on GitHub'
+repo_name: 'kxcontrib/phrases'
 repo_url: 'https://github.com/kxcontrib/phrases'
 site_dir: 'site'
 site_author: 'Kx Systems'
 site_description: "Q expressions for common tasks"
 theme: 
+  custom_dir: theme
   favicon: ./img/favicon.ico
   name: 'material'
   logo: 'img/kx.jpeg'
