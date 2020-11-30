@@ -11,7 +11,7 @@ extra_javascript:
   - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML'
   - 'https://code.jquery.com/jquery-3.1.1.min.js'
   - 'https://code.kx.com/scripts/prism.js'
-  - 'https://tracker.mrpfd.com/tracker.js'
+  # - 'https://tracker.mrpfd.com/tracker.js'
 google_analytics:
   - 'UA-3462586-1'
   - 'auto'
@@ -36,8 +36,9 @@ markdown_extensions:
   - pymdownx.tilde
   - toc:
       permalink: false
-plugins: 
-  - search
+# plugins: 
+#   - search:
+#       lang: fr
   # - markdownextradata
 remote_branch: 'master'
 repo_name: 'GitHub'
@@ -61,7 +62,7 @@ theme:
   toc:
     title: "On this page"
 nav:
-  - Q Reference: https://code.kx.com/q/ref/
+  - Q Reference: "https://code.kx.com/q/ref/"
   - Introduction: intro.md
   - Index: index.md
   - Arithmetic: arith.md
