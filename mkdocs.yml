@@ -2,8 +2,8 @@
 copyright: 'This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br/>Kx and kdb+ are registered trademarks of <a href="https://kx.com">Kx Systems, Inc.</a>, a subsidiary of <a href="https://www.firstderivatives.com/">First Derivatives plc</a>.'
 dev_addr: 'localhost:9001'
 extra_css: 
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-solarizedlight.min.css'
-  - 'https://code.kx.com/stylesheets/extra.css'
+  - 'https://code.kx.com/stylesheets/2021.css'
+  - 'https://code.kx.com/stylesheets/prism.css'
 extra_javascript: 
   # Omits plugins Command Line, Line highlight, and Line Numbers: no effect
   - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML'
@@ -37,12 +37,15 @@ site_name: "Q Phrasebook"
 site_url: 'https://code.kx.com/phrases/'
 theme: 
   custom_dir: theme
-  favicon: ./img/favicon.ico
+  favicon: 'https://code.kx.com/2021.ico'
+  font: false
   name: 'material'
-  logo: 'img/kx.jpeg'
+  language: en
+  logo: 'https://code.kx.com/img/kx.png'
   palette: 
-    primary: 'blue'
-    accent: 'deep orange'
+    accent: 'pink'
+    primary: 'black'
+    scheme: default
 use_directory_urls: true
 nav:
   - Introduction: intro.md
