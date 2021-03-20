@@ -19,7 +19,7 @@ Or write to librarian@kx.com.
 
 ## Genealogy
 
-The q phrases derive originally from the [FinnAPL Idiom Library](https://aplwiki.com/FinnAplIdiomLibrary), a legendary resource for vector programmers. 
+The q phrases derive originally from the [FinnAPL Idiom Library](https://aplwiki.com/wiki/FinnAPL_idiom_library), a legendary resource for vector programmers. 
 
 Iverson’s reboot of APL was the [J programming language](https://jsoftware.com/), where the idioms became [phrases](https://code.jsoftware.com/wiki/Phrases).
 
