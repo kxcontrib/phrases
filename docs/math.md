@@ -59,6 +59,23 @@ q)prd(n-k-1)+til k              / reduce length of vector
 ```
 
 
+### Combinations
+
+```q
+q)comb:{[n;k] $[k=n;enlist til k; k=1;enlist each til n; .z.s[n-1;k],.z.s[n-1;k-1],\:enlist n-1] }
+q)comb[4;3]
+0 1 2
+0 1 3
+0 2 3
+1 2 3
+q)`a`b`c`d@comb[4;3]
+a b c
+a b d
+a c d
+b c d
+q)
+```
+
 ### Permutations
 
 ```q
