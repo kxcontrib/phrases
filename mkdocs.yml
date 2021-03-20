@@ -1,17 +1,24 @@
 # Q Phrasebook
 copyright: 'This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br/>Kx and kdb+ are registered trademarks of <a href="https://kx.com">Kx Systems, Inc.</a>, a subsidiary of <a href="https://www.firstderivatives.com/">First Derivatives plc</a>.'
+
 dev_addr: 'localhost:9001'
+
 extra_css: 
-  - 'https://code.kx.com/stylesheets/2021.css'
-  - 'https://code.kx.com/stylesheets/prism.css'
+  - 'stylesheets/2021.css'
+  - 'stylesheets/prism.css'
+
 extra_javascript: 
-  # Omits plugins Command Line, Line highlight, and Line Numbers: no effect
-  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML'
-  - 'https://code.kx.com/scripts/prism.js'
-  - 'https://code.kx.com/scripts/theme.js'
+  - 'scripts/prism.js'
+  - 'scripts/theme.js'
+  # MathJax scripts
+  - 'scripts/mathjax.js' # configure MathJax object
+  - 'scripts/polyfill.min.js'
+  - 'scripts/tex-mml-chtml.js'
+
 google_analytics:
   - 'UA-3462586-1'
   - 'auto'
+
 markdown_extensions:
   - admonition
   - attr_list
@@ -27,26 +34,33 @@ markdown_extensions:
   - pymdownx.tilde
   - toc:
       permalink: true
+
 remote_branch: 'master'
 repo_name: 'kxcontrib/phrases'
 repo_url: 'https://github.com/kxcontrib/phrases'
+
 site_author: 'Kx Systems'
 site_dir: 'site'
 site_description: "Q expressions for common tasks"
 site_name: "Q Phrasebook"
 site_url: 'https://code.kx.com/phrases/'
+
 theme: 
   custom_dir: theme
   favicon: 'https://code.kx.com/2021.ico'
   font: false
   name: 'material'
   language: en
-  logo: 'https://code.kx.com/img/kx.png'
+  logo: img/kx.png
   palette: 
-    accent: 'pink'
+    accent: 'blue'
     primary: 'black'
     scheme: default
+  static_templates:
+    - 404.html
+
 use_directory_urls: true
+
 nav:
   - Introduction: intro.md
   - Index: index.md
