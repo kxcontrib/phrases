@@ -127,7 +127,7 @@ q)1+floor 10 xlog(x=0)+x*1 -10[x<0]
 
 ## Temporal 
 
-### Time hh:mm:ss from integer hhmmss
+### Time hh:&#8203;mm:ss from integer hhmmss
 
 ```q
 q)":" sv 0 2 4 _ string 121129
