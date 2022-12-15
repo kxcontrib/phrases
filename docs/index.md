@@ -224,7 +224,7 @@ new | description | phrase
 704 | [number of decimals, maximum y](form.md#number-of-decimals-maximum-y) | `y&count each 2_'string x mod 1`
 705 | [number of positions in nonnegative integer](form.md#number-of-positions-in-non-negative-integer) | `1+floor log10 x+0=x`
 706 | [number of positions in integer](form.md#number-of-positions-in-integer) | `1+(x<0)+floor 10 xlog abs x+0=x`
-707 | [time hh:mm:ss from integer hhmmss](form.md#time-hhmmss-from-integer-hhmmss) | `":"sv 0 2 4_ string x`
+707 | [time hh:&#8203;mm:ss from integer hhmmss](form.md#time-hhmmss-from-integer-hhmmss) | `":"sv 0 2 4_ string x`
 708 | [date yyyy/mm/dd from integer yyyymmdd](form.md#date-yyyymmdd-from-integer-yyyymmdd) | `"/"sv 0 4 6_ string x`
 709 | [indexing plotting characters with flags](form.md#indexing-plotting-characters-with-flags) | `" X" x`
 710 | [histogram](form.md#histogram) | `" *"(1+ til max x)<=/:x`

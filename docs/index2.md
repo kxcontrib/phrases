@@ -56,7 +56,7 @@ QIdiom # | now | description
 61 | 1215 | [cyclic counter](misc.md#cyclic-counter) 
 62 | 142 | [integer and fractional parts of positive x](arith.md#integer-and-fractional-parts-of-positive-x) 
 63 | 206 | [integer in base 10 100 1000](cast.md#integer-x-in-base-10-100-1000) 
-64 | 707 | [time hh:mm:ss from integer hhmmss](form.md#time-hhmmss-from-integer-hhmmss) 
+64 | 707 | [time hh:&#8203;mm:ss from integer hhmmss](form.md#time-hhmmss-from-integer-hhmmss) 
 65 | 708 | [date yyyy/mm/dd from integer yyyymmdd](form.md#date-yyyymmdd-from-integer-yyyymmdd) 
 66 | 1236 | [selection by encoded list](misc.md#selection-by-encoded-list) 
 67 | 1409 | [extrapolated value of abscissa x and ordinate y at g](poly.md#extrapolated-value-of-abscissa-x-and-ordinate-y-at-g) 
