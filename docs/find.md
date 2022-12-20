@@ -170,7 +170,7 @@ q)reverse[x]?y
 ### Distinct items
 
 ```q
-q)x:("banana";"pear";apple";"cherry";"apple";"orange";"pear")
+q)x:("banana";"pear";"apple";"cherry";"apple";"orange";"pear")
 q)distinct x
 "banana"
 "pear"
