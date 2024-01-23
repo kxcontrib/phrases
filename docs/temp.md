@@ -68,16 +68,14 @@ q)hm p
 
 ```q
 q)dt:2018.09.15
-q)"/"sv string(dt.mm;dt.dd;dt.year)
+q)"/"sv string `mm`dd`year$\:dt
 "9/15/2018"
 ```
 
-The dot notation above does not work with local variables, 
-i.e. within functions. The following does.
+An alternative, preserving the leading zeros is:
 
 ```q
-q)"/"sv string 1 rotate parse ssr[;".";" "] string dt
-"9/15/2018"
+q)dt:2018.09.15
+q)"/"sv("."vs string dt)1 2 0
+"09/15/2018"
 ```
-
-
